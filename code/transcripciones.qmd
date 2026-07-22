@@ -1,0 +1,219 @@
+---
+title: "descarga, transcripción y reinserción de audios .ogg"
+format: html
+editor: source
+---
+
+# transcripciones paneles
+
+este documento quarto ejecuta paso a paso el flujo para:
+
+-   **descargar** solo celdas que contienen enlaces a archivos `.ogg`
+-   **subir** los audios a la carpeta raíz de audio en Google Drive (`drive$folder_audio` en `project.yml`, para ser procesados en Colab con Whisper)
+-   **bajar** los `.txt` con las transcripciones resultantes desde la carpeta raíz de texto (`drive$folder_text` en `project.yml`)
+-   **insertar** las transcripciones en el csv original, reemplazando los enlaces
+
+> **tip:** ejecutar cada bloque de arriba hacia abajo, al cambiar `campaign`, `year` o `round_id`, las rutas se ajustarán automáticamente.
+
+## 0) cargar librerías y autenticar en Google Drive
+
+```{r}
+# cargar librerías
+library(googledrive)
+library(readr)
+library(dplyr)
+library(httr)
+library(yaml)
+
+# configuración general del proyecto (cuenta y carpetas raíz de Drive)
+project_cfg <- yaml::read_yaml("project.yml")
+
+# autenticación con la cuenta usada en Colab
+drive_auth(email = project_cfg$drive$account_email)
+```
+
+## 1) definir rutas y configuraciones
+
+```{r}
+campaign    <- "r14_20260526"
+year        <- 2026
+round_id    <- "R14"
+dir_round_raw <- paste0("data/raw/transcriptions/", year, "/", round_id)
+dir_out <- paste0("data/processed/transcriptions/output/", year)
+
+ruta_voz     <- paste0(dir_round_raw, "/voice")
+ruta_textos  <- paste0(dir_round_raw, "/text")
+ruta_out_csv <- paste0(dir_out, "/transcripcion_", round_id, ".csv")
+ruta_out_xlsx <- paste0(dir_out, "/transcripcion_", round_id, ".xlsx")
+
+# carpetas raíz en Drive para el intercambio de audios con el Colab de Whisper
+# (definidas en project.yml, no en este script, para poder reusar el flujo
+# en otro proyecto con otra cuenta/estructura de Drive)
+drive_folder_audio <- project_cfg$drive$folder_audio
+drive_folder_text  <- project_cfg$drive$folder_text
+
+# crear carpetas locales (no arroja warning si ya existen)
+dir.create(ruta_voz,    recursive = TRUE, showWarnings = FALSE)
+dir.create(ruta_textos, recursive = TRUE, showWarnings = FALSE)
+dir.create(dir_out, recursive = TRUE, showWarnings = FALSE)
+
+# leer csv original con enlaces a .ogg
+csv_input_path <- paste0("data/processed/matched/", campaign, ".csv")
+df_original    <- read_csv(csv_input_path, col_types = cols(.default = "c"))
+```
+
+## 2) funciones auxiliares
+
+```{r}
+# limpia un texto para usarlo como nombre de archivo
+sanear_nombre <- function(nombre) {
+  nombre %>%
+    iconv(from = "UTF-8", to = "ASCII//TRANSLIT") %>%
+    gsub("[^A-Za-z0-9]", "_", .) %>%
+    gsub("_+", "_", .) %>%
+    gsub("^_|_$", "", .)
+}
+
+# descarga un archivo .ogg
+descargar_ogg <- function(link, carpeta_destino, nombre_archivo) {
+  destino <- file.path(carpeta_destino, nombre_archivo)
+  if (file.exists(destino)) return(destino)
+  resp <- httr::GET(link, httr::write_disk(destino, overwrite = TRUE))
+  httr::stop_for_status(resp)
+  destino
+}
+
+# sube todos los .ogg de una ronda a drive
+upload_gd_ogg <- function(
+    dir_local,                             # carpeta local de audios
+    round,                                 # id de ronda
+    drive_folder_root = drive_folder_audio # carpeta raíz en Drive (project.yml: drive$folder_audio)
+) {
+  drive_path <- paste0(drive_folder_root, "/", round, "/")
+
+  archivos <- list.files(dir_local, full.names = TRUE, pattern = "\\.ogg$")
+  if (length(archivos) == 0) {
+    message("no se encontraron archivos .ogg en: ", dir_local)
+    return(invisible(NULL))
+  }
+
+  for (p in archivos) {
+    drive_upload(p, path = drive_path)
+    message(sprintf("subido a drive: %s → %s", basename(p), drive_path))
+  }
+}
+```
+
+## 3) detectar celdas con .ogg y descargar
+
+```{r}
+for (fila_idx in seq_len(nrow(df_original))) {
+  for (col in names(df_original)) {
+    enlace <- df_original[[col]][fila_idx]
+
+    if (!is.na(enlace) && grepl("\\.ogg$", enlace, ignore.case = TRUE)) {
+      col_saneada   <- sanear_nombre(col)
+      nombre_local  <- paste0(col_saneada, "_fila", fila_idx, ".ogg")
+
+      tryCatch(
+        {
+          descargar_ogg(enlace, ruta_voz, nombre_local)
+          message(sprintf(
+            "descargado %s (fila %d, columna %s)",
+            nombre_local, fila_idx, col
+          ))
+        },
+        error = function(e) {
+          warning(sprintf(
+            "error al descargar '%s' (fila %d, columna '%s'): %s",
+            enlace, fila_idx, col, e$message
+          ))
+        }
+      )
+    }
+  }
+}
+```
+
+## 4) subir los .ogg a Drive para Colab
+
+> **IMPORTANTE:** antes de ejecutar este bloque, asegurarse de haber creado la carpeta con el nombre de `round_id` dentro de las carpetas raíz `drive_folder_audio` y `drive_folder_text` (definidas en `project.yml`) en Google Drive.
+
+```{r}
+upload_gd_ogg(dir_local = ruta_voz, round = round_id)
+message("archivos .ogg subidos. ejecuta el Colab y luego vuelve para continuar.")
+```
+
+## 5) descargar los .txt de transcripciones desde Drive
+
+```{r}
+archivos_drive <- drive_ls(
+  path    = paste0(drive_folder_text, "/", round_id),
+  pattern = "\\.txt$"
+)
+
+for (i in seq_len(nrow(archivos_drive))) {
+  id_drive    <- archivos_drive$id[i]
+  nombre_txt  <- archivos_drive$name[i]
+  destino_loc <- file.path(ruta_textos, nombre_txt)
+
+  drive_download(as_id(id_drive), path = destino_loc, overwrite = TRUE)
+  message(sprintf("descargado txt: %s", nombre_txt))
+}
+```
+
+## 6) leer los .txt y mapearlos a su fila y columna original
+
+```{r}
+lista_txt <- list.files(ruta_textos, pattern = "\\.txt$", full.names = TRUE)
+
+datos_txt <- tibble(
+  nombre_txt = basename(lista_txt),
+  contenido  = sapply(lista_txt, function(f)
+               paste0(readLines(f, encoding = "UTF-8"), collapse = " "))
+) |>
+  mutate(
+    base            = tools::file_path_sans_ext(nombre_txt),
+    columna_saneada = sub("_fila\\d+$", "", base),
+    fila            = as.integer(sub("^.*_fila", "", base))
+  )
+
+# mapeo columna saneada a columna original
+mapa_columnas <- tibble(
+  original = names(df_original),
+  saneada  = sapply(names(df_original), sanear_nombre, USE.NAMES = FALSE)
+)
+
+datos_txt <- datos_txt |>
+  left_join(mapa_columnas,
+            by = c("columna_saneada" = "saneada")) |>
+  rename(columna = original) |>
+  select(columna, fila, contenido)
+```
+
+## 7) insertar las transcripciones en el csv original
+
+```{r}
+df_transcripciones <- df_original
+
+for (i in seq_len(nrow(datos_txt))) {
+  col_actual  <- datos_txt$columna[i]
+  fila_actual <- datos_txt$fila[i]
+  texto_ogg   <- datos_txt$contenido[i]
+
+  df_transcripciones[fila_actual, col_actual] <- texto_ogg
+}
+```
+
+## 8) guardar csv final
+
+```{r}
+write_csv(
+  df_transcripciones,
+  ruta_out_csv
+)
+openxlsx::write.xlsx(
+  df_transcripciones,
+  ruta_out_xlsx
+)
+```

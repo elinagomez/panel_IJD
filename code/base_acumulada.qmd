@@ -1,0 +1,201 @@
+---
+title: "flujo base acumulada"
+format: html
+editor: source
+---
+
+## propósito
+
+este notebook es responsable de crear y actualizar una base acumulada **por año**. combina los archivos CSV individuales de cada ronda de un año en un único archivo `base_acumulada.csv` que sirve como fuente de datos para los análisis de ese año.
+
+> **IMPORTANTE:** primero y principal, debemos asegurarnos que todos los archivos de las rondas estén disponibles en la carpeta `data/raw/acumulada/rounds/<year>`. cada archivo debe seguir el formato `R<round_number>.csv` (se acepta también `r<round_number>.csv` por compatibilidad).
+
+------------------------------------------------------------------------
+
+### 1) setup
+
+cargo librerías:
+
+```{r}
+library(dplyr)
+library(readr)
+library(purrr)
+library(stringr)
+```
+
+### 2) configuración
+
+aquí definimos las rutas y parámetros clave. para generar la base con un nuevo set de rondas, solo es necesario modificar el vector `ROUNDS_A_PROCESAR`.
+
+```{r}
+# parámetros principales
+year_env <- Sys.getenv("YEAR_A_PROCESAR", unset = "")
+YEAR_A_PROCESAR <- if (nzchar(year_env)) as.integer(year_env) else 2026L
+
+# rutas
+ruta_rounds_raw <- file.path("data", "raw", "acumulada", "rounds", as.character(YEAR_A_PROCESAR))
+ruta_base_procesada <- file.path("data", "processed", "acumulada", as.character(YEAR_A_PROCESAR), "base_acumulada.csv")
+
+round_files <- dir(
+  ruta_rounds_raw,
+  pattern = "^[Rr][0-9]+\\.csv$",
+  full.names = FALSE
+)
+
+ROUNDS_A_PROCESAR <- round_files %>%
+  str_extract("[0-9]+") %>%
+  as.integer() %>%
+  unique() %>%
+  sort()
+
+if (length(ROUNDS_A_PROCESAR) == 0) {
+  stop("no se encontraron rondas numeradas en ", ruta_rounds_raw)
+}
+```
+
+### 3) definición de funciones
+
+este chunk contiene todas las funciones necesarias para el pipeline de agregación.
+
+```{r}
+# función auxiliar para generar nombres vectorizados con formato r<round>_q<numero>
+limpiar_nombre_columna <- function(colnames, round_num) {
+  q <- str_extract(colnames, "q\\d+")
+  if (any(is.na(q))) {
+    malos <- colnames[is.na(q)]
+    stop(paste("no se pudo extraer número de pregunta de:", paste(malos, collapse = ", ")))
+  }
+  paste0("r", round_num, "_", q)
+}
+
+# procesa un único round y renombra columnas
+procesar_round <- function(round_num, ruta_base) {
+  candidatos <- c(
+    paste0(ruta_base, "/R", round_num, ".csv"),
+    paste0(ruta_base, "/r", round_num, ".csv")
+  )
+  archivo <- candidatos[file.exists(candidatos)][1]
+  if (is.na(archivo)) {
+    warning("no existe archivo para r", round_num, " en ", ruta_base, " → se salta r", round_num)
+    return(NULL)
+  }
+  datos <- read_csv(archivo, show_col_types = FALSE)
+  cols_resp <- names(datos)[str_detect(names(datos), "^q\\d+$")]
+  datos %>%
+    rename_with(~ limpiar_nombre_columna(.x, round_num), all_of(cols_resp))
+}
+
+# crea la base acumulada desde cero
+crear_base_acumulada <- function(rounds, ruta_base, archivo_salida) {
+  message("iniciando creación de base acumulada...")
+  procesados <- map(rounds, ~ procesar_round(.x, ruta_base))
+  names(procesados) <- paste0("r", rounds)
+  procesados <- compact(procesados)
+  
+  if (length(procesados) == 0) stop("no se encontraron archivos de rounds válidos.")
+  
+  cols_part <- c("segmento", "nombre", "edad", "genero", "numero", "departamento", "voto", "voto2", "etiqueta")
+  
+  base_part <- rev(procesados) %>%
+    map(~ select(.x, any_of(cols_part))) %>%
+    bind_rows() %>%
+    distinct(numero, .keep_all = TRUE)
+  
+  respuestas <- imap(procesados, ~ {
+    df <- .x
+    r <- str_remove(.y, "^r")
+    cols_q <- names(df)[str_detect(names(df), paste0("^r", r, "_q\\d+$"))]
+    select(df, numero, all_of(cols_q))
+  }) %>%
+    reduce(full_join, by = "numero")
+  
+  base_acumulada <- left_join(base_part, respuestas, by = "numero")
+  
+  message("base de datos combinada. procediendo a la limpieza final.")
+  invisible(base_acumulada)
+}
+
+# limpia y estandariza columnas demográficas
+limpiar_y_guardar_base <- function(base_df, archivo_salida) {
+    base_limpia <- base_df %>%
+      distinct(numero, .keep_all = TRUE) %>%
+      mutate(edad = case_when(
+        str_detect(edad, "17 - 24|17-24|25-30") ~ "30 y menos",
+        str_detect(edad, "31 - 59|31 a 59|31-59") ~ "31 a 59",
+        str_detect(edad, "60 y más|60+|más 60") ~ "60 y más",
+        TRUE ~ edad
+      )) %>%
+      mutate(genero = case_when(
+        genero == "Varón" ~ "Hombre",
+        TRUE ~ genero
+      ))
+    
+    dir.create(dirname(archivo_salida), recursive = TRUE, showWarnings = FALSE)
+    write_csv(base_limpia, archivo_salida)
+    
+    message("base acumulada final guardada en: ", archivo_salida)
+    invisible(base_limpia)
+}
+
+
+# verifica la estructura de la base
+verificar_estructura <- function(archivo_base) {
+  if (!file.exists(archivo_base)) {
+    message("No existe la base acumulada.")
+    return(NULL)
+  }
+  datos <- read_csv(archivo_base, show_col_types = FALSE)
+  cat("=== estructura de la base acumulada ===\n")
+  cat("dimensiones:", nrow(datos), "filas x", ncol(datos), "columnas\n\n")
+  
+  nombres <- names(datos)
+  cols_part <- c("segmento", "nombre", "edad", "genero", "numero", "departamento", "voto", "voto2", "etiqueta")
+  cat("columnas de participantes (", length(cols_part), "):\n", paste(cols_part, collapse = ", "), "\n\n")
+  
+  rounds_detectados <- unique(str_extract(nombres, "^r\\d+")) %>% na.omit() %>%
+    map_chr(~ str_remove(., "r")) %>%
+    as.numeric() %>%
+    sort() %>%
+    paste0("r", .)
+  
+  for (r in rounds_detectados) {
+    qs <- grep(paste0("^", r, "_q\\d+$"), nombres, value = TRUE)
+    cat(r, "→", length(qs), "preguntas:", paste(qs, collapse = ", "), "\n")
+  }
+  invisible(datos)
+}
+```
+
+> un detalle a tener en cuenta es que si los datos de los participantes cambian entre rondas se toman los datos de la última ronda procesada.
+
+### 4) workflow de ejecución
+
+ahora, ejecutamos el proceso en dos simples pasos: crear y limpiar.
+
+#### paso a) crear y combinar todas las rondas
+
+este chunk ejecuta la función principal que procesa y combina todas las rondas especificadas en la configuración.
+
+```{r}
+base_combinada <- crear_base_acumulada(
+  rounds = ROUNDS_A_PROCESAR,
+  ruta_base = ruta_rounds_raw,
+  archivo_salida = ruta_base_procesada
+)
+```
+
+#### paso b) limpiar, estandarizar y guardar
+
+este chunk toma la base combinada, aplica las limpiezas finales a los datos demográficos y guarda el archivo CSV definitivo.
+
+```{r}
+base_final <- limpiar_y_guardar_base(base_combinada, ruta_base_procesada)
+```
+
+#### paso c) verificar la estructura final
+
+finalmente, revisamos la estructura de la base de datos final para asegurarnos de que todo esté correcto.
+
+```{r}
+verificar_estructura(ruta_base_procesada)
+```

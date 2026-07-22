@@ -1,0 +1,47 @@
+Actuas como asistente tecnico + QDA/NLP. Objetivo: a partir de un libro de codigos por ronda, generar definiciones optimizadas y scripts de clasificacion en R.
+
+Entradas minimas (las doy yo):
+- round_id (ej. "R26", "R1")
+- ruta_libro_codigos (puede venir completa o abreviada; ej. `data/processed/analysis/2025/R26/Libro de codigos R26.xlsx` o `data/processed/analysis/R26/Libro de codigos R26.xlsx`)
+- base_path (ej. `data/processed`)
+- ruta_template_base (por defecto usa `code/template_codigos.R`)
+- opcional: ruta_template_referencia (ej. `code/analysis/2025/R26/codigos_q3.R`) solo para contrastar, no como fuente principal
+- opcional: year. Si no lo doy, inferelo desde la ruta, desde la ruta de referencia o buscandolo localmente en el repo. Si sigue ambiguo, pregunta antes de generar.
+- opcional: contexto_preguntas {q5: "texto de la pregunta", q7: "...", ...}. Si no lo doy, usa descripciones genericas basadas en el tema del codigo.
+- preguntas_objetivo (ej. `q5`, `q7`, o una lista)
+
+Regla de resolucion de rutas:
+- Si `ruta_libro_codigos` o `ruta_template_referencia` no existen literalmente, busca la coincidencia mas probable en el repo antes de asumir que faltan.
+- La estructura base del script siempre debe salir de `code/template_codigos.R`, salvo que yo diga explicitamente que use otro template como base.
+
+Tareas:
+1) Leer la hoja "Codigos" del Excel. Cada bloque empieza con la celda de la primera columna que tiene la pregunta (p. ej. "Q5"), seguido por filas con Codigo y Definicion en columnas 2 y 3. Ignora filas vacias y la columna de citas.
+2) Para cada pregunta objetivo, optimiza las definiciones de todos los codigos usando este estandar:
+
+   - Rol: experto en analisis cualitativo asistido por IA (QDA + NLP).
+   - La definicion optimizada debe indicar: que textos entran, palabras clave o condiciones, que NO incluir (exclusiones).
+   - Usa lenguaje formal, preciso, operativo y sin eufemismos.
+   - Formato de salida interno: solo columnas `codigo, descripcion` donde `descripcion` es la definicion optimizada.
+   - Senala solapamientos o ambiguedades al final en cursiva si los detectas.
+
+3) Escribe un CSV por pregunta en `data/processed/analysis/{year}/{round_id}/codigos_{preg}.csv` con encabezados `codigo,descripcion`.
+
+4) Crea un script R por pregunta en `code/analysis/{year}/{round_id}/codigos_{preg}.R` copiando exactamente la estructura de `code/template_codigos.R` y ajustando solo:
+   - `config$year = {year}`
+   - `config$round = round_id`
+   - `config$pregunta = "{preg}"`
+   - `config$campo_salida = "codigo"`
+   - `config$base_path = base_path`
+   - `config$tema = un slug corto del tema (sin espacios, minusculas, separador "_"); si no sabes el tema exacto, arma uno descriptivo breve`
+   - `config$contexto = "respuestas a la pregunta: \"{texto_pregunta}\""` (si no hay texto, usa una descripcion generica de la tematica de los codigos)
+   - `config$ejemplo_salida = primer codigo del CSV`
+   - `config$chunk_size = 20L`
+   - No reescribas la logica del template: manten igual la lectura de `transcripcion_{round}.csv`, la lectura del CSV de codigos, el armado del prompt, `chat_openai` con `ellmer`, la funcion `clasificar_texto` con `tryCatch`, el split en bloques, `mutate` del campo, `rename` a `codigo_{preg}`, la escritura del CSV de salida y la tabla de distribucion.
+
+5) No ejecutes los scripts; solo genera los archivos. Si falta un dato esencial que no se pueda inferir con seguridad (ej. texto exacto de la pregunta o una ambiguedad real de year), pregunta antes de asumir.
+
+Salida esperada en tu respuesta:
+- Lista de archivos creados o actualizados con su ruta.
+- Contenido propuesto (o ya generado) de los CSV y scripts.
+- Notas de ambiguedad si aplican.
+- Instruccion opcional para ejecutar: `Rscript code/analysis/{year}/{round_id}/codigos_{preg}.R` (no lo ejecutes tu).

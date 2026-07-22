@@ -1,0 +1,17 @@
+# Plantilla para una ronda nueva de DriveFlow.
+# Copiar como DriveFlow/<ROUND_ID>.yml y completar folder_url y output_*.
+# Todo lo demás (questions_url, provider, model, api_key_env, chunk_size)
+# se hereda de project.yml a menos que se pise acá.
+
+round: "R0"          # id de la ronda, debe matchear Ronda_id en el sheet "questions"
+year: "2026"
+
+folder_url: "https://drive.google.com/drive/u/0/folders/REEMPLAZAR"   # carpeta en Drive con transcripcion_<ROUND_ID> y Book<ROUND_ID>
+
+# Overrides opcionales (si no se declaran, se usan los de project.yml):
+# provider: "ollama"
+# model: "qwen2.5:14b"
+# chunk_size: 20
+
+output_spreadsheet: "clasificacion_R0_2026"
+output_sheet: "resultados"

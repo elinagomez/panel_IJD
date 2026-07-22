@@ -1,0 +1,10 @@
+codigo,descripcion
+Acepta decisión gobierno,	"La persona acepta o ve como una actuación correcta el camino tomado por el gobierno: defender a Danza inicialmente, pero luego pedirle que dejara sus actividades privadas y que siguiera en ASSE. Se valora que se haya corregido o resuelto el conflicto de interés, o que la decisión final fue la adecuada. INCLUIR LOS CASOS QUE DIGAN "porque sí" o afirmaciones por el estilo"
+Rechaza actuación gobierno por tiempos o forma,	"Se considera que la actuación del gobierno fue incorrecta porque fue tardía (se debió exigir la renuncia a lo privado antes de asumir) o por la forma en que se manejó la situación (falta de claridad, defensa inicial errónea, o ceder a la presión de la oposición)."
+Rechaza actuación Gobierno por principio dedicación exclusiva,	"Se justifica la evaluación en el principio de que un alto cargo público, como la presidencia de ASSE, requiere dedicación completa y es incompatible, por ética, tiempo, o transparencia, con el trabajo en el sector privado del mismo rubro."
+Acepta por respaldo político/fidelidad,	"La justificación se centra en que la acción del gobierno se debe a fidelidad política o la necesidad de respaldar a su jerarca, independientemente de la legalidad o ética del caso, o que la decisión se tomó para evitar un desgaste político."
+Rechaza por ética/corrupción,	"La justificación se basa en una crítica directa a la ética de la situación o del gobierno, llegando incluso a calificar el acto de corrupción, amiguismo, o inconsistencia entre lo que se predica y lo que se hace."
+No Incompatibilidad Legal/Técnica,	"Se justifica la evaluación argumentando que legalmente no existía una incompatibilidad y que la acción final fue para calmar la controversia política, no por un error de fondo."
+Otras/NS/NR,	"Respuestas que indican No Sabe (NS), No Responde (NR), No tengo opinión/información o son incomprensibles/irrelevantes para justificar la evaluación."
+
+

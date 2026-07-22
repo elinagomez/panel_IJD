@@ -1,0 +1,8 @@
+pregunta: q2
+modelo: gpt-5.4-mini
+respuestas utiles fallidas: 127 de 127
+
+errores unicos:
+- [1m[22mHTTP 400 Bad Request.
+[36mℹ[39m Invalid schema for response_format 'structured_data': In context=('properties', 'codigo_1'), " is not allowed in string
+  literals for structured outputs (strict=true).

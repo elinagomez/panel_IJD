@@ -1,0 +1,175 @@
+pregunta: q7
+modelo: gpt-5.4-mini
+respuestas utiles fallidas: 34 de 120
+
+errores unicos:
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  197746, Requested 3784. Please try again in 459ms. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  198020, Requested 4208. Please try again in 668ms. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  196617, Requested 4430. Please try again in 314ms. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  199887, Requested 4848. Please try again in 1.42s. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  196863, Requested 4817. Please try again in 503ms. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  200000, Requested 4936. Please try again in 1.48s. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  195350, Requested 5017. Please try again in 110ms. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  195291, Requested 5234. Please try again in 157ms. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  197065, Requested 5429. Please try again in 748ms. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  198911, Requested 5396. Please try again in 1.292s. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  197736, Requested 5769. Please try again in 1.051s. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  196875, Requested 5890. Please try again in 829ms. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  199718, Requested 5938. Please try again in 1.696s. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  198507, Requested 5931. Please try again in 1.331s. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  196996, Requested 6060. Please try again in 916ms. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  197325, Requested 6063. Please try again in 1.016s. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  199046, Requested 6072. Please try again in 1.535s. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  200000, Requested 6063. Please try again in 1.818s. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  197217, Requested 6063. Please try again in 984ms. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  198432, Requested 6123. Please try again in 1.366s. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  194031, Requested 6116. Please try again in 44ms. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  195077, Requested 6260. Please try again in 401ms. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  200000, Requested 6328. Please try again in 1.898s. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  198053, Requested 6416. Please try again in 1.34s. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  200000, Requested 6373. Please try again in 1.911s. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  196538, Requested 6385. Please try again in 876ms. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  197792, Requested 6394. Please try again in 1.255s. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  197633, Requested 6384. Please try again in 1.205s. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  194612, Requested 6516. Please try again in 338ms. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  196438, Requested 6513. Please try again in 885ms. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  200000, Requested 6541. Please try again in 1.962s. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  194925, Requested 6627. Please try again in 465ms. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  193502, Requested 6744. Please try again in 73ms. Visit
+  https://platform.openai.com/account/rate-limits to learn more.
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization
+  org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per min (TPM): Limit 200000, Used
+  195311, Requested 6968. Please try again in 683ms. Visit
+  https://platform.openai.com/account/rate-limits to learn more.

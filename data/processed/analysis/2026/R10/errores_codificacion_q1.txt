@@ -1,0 +1,9 @@
+pregunta: q1
+modelo: gpt-5.4-mini
+respuestas utiles fallidas: 1 de 120
+
+errores unicos:
+- [1m[22mHTTP 429 Too Many Requests.
+[36mℹ[39m Rate limit reached for gpt-5.4-mini in organization org-v8gKbA7ba7cJHcyYHYctfP7G on tokens per
+  min (TPM): Limit 200000, Used 189122, Requested 11380. Please try again in 150ms. Visit
+  https://platform.openai.com/account/rate-limits to learn more.

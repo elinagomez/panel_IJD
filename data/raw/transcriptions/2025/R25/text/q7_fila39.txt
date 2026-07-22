@@ -1,0 +1,1 @@
+ Mejorar las claves de seguridad, por ejemplo cuando usan los correos electrónicos, o poner dos medios de seguridad.

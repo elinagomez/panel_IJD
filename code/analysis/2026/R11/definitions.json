@@ -1,0 +1,281 @@
+{
+  "q3": [
+    {
+      "category": "Infraestructura y Capacidad",
+      "definition": "Referencias a la saturación de aulas, falta de edificios nuevos, problemas edilicios o necesidad de nuevos centros (Escuelas, Liceos o UTU) debido al crecimiento poblacional.",
+      "examples": "\"Los liceos están atiborrados... es demasiada la población para las pocas escuelas y los liceos que hay.\" (Mujer, Canelones, FA)\n\"Faltan salones y algunos son container.\" (Mujer, Interior Frente Amplio, FA)"
+    },
+    {
+      "category": "Extensión Horaria",
+      "definition": "Solicitudes de centros de tiempo completo o jornada extendida (8 horas), vinculadas a la mejora del aprendizaje y la conciliación laboral.",
+      "examples": "\"Que sean todas las escuelas a tiempo completo.\" (Hombre, Interior Frente Amplio, FA)\n\"Debería ser obligatorio ocho horas de estudio... también le da ocho horas a los padres para poder salir a trabajar.\" (Hombre, Montevideo, CM)"
+    },
+    {
+      "category": "Oferta Técnica y Profesional (UTU)",
+      "definition": "Necesidad de más cursos de oficios, formación técnica, agraria o tecnológica, orientada a la inserción laboral.",
+      "examples": "\"En UTU más oficios y tecnología.\" (Mujer, Canelones, CM)\n\"Un poco más de carreras que tenga mas que ver con el agro.\" (Hombre, Interior Frente Amplio, FA)"
+    },
+    {
+      "category": "Equipos Multidisciplinarios y Apoyo",
+      "definition": "Demandas de psicólogos, asistentes sociales, acompañantes terapéuticos y docentes de apoyo para atender la salud mental, conducta o dificultades de aprendizaje.",
+      "examples": "\"Si más contención a las familias y temas de sicólogo.\" (Mujer, Interior Frente Amplio, FA)\n\"Faltan docentes de apoyo suficientes... para jóvenes que no pueden acceder a este tipo de educación.\" (Mujer, Montevideo, CM)"
+    },
+    {
+      "category": "Calidad, Exigencia y Valores",
+      "definition": "Críticas al nivel académico actual, pedidos de mayor exigencia, disciplina, formación en valores, ética de trabajo y compromiso docente.",
+      "examples": "\"Mejorar el tiempo dedicado al estudio y calidad del aprendizaje.\" (Hombre, Canelones, FA)\n\"Más educación dejar de adoctrinar volver a los programas que nos enseñaron.\" (Mujer, Montevideo, CM)"
+    },
+    {
+      "category": "Actividades Complementarias",
+      "definition": "Propuestas para incluir más deportes, música, arte, idiomas (especialmente inglés), educación financiera y vial.",
+      "examples": "\"Podría ofrecer más deportes.\" (Mujer, Montevideo, CM)\n\"Las escuelas públicas también deberían tener ingles.\" (Mujer, Canelones, FA)"
+    },
+    {
+      "category": "Educación Terciaria y Descentralización",
+      "definition": "Necesidad de acceso a facultades, carreras universitarias o formación de grado fuera de Montevideo o en zonas alejadas.",
+      "examples": "\"Acá hay solo magisterio a nivel terciario. Los gurises se van.\" (Mujer, Interior Frente Amplio, FA)\n\"Sí educación universitaria.\" (Mujer, Interior Frente Amplio, FA)"
+    },
+    {
+      "category": "Educación Inicial (Nivel 3)",
+      "definition": "Demandas específicas para cubrir la escolarización obligatoria de niños de 3 años, especialmente en horario completo.",
+      "examples": "\"Lo que no hay es nivel 3 de preescolar horario completo... para aquellos que no quedan en el caif.\" (Mujer, Canelones, FA)"
+    },
+    {
+      "category": "Gestión y Servicios de Apoyo",
+      "definition": "Menciones a la mejora en alimentación, seguridad en los entornos escolares, transporte gratuito en el interior y control administrativo (inspectores).",
+      "examples": "\"Mejor educación y alimentación escolar en la escuela.\" (Hombre, Interior Frente Amplio, FA)\n\"Traslados gratis en el interior.\" (Mujer, Interior Coalición, CM)"
+    },
+    {
+      "category": "Modalidades Flexibles (Virtualidad)",
+      "definition": "Propuestas para implementar educación a distancia o en línea para mejorar la accesibilidad y movilidad.",
+      "examples": "\"Creo que la educación pública debería ofrecer más opciones de estudio a distancia.\" (Hombre, Montevideo, FA)"
+    }
+  ],
+  "q5": [
+    {
+      "category": "Desconocimiento Total",
+      "definition": "Respuestas que indican falta absoluta de información, noticias o contacto con el tema. Es la categoría predominante.",
+      "examples": "\"Nada no he escuchado sobre eso.\" (Mujer, Canelones, FA)\n\"Eso acá todavía no ha llegado nada y ni oído de eso.\" (Mujer, Interior Coalición, CM)"
+    },
+    {
+      "category": "Protección a la Infancia y Transferencias",
+      "definition": "Menciones específicas a la unificación de planes sociales, transferencias monetarias (Mides, Asignaciones) y combate a la pobreza infantil.",
+      "examples": "\"Se unificarían las transferencias monetarias que se dan a las infancias.\" (Mujer, Canelones, CM)\n\"Que se van a aumentar los aportes en base a la cantidad de hijos.\" (Mujer, Canelones, FA)"
+    },
+    {
+      "category": "Seguridad Social y Jubilaciones",
+      "definition": "Referencias al sistema de jubilaciones, la edad de retiro (60 años) y el debate sobre el futuro o eliminación de las AFAP.",
+      "examples": "\"La posibilidad de volver a jubilarse a los 60 años y el pase al BPS del control de las AFAPS.\" (Hombre, Canelones, FA)\n\"Habla de integrar la plata que recauda las AFAP para ayudar a la 1era infancia.\" (Mujer, Canelones, FA)"
+    },
+    {
+      "category": "Gobernanza y Participación",
+      "definition": "Definiciones del Diálogo como una instancia de intercambio entre diversos actores (Gobierno, Sindicatos, Cámaras, Sociedad Civil).",
+      "examples": "\"Un espacio de diálogo entre el gobierno, empresas, sindicatos y otras organizaciones.\" (Mujer, Interior Coalición, CM)\n\"Es una instancia que promovió el gobierno para buscar posibles soluciones.\" (Hombre, Montevideo, FA)"
+    },
+    {
+      "category": "Burocracia y Escepticismo",
+      "definition": "Visiones críticas que consideran al Diálogo como una pérdida de tiempo, una herramienta de distracción o un gasto innecesario de recursos.",
+      "examples": "\"Un montón de organismos que se juntan para hablar bonito para que luego no dé la plata o la burocracia coma el proyecto.\" (Hombre, Interior Frente Amplio, FA)\n\"Los gobiernos de izquierda en general son fabricantes de reuniones... pero en realidad no resolvemos nada.\" (Mujer, Interior Coalición, CM)"
+    },
+    {
+      "category": "Sesgo e Imposición Política",
+      "definition": "Opiniones que perciben el diálogo como un espacio capturado por el PIT-CNT o como un intento de imponer agendas que no pasaron por plebiscito.",
+      "examples": "\"Fue más un diálogo entre el gobierno y el Pit Cnt. No se contemplaron otras opiniones.\" (Mujer, Canelones, CM)\n\"Un intento de las corrientes del PIT-CNT y extremistas para lograr un resultado que no pudieron hacer mediante un plebiscito.\" (Hombre, Montevideo, CM)"
+    },
+    {
+      "category": "Insumo para Acuerdos Nacionales",
+      "definition": "Percepción del Diálogo como un paso previo necesario para generar políticas de Estado de largo plazo y \"soluciones macro\".",
+      "examples": "\"Es un insumo para comprometer a todos los actores sociales en la concreción de soluciones.\" (Hombre, Montevideo, FA)\n\"Un ámbito para construir los acuerdos más amplios.\" (Mujer, Canelones, CM)"
+    }
+  ],
+  "q6": [
+    {
+      "category": "Garantía y Control Estatal",
+      "definition": "Opiniones que ven positivamente que el Estado supervise los fondos para evitar pérdidas, abusos en comisiones o falta de transparencia.",
+      "examples": "\"Me parece bien que haya más control sobre las afap para asegurar que no se pierdan los fondos invertidos.\" (Mujer, Canelones, FA)\n\"Me parece bien. El Estado es el principal garante de que los fondos sean bien invertidos.\" (Mujer, Canelones, FA)"
+    },
+    {
+      "category": "Rechazo por Riesgo de Estatización",
+      "definition": "Posturas que consideran la propuesta como un \"disparate\" o un avance hacia la expropiación de ahorros individuales, a menudo citando que el tema ya se laudó en el plebiscito.",
+      "examples": "\"Es un disparate. Va en camino de estatizar las Afaps... lo que no consiguió el Pit en plebiscito lo quiere hacer ahora.\" (Mujer, Canelones, CM)\n\"Quieren de cualquier forma tomar control sobre el dinero de los ciudadanos.\" (Mujer, Interior Coalición, CM)"
+    },
+    {
+      "category": "Ineficiencia del Estado",
+      "definition": "Críticas basadas en la percepción de que el Estado gestiona mal los recursos, es burocrático o carece de la experiencia técnica necesaria (know-how).",
+      "examples": "\"El estado suele ser ineficiente en todo lo que hace... Quiero que mi ahorro siga siendo administrado por profesionales.\" (Mujer, Interior Coalición, CM)\n\"Muchas de las instituciones gestionadas por el estado están mal gestionadas.\" (Hombre, Interior Frente Amplio, FA)"
+    },
+    {
+      "category": "Eliminación Total (Abolicionismo)",
+      "definition": "Personas que consideran que las AFAP no deberían existir en absoluto y que el sistema debería volver a ser puramente solidario (BPS).",
+      "examples": "\"Opino que deberían desaparecer las afap que son un organismo ladrón de bancos usureros.\" (Hombre, Montevideo, CM)\n\"Son una estafa para el trabajador hay que derogarlas volver al sistema solidario del bps.\" (Mujer, Canelones, FA)"
+    },
+    {
+      "category": "Propuesta de Equilibrio / Intermedia",
+      "definition": "Valoración de la propuesta como un punto medio razonable que despoja a las AFAP del fin comercial pero mantiene su capacidad técnica de inversión.",
+      "examples": "\"Es una propuesta intermedia: no elimina las AFAP pero les quita poder en la relación con los usuarios.\" (Mujer, Canelones, FA)\n\"Podría ayudar a reducir la competencia comercial... siempre y cuando exista un control estatal claro.\" (Hombre, Interior Coalición, CM)"
+    },
+    {
+      "category": "Defensa de la Libertad de Elección",
+      "definition": "Argumentos que sostienen que el ciudadano debe mantener el derecho a elegir quién administra su cuenta sin intervención centralizada del Estado.",
+      "examples": "\"Cada uno eligió por voluntad propia quien quería fuera la administración de sus ahorros.\" (Mujer, Canelones, CM)\n\"Están quitando a las personas la oportunidad de elegir en dónde quieren colocar su dinero.\" (Hombre, Canelones, CM)"
+    },
+    {
+      "category": "Desinformación o Indiferencia",
+      "definition": "Respuestas de usuarios que declaran no entender el tema, no estar informados o que, por su situación (no tener AFAP), no les interesa.",
+      "examples": "\"No entiendo mucho de este tema no puedo opinar.\" (Mujer, Montevideo, CM)\n\"No tengo ni considere nunca tener afap.\" (Mujer, Canelones, CM)"
+    }
+  ],
+  "q7": [
+    {
+      "category": "Justicia y Foco en Primera Infancia",
+      "definition": "Valoración positiva de la medida, destacando que los primeros años de vida son críticos para el desarrollo y la nutrición.",
+      "examples": "\"El refuerzo en primera infancia es clave: es la etapa donde más impacto tiene en desarrollo y nutrición.\" (Mujer, Canelones, FA)\n\n\n\"Me parece magnífica para favorecer a los niños en situación de pobreza.\" (Mujer, Montevideo, FA)"
+    },
+    {
+      "category": "Crítica a la Dependencia (Populismo)",
+      "definition": "Posturas que ven las transferencias como un \"regalo\" que desmotiva la búsqueda de trabajo y genera dependencia del Estado.",
+      "examples": "\"Si siguen dando plata sin pedir contraprestación es eternizar la pobreza... hay que enseñar a pescar.\" (Mujer, Interior Coalición, CM)\n\n\n\"Crea un estado dependiente... le quitas el motivo a las personas para buscar superación personal.\" (Hombre, Canelones, CM)"
+    },
+    {
+      "category": "Necesidad de Control y Monitoreo",
+      "definition": "Aceptación de la medida condicionada a un seguimiento estricto para asegurar que el dinero se use realmente en el bienestar de los niños.",
+      "examples": "\"Tendrían que monitorear... muchas veces los adultos lo utilizan en beneficio propio para otros productos.\" (Mujer, Canelones, FA)\n\n\n\"Está bien que el gobierno se encargue sin generar dependencia extrema ni abusos.\" (Hombre, Montevideo, FA)"
+    },
+    {
+      "category": "Exigencia de Contraprestación",
+      "definition": "Opiniones que condicionan la ayuda a la obligatoriedad de asistir a la escuela o mantener los controles de salud al día.",
+      "examples": "\"No se puede dar una ayuda sin contraprestación de que los niños tengan que ir a la escuela... es un disparate.\" (Hombre, Montevideo, CM)\n\n\n\"Presentar comprobante de gasto y asistencia médica al día.\" (Mujer, Montevideo, FA)"
+    },
+    {
+      "category": "Eficiencia por Unificación",
+      "definition": "Valoración positiva de crear un \"sistema único\" para evitar superposiciones, mejorar la burocracia y optimizar la gestión de datos.",
+      "examples": "\"Me parece bien que se centralice y coordine todos los planes que una familia reciba.\" (Mujer, Montevideo, FA)\n\n\n\"Unificar los criterios evita que alguien sume beneficios de varios lados y gane como un empleado común.\" (Mujer, Montevideo, FA)"
+    },
+    {
+      "category": "Demanda de Soluciones de Fondo (Trabajo)",
+      "definition": "Argumentos que sostienen que la verdadera solución no es el dinero, sino la generación de empleo y herramientas de progreso real.",
+      "examples": "\"La solución es brindarle herramientas reales para que puedan progresar... darle cursos cortos para acceder a trabajo.\" (Mujer, Canelones, FA)\n\n\n\"Deberían ofrecerles trabajo y no ayuda gratuita.\" (Mujer, Canelones, FA)"
+    },
+    {
+      "category": "Percepción de Injusticia / Discriminación",
+      "definition": "Sentimiento de que los beneficios excluyen a la clase trabajadora de bajos ingresos que no llega a ser \"vulnerable\" según los criterios estatales.",
+      "examples": "\"Otro curro injusto... y los hijos de los trabajadores muchas veces ni un peso reciben siendo discriminados.\" (Mujer, Interior Coalición, CM)"
+    }
+  ],
+  "q9": [
+    {
+      "category": "Seguridad Ciudadana",
+      "definition": "Demandas de acciones directas contra la delincuencia, el narcotráfico y mejoras visibles en la seguridad pública y convivencia.",
+      "examples": "\"Que tome acciones concretas contra la delincuencia.\" (Mujer, Canelones, FA)\n\"Me gustaría que mejore la seguridad... que se termine el narcotráfico y los homicidios.\" (Mujer, Interior Frente Amplio, FA)"
+    },
+    {
+      "category": "Empleo y Mercado Laboral",
+      "definition": "Expectativas de creación de puestos de trabajo, atracción de inversiones y oportunidades específicas para grupos vulnerables (mujeres, mayores de 40, jóvenes).",
+      "examples": "\"Aumentar el empleo sobre todo para madres mayores de 40.\" (Mujer, Canelones, CM)\n\"Traiga inversiones que den trabajo honesto... si hay trabajo hay mentes ocupadas.\" (Mujer, Interior Coalición, CM)"
+    },
+    {
+      "category": "Costo de Vida y Salarios",
+      "definition": "Preocupación por la inflación, la suba de impuestos, el precio de los combustibles y la necesidad de mejorar los ingresos reales de la clase trabajadora.",
+      "examples": "\"Que logre mejorar ingresos y costo de vida especialmente para los hogares más vulnerables.\" (Mujer, Canelones, FA)\n\"Que deje de meter las manos en los bolsillos de la gente con los impuestos inventados.\" (Mujer, Canelones, CM)"
+    },
+    {
+      "category": "Cumplimiento de Promesas",
+      "definition": "Exigencia de que el gobierno ejecute el plan de gobierno presentado en campaña y pase de los anuncios a los hechos.",
+      "examples": "\"Espero que como mínimo cumplan con gran parte de las cosas que prometieron.\" (Mujer, Canelones, FA)\n\"Que concrete algo y no sean puro charla porque por ahora son todos promesas incumplidas.\" (Hombre, Canelones, CM)"
+    },
+    {
+      "category": "Revisión de Seguridad Social",
+      "definition": "Demandas vinculadas a la edad jubilatoria (especialmente volver a los 60 años) y la mejora de las pasividades más bajas.",
+      "examples": "\"Principal rever la situación de la jubilación... no es justo que le cambie las expectativas a los que estaban contando los días.\" (Hombre, Montevideo, FA)\n\"El Gobierno va a lograr bajar la edad de jubilarse de 65 años a 60 años.\" (Mujer, Interior Frente Amplio, FA)"
+    },
+    {
+      "category": "Educación y Salud Pública",
+      "definition": "Necesidad de mejoras en la calidad educativa, infraestructura y servicios de salud (con énfasis creciente en salud mental).",
+      "examples": "\"Fortalecer la educación con propuestas más prácticas y actuales.\" (Mujer, Interior Frente Amplio, FA)\n\"Que mejore el tema de salud y más la salud mental. Más contención.\" (Mujer, Interior Frente Amplio, FA)"
+    },
+    {
+      "category": "Escepticismo y Desilusión",
+      "definition": "Expresiones de falta de confianza, ausencia de expectativas o deseo de que el período termine pronto por considerar la gestión ineficiente.",
+      "examples": "\"Sinceramente no mucho la verdad.\" (Mujer, Interior Frente Amplio, FA)\n\"Nada, solo espero que termine pronto.\" (Mujer, Canelones, CM)"
+    },
+    {
+      "category": "Equidad y Género",
+      "definition": "Demandas por el reconocimiento del trabajo doméstico, jubilaciones anticipadas para mujeres y cierre de brechas salariales.",
+      "examples": "\"Que se tome en cuenta el trabajo de la mujer también en el hogar... cuando hablamos de la jubilación final es desconsiderado.\" (Mujer, Interior Frente Amplio, FA)"
+    }
+  ],
+  "q12": [
+    {
+      "category": "Caso ASSE y Gestión Cipriani",
+      "definition": "Referencias a irregularidades en ASSE, vínculos con el Círculo Católico, contrataciones directas (empresa ITHG) y malversación de fondos.",
+      "examples": "\"Se cuestiona... a Cipriani ex de ASSE por gastos y compras.\" (Mujer, Montevideo, FA)\n\"Principalmente Cipriani y su sociedad con el Círculo Católico.\" (Mujer, Interior Frente Amplio, FA)"
+    },
+    {
+      "category": "Caso Cardama y Compra de Buques",
+      "definition": "Menciones a la compra de patrullas oceánicas bajo la gestión de Javier García, acusaciones de \"garantías falsas\" y rescisión del contrato.",
+      "examples": "\"Cuestionamientos a García por las embarcaciones... Caso Cardama.\" (Mujer, Montevideo, FA)\n\"Corrupción en el tema Cardama.\" (Hombre, Canelones, FA)"
+    },
+    {
+      "category": "Irregularidades en el Interior",
+      "definition": "Denuncias sobre clientelismo, ingresos a dedo y corrupción en intendencias blancas (Artigas, Soriano/Besozzi, Maldonado).",
+      "examples": "\"Corrupción en el interior (Artigas, San José)... el Intendente Besozzi que ha colocado a varias personas de confianza.\" (Mujer, Interior Coalición, CM)"
+    },
+    {
+      "category": "Cuestionamientos a la Ética Pública",
+      "definition": "Críticas generales sobre la moralidad de los dirigentes, falta de transparencia y el uso de cargos para beneficio personal.",
+      "examples": "\"Que se han cuestionado acciones o comportamientos de algunos de sus líderes en relación a cuestiones de ética.\" (Mujer, Interior Frente Amplio, FA)"
+    },
+    {
+      "category": "Percepción de Persecución Política",
+      "definition": "Posturas que ven las críticas como una estrategia de la oposición para difamar o generar \"show\" mediático sin sustento legal.",
+      "examples": "\"Hablan de la oposición en el sentido de difamarlos y acusarlos sobre cosas que no tienen asidero real.\" (Mujer, Montevideo, CM)\n\"Es parte de un show... nada que les venga bien porque tienen espíritu revanchista.\" (Hombre, Montevideo, CM)"
+    },
+    {
+      "category": "Inacción o \"Empate\" Político",
+      "definition": "Opiniones que sostienen que la corrupción existe en todos los partidos o que el gobierno actual solo se enfoca en el pasado.",
+      "examples": "\"Viven más pendientes de los que gobernaron antes que de actuar en la crisis actual... los corruptos no solo son blancos.\" (Mujer, Interior Coalición, CM)"
+    },
+    {
+      "category": "Saturación y Desinterés",
+      "definition": "Sentimiento de hartazgo ante el enfrentamiento político constante y la repetición de denuncias en los medios.",
+      "examples": "\"Se ve que estamos todos hartos de oír hablar, criticando, criticando... uno se pudre de escucharlo.\" (Mujer, Canelones, FA)"
+    }
+  ],
+  "q13": [
+    {
+      "category": "Responsabilidad por Designación (Cargo)",
+      "definition": "Argumentos que sostienen que, al haber sido quien eligió y nombró a los jerarcas, es responsable final de sus acciones y ética.",
+      "examples": "\"Toda la responsabilidad por haberlos puesto en esos cargos.\" (Mujer, Montevideo, FA)\n\"El los nombró x lo tanto es responsable de sus actos... ¿O no sabía?\" (Mujer, Interior Frente Amplio, FA)"
+    },
+    {
+      "category": "Estilo de Liderazgo Presidencialista",
+      "definition": "Visión de que su forma de gobernar centralizada implica que ninguna decisión importante se tomaba sin su aval o conocimiento.",
+      "examples": "\"Mucha ya que todas las decisiones eran tomadas por él... su forma de gobernar fue absolutamente presidencialista.\" (Mujer, Canelones, FA)\n\"Es el jefe político... seguro está al tanto de todo.\" (Hombre, Montevideo, FA)"
+    },
+    {
+      "category": "Individualización de la Culpa",
+      "definition": "Postura que defiende que la responsabilidad es personal de cada dirigente y que un líder no puede responder por las acciones individuales de otros.",
+      "examples": "\"Ninguna responsabilidad directa porque cada dirigente es responsable de sus propias acciones.\" (Mujer, Interior Coalición, CM)\n\"Las cuestiones personales son de culpas personales... no es una responsabilidad de Lacalle.\" (Mujer, Interior Coalición, CM)"
+    },
+    {
+      "category": "Defensa de la Gestión (Exoneración)",
+      "definition": "Respuestas que destacan la buena labor del ex presidente como argumento para desligarlo de cualquier cuestionamiento ético.",
+      "examples": "\"Él fue presidente excelente gestión buen referente responsabilidad ninguna.\" (Mujer, Montevideo, CM)\n\"No tiene ninguna responsabilidad... bastante bien gobernó a pesar de afrontar varios cataclismos.\" (Hombre, Montevideo, CM)"
+    },
+    {
+      "category": "Responsabilidad Institucional / Omisión",
+      "definition": "Opiniones que sugieren que su falta de acción o \"rienda suelta\" ante las irregularidades lo hace cómplice por omisión.",
+      "examples": "\"Toda la responsabilidad porque él les dio rienda suelta.\" (Mujer, Canelones, FA)\n\"Si sabía o no, en ambos casos tiene responsabilidad.\" (Mujer, Interior Frente Amplio, FA)"
+    },
+    {
+      "category": "Cuestionamiento por \"Blindaje\" Político",
+      "definition": "Percepción de que el ex presidente estaba al tanto de los ilícitos pero decidió negarlos o proteger a sus colaboradores.",
+      "examples": "\"Mucha ya que es sabido que varias figuras han realizado ciertas acciones ilícitas pero Lacalle Pou lo niega.\" (Hombre, Interior Frente Amplio, FA)"
+    },
+    {
+      "category": "Teoría del Desprestigio Electoral",
+      "definition": "Considera que los cuestionamientos son ataques de la oposición y que vincular a Lacalle Pou es solo una estrategia política.",
+      "examples": "\"Ninguna si es todo desprestigio político para anular competencia política... ya están en campaña.\" (Mujer, Interior Coalición, CM)"
+    }
+  ]
+}

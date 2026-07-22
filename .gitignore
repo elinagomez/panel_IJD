@@ -1,0 +1,73 @@
+# R y RStudio
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata
+.Rproj.user/
+.RDataTmp
+.Renviron*
+.httr-oauth
+rsconnect/
+
+# salidas de verificación/compilación de paquetes (por si creas uno)
+/*.Rcheck/
+/*.tar.gz
+
+# Quarto y R Markdown
+# caches e intermedios
+*_cache/
+cache/
+*_files/
+_freeze/
+.quarto/
+tmp/
+
+# sitios/libros generados (quítalos si quieres versionarlos)
+_site/
+_book/
+
+# intermedios knitr/rmarkdown
+*.utf8.md
+*.knit.md
+
+# entornos y dependencias
+# renv: conserva renv.lock y la carpeta renv/, pero ignora librerías locales
+renv/library/
+renv/staging/
+renv/python/
+.venv/
+
+# targets/drake (pipelines reproducibles)
+_targets/
+.drake/
+
+# sistema operativo y editores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# archivos temporales comunes
+*.log
+*.tmp
+*.bak
+*.pyc
+~$*.xlsx
+__pycache__/
+
+# opcional: datos y salidas pesadas
+# descomenta si no quieres versionar estos artefactos
+# data/raw/
+# data/processed/
+# plots/
+# docs/  # si usas pkgdown y prefieres no versionar el sitio
+
+# IA
+/.gemini
+GEMINI.md
+AGENTS.md
+CLAUDE.md
+/.quarto/
