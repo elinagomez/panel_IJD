@@ -1,9 +1,8 @@
 # Flujo de procesamiento de paneles de encuestas
 
-## Qué es esto
 
 Este repositorio automatiza el ciclo de vida de un **panel de encuestas**: un mismo grupo de personas al que se
-vuelve a encuestar ronda tras ronda (semanal, quincenal o mensualmente), para poder comparar sus respuestas a
+vuelve a encuestar mensualmente en rondas rotativas cada tres meses, para poder comparar sus respuestas a
 lo largo del tiempo en vez de solo mirar una foto puntual. Ese diseño longitudinal es lo que obliga a buena
 parte de las decisiones técnicas del repo: hay que poder identificar a la misma persona entre rondas, mantener
 la numeración de preguntas consistente año a año, y dejar trazabilidad de cómo se llegó de una respuesta cruda

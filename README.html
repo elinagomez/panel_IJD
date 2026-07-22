@@ -87,9 +87,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="flujo-de-procesamiento-de-paneles-de-encuestas" class="level1">
 <h1>Flujo de procesamiento de paneles de encuestas</h1>
-<section id="qué-es-esto" class="level2">
-<h2 class="anchored" data-anchor-id="qué-es-esto">Qué es esto</h2>
-<p>Este repositorio automatiza el ciclo de vida de un <strong>panel de encuestas</strong>: un mismo grupo de personas al que se vuelve a encuestar ronda tras ronda (semanal, quincenal o mensualmente), para poder comparar sus respuestas a lo largo del tiempo en vez de solo mirar una foto puntual. Ese diseño longitudinal es lo que obliga a buena parte de las decisiones técnicas del repo: hay que poder identificar a la misma persona entre rondas, mantener la numeración de preguntas consistente año a año, y dejar trazabilidad de cómo se llegó de una respuesta cruda a un dato analizable.</p>
+<p>Este repositorio automatiza el ciclo de vida de un <strong>panel de encuestas</strong>: un mismo grupo de personas al que se vuelve a encuestar mensualmente en rondas rotativas cada tres meses, para poder comparar sus respuestas a lo largo del tiempo en vez de solo mirar una foto puntual. Ese diseño longitudinal es lo que obliga a buena parte de las decisiones técnicas del repo: hay que poder identificar a la misma persona entre rondas, mantener la numeración de preguntas consistente año a año, y dejar trazabilidad de cómo se llegó de una respuesta cruda a un dato analizable.</p>
 <p>Las encuestas se levantan por una plataforma de mensajería que permite respuestas por texto <strong>y por audio</strong> (un audio de WhatsApp). Eso agrega un paso que no existe en un flujo de encuestas tradicional: antes de poder analizar nada hay que <strong>transcribir</strong> esos audios a texto.</p>
 <p>Una vez que las respuestas son texto, hay dos tipos de preguntas que se tratan distinto:</p>
 <ul>
@@ -97,7 +95,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Preguntas abiertas</strong> (“¿por qué?”, “¿qué opina de…?”): no se pueden tabular tal cual. Para poder analizarlas a escala, cada respuesta se <strong>codifica</strong>, es decir, se le asignan una o más etiquetas de un codebook (diccionario de categorías) definido de antemano para esa pregunta. Este repo usa un modelo de lenguaje (LLM) para hacer esa codificación de forma consistente y a escala, en vez de que una persona lea y clasifique manualmente cientos de respuestas por ronda — con la opción de correrlo contra un modelo en la nube (OpenAI) o contra un modelo local (Ollama, por ejemplo Qwen) para no depender de una API externa.</li>
 </ul>
 <p>El resultado de todo el flujo son bases de datos limpias, comparables entre rondas y entre años, listas para análisis cuantitativo (tablas, gráficos) y cualitativo (códigos, sentimiento) por ronda.</p>
-</section>
 <section id="reusar-este-flujo-para-un-proyecto-nuevo" class="level2">
 <h2 class="anchored" data-anchor-id="reusar-este-flujo-para-un-proyecto-nuevo">Reusar este flujo para un proyecto nuevo</h2>
 <p>El código está separado en dos niveles de configuración para poder levantar el mismo flujo en un proyecto distinto (otra cuenta de Google Drive, otro cliente) sin tocar los scripts:</p>
