@@ -45,7 +45,7 @@ round_id <- project_cfg$ronda$round_id     # "R1"
 
 # Modo prueba: baja y sube solo unos pocos audios para validar el circuito
 # completo (R -> Drive -> Colab -> Drive -> R) antes de procesar la ronda entera.
-PRUEBA   <- TRUE
+PRUEBA   <- FALSE
 N_PRUEBA <- 3
 
 dir_round_raw <- paste0("data/raw/transcriptions/", year, "/", round_id)
