@@ -30,11 +30,23 @@ drive:
 
 # Defaults de codificación de preguntas abiertas con LLM (DriveFlow).
 codificacion:
-  provider: "openai"                # "openai" u "ollama" (modelo local)
-  model: "gpt-5-nano"
-  api_key_env: "OPENAI_API_KEY"
+  provider: "ollama"                # "ollama" (local, no sale de la máquina) u "openai"
+  model: "qwen3:8b"                 # ollama pull qwen3:8b · comparar con qwen3:14b
   ollama_base_url: "http://localhost:11434"
-  chunk_size: 20
+  api_key_env: "OPENAI_API_KEY"     # solo se usa si provider = "openai"
+
+  temperature: 0                    # determinista: la misma respuesta da el mismo código
+  seed: 20260810                    # para que la ronda sea reproducible
+  think: false                      # Qwen3 razona por defecto; para clasificar no aporta
+  max_active: 4                     # llamadas en paralelo (bajar si se satura la GPU)
+
+  # Insumos. Si están vacíos o el archivo no existe, se leen de Drive
+  # (folder_url de la ronda / questions_url de acá arriba).
+  raw_file: "data/processed/transcriptions/output/2026/transcripcion_R1.csv"
+  questions_file: "data/raw/codebook/questions.xlsx"
+  codebook_file: "data/raw/codebook/BookR1.xlsx"
+  out_dir: "data/processed/analysis/2026/R1"
+  subir_a_drive: false
 
 # Reglas de lectura del export de la plataforma (usadas por code/analisis_panel.R
 # y code/prep_campaign.R). Ver README para el detalle.

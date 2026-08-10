@@ -1,13 +1,16 @@
 round: "R1"
 year: "2026"
 
-# TODO: carpeta en Drive con transcripcion_R1 y BookR1 (codebook de la ronda)
-folder_url: "https://drive.google.com/drive/u/0/folders/REEMPLAZAR"
+# TODO: carpeta en Drive con transcripcion_R1 y BookR1.
+# Mientras esté vacía, el flujo lee los insumos de los archivos locales
+# declarados en project.yml (codificacion$raw_file / questions_file / codebook_file).
+folder_url: ""
 
-# provider, model, api_key_env y chunk_size se heredan de project.yml.
-# Descomentar solo para pisar un default en esta ronda:
-# provider: "ollama"
-# model: "qwen2.5:14b"
+# Todo lo demás (provider, model, temperature, seed, think, max_active)
+# se hereda de project.yml -> codificacion.
+# Descomentar acá solo para pisar un default en esta ronda puntual:
+# model: "qwen3:14b"
+# max_active: 2
 
 output_spreadsheet: "clasificacion_R1_2026"
 output_sheet: "resultados"

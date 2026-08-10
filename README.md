@@ -16,7 +16,8 @@ transcribir los audios (Whisper en Colab).
 | 1. Matching encuesta ↔ contactos | `code/matching.R` | hecho — 150 personas, 187 audios |
 | 2. Transcripción (Drive ↔ Colab Whisper) | `code/transcripciones.qmd` + `code/whisper_colab.ipynb` | **pendiente** — falta completar `drive:` en `project.yml` |
 | 3. Base acumulada del año | — | pendiente (recién con la 2ª ronda) |
-| 4. Codificación de abiertas con LLM | `DriveFlow/R1.yml` | pendiente — falta `folder_url` y el codebook `BookR1` |
+| 4. Codificación de abiertas con LLM | `DriveFlow/run.R` + `qualcode.R` | listo para probar — corre local con Ollama, codebook de ejemplo en `data/raw/codebook/` |
+| 5. Revisión humana del 20% y acuerdo | `medir_acuerdo()` | pendiente — después de correr el paso 4 |
 | Reporte de cobertura de la ronda | `code/reporte_panel.qmd` | hecho |
 
 ## Estructura
@@ -96,6 +97,38 @@ drive:
 | Contactos | CSV mensual de la plataforma | derivados de la encuesta telefónica de LimeSurvey |
 | Filtro de completadas | `filter(!is.na(q_ultima))` | se conservan las parciales con `n_resp` y `completa` como columnas |
 | Duplicados | — | una persona puede tener varios envíos: se conserva su caso más completo |
+
+## Codificación de preguntas abiertas (paso 4)
+
+Corre con un modelo local: **Ollama + Qwen3**. Las respuestas textuales no salen de
+la máquina, que es lo que corresponde con el consentimiento que firmaron los encuestados.
+
+```bash
+ollama pull qwen3:8b
+ollama serve                 # queda escuchando en localhost:11434
+Rscript DriveFlow/run.R      # o abrirlo en RStudio y correr por bloques
+```
+
+Insumos, los dos hechos a mano y editables en `data/raw/codebook/`:
+
+- **`questions.xlsx`** — qué pregunta es abierta o cerrada, y de qué cerrada depende cada una.
+- **`BookR1.xlsx`** (hoja `R1`) — el codebook: `etiqueta` + `descripcion` por pregunta.
+  `type_enum()` restringe la salida a estas etiquetas: el modelo no puede inventar categorías.
+
+Salidas en `data/processed/analysis/2026/R1/`:
+
+- `R1_codificada.csv` — la base con una columna `codigo_<q>` por pregunta abierta.
+- `QA_R1_sample20.csv` — muestra del 20% con la columna `codigo_<q>_rev` vacía para
+  codificar a mano. Después, `medir_acuerdo(revisado)` devuelve por pregunta el % de
+  coincidencia exacta, el % con al menos un código en común y el Jaccard promedio.
+  Ese mismo archivo sirve para comparar modelos (`qwen3:8b` vs `14b`) con datos.
+
+Convenciones de la salida: `NA` = la persona no respondió · `"ERROR"` = el modelo falló
+en esa fila (no se mezclan) · varios códigos separados por `; `, máximo 3, ordenados
+por relevancia.
+
+Volumen de referencia: **1.028 llamadas** para la ronda completa (8 preguntas abiertas).
+`run.R` arranca en modo prueba con una sola pregunta y 20 filas — ver `SOLO` y `N_FILAS`.
 
 ## Historia del repo y código de referencia
 
