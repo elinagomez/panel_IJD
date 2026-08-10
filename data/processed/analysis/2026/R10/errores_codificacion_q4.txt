@@ -1,6 +1,0 @@
-pregunta: q4
-modelo: gpt-5.4-mini
-respuestas utiles fallidas: 2 de 46
-
-errores unicos:
-- [1m[22mHTTP 502 Bad Gateway.

@@ -1,39 +1,44 @@
 # ============================================================
 # Configuración general del proyecto
+# Panel WhatsApp — Encuesta Permanente CISCo-IJD (UdelaR)
 #
-# Agrupa los parámetros que son iguales para TODO el proyecto
-# (una cuenta de Drive, un cliente, una campaña de paneles),
-# a diferencia de DriveFlow/<ronda>.yml que solo tiene lo que
-# cambia ronda a ronda (folder_url de esa ronda, nombre de
-# hoja de salida, etc).
-#
-# Al reutilizar este flujo para un proyecto nuevo, este es el
-# único archivo que hace falta completar de punta a punta antes
-# de correr nada. Los scripts (transcripciones.qmd, DriveFlow/*)
-# leen estos valores en vez de tenerlos hardcodeados.
+# Mismo esquema que el repo panel_IJD: acá va todo lo que es
+# igual para TODO el proyecto; lo que cambia ronda a ronda va
+# en DriveFlow/<ronda>.yml.
 # ============================================================
 
-project_name: "paneles"                # nombre corto del proyecto/cliente, usado en mensajes y nombres de archivo
+project_name: "panel_cisco_ijd"     # usado en mensajes y nombres de archivo
+
+# Ronda vigente (la leen los scripts para armar rutas)
+ronda:
+  round_id: "R1"
+  year: 2026
+  campaign: "r1_20260807"           # base del nombre de archivo en data/raw/campaigns_wcx/
+  n_preguntas: 9                    # preguntas efectivas de la ronda (q10 vino vacía)
 
 drive:
-  account_email: "soyfocusuy@gmail.com"  # cuenta de Google usada en drive_auth() (googledrive/googlesheets4)
+  # TODO: completar con la cuenta de Google que usa el Colab de Whisper
+  account_email: "elina.gomez@cienciassociales.edu.uy"                 # ej: "usuario@gmail.com" -> drive_auth(email = ...)
 
-  # Carpetas raíz en la Drive de esa cuenta, usadas por transcripciones.qmd
-  # para el intercambio de audios con el Colab de Whisper.
-  folder_audio: "A"                      # audios .ogg subidos, a la espera de ser transcritos
-  folder_text: "B"                       # .txt transcritos que Colab deja disponibles para bajar
+  # Carpetas raíz en esa Drive para el intercambio con Colab.
+  # Hay que crear a mano la subcarpeta <round_id> dentro de cada una.
+  folder_audio: "A"                 # audios .ogg subidos, a la espera de transcribir
+  folder_text: "B"                  # .txt que devuelve el Colab
 
-  # Carpeta en Drive con el spreadsheet "questions" (metadata de preguntas:
-  # texto, tipo abierta/cerrada, dependencias, categorías). Es la misma
-  # para todas las rondas de un mismo proyecto.
-  questions_url: "https://drive.google.com/drive/u/0/folders/1Cmr-xzG4noYTjz36dI3jQNhIuWovg3OR"
+  # TODO: carpeta de Drive con el spreadsheet "questions" (metadata de preguntas)
+  questions_url: ""
 
-# Defaults de clasificación (DriveFlow) para todas las rondas.
-# Cada DriveFlow/<ronda>.yml puede sobreescribir cualquiera de estos
-# campos si esa ronda puntual necesita otro modelo o proveedor.
+# Defaults de codificación de preguntas abiertas con LLM (DriveFlow).
 codificacion:
-  provider: "openai"        # "openai" o "ollama" (modelo local via Ollama, ver DriveFlow/README)
+  provider: "openai"                # "openai" u "ollama" (modelo local)
   model: "gpt-5-nano"
   api_key_env: "OPENAI_API_KEY"
   ollama_base_url: "http://localhost:11434"
   chunk_size: 20
+
+# Reglas de lectura del export de la plataforma (usadas por code/analisis_panel.R
+# y code/prep_campaign.R). Ver README para el detalle.
+export:
+  patron_preguntas: "q[0-9]+$"
+  patron_placeholder: "^(q[0-9]+|text|undefined|null|na|nan|-|\\.)$"
+  min_placeholders_test: 5

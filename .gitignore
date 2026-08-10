@@ -65,6 +65,16 @@ __pycache__/
 # plots/
 # docs/  # si usas pkgdown y prefieres no versionar el sitio
 
+# audios crudos de las rondas: pesados y re-descargables desde los links
+# del export con code/transcripciones.qmd. Los .txt de las transcripciones
+# SI se versionan (son el insumo del analisis y no se pueden regenerar sin GPU).
+data/raw/transcriptions/**/voice/
+*.ogg
+
+# reportes renderizados: con embed-resources pesan ~2 MB cada uno
+code/*.html
+code/*_files/
+
 # IA
 /.gemini
 GEMINI.md

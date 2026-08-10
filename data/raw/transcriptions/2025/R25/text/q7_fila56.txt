@@ -1,1 +1,0 @@
- A la primer señal que piden un dato personal se les corta toda comunicación.

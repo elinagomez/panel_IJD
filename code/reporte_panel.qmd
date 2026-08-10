@@ -1,0 +1,202 @@
+---
+title: "Reporte de respuestas del panel"
+subtitle: "Cobertura, completitud y modalidad de respuesta (texto vs audio)"
+lang: es
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    embed-resources: true
+    theme: cosmo
+    fig-width: 8
+    fig-height: 4.2
+execute:
+  echo: false
+  warning: false
+  message: false
+params:
+  archivo: ""     # dejar vacio para usar el CSV mas reciente de la carpeta
+---
+
+```{r setup}
+faltan <- setdiff(c("ggplot2", "knitr"),
+                  rownames(installed.packages()))
+if (length(faltan)) install.packages(faltan, repos = "https://cloud.r-project.org")
+library(ggplot2)
+library(knitr)
+
+options(panel.skip.main = TRUE)   # cargar solo las funciones
+source("code/analisis_panel.R")   # _quarto.yml fija execute-dir: project
+
+ruta <- if (nzchar(params$archivo)) params$archivo else csv_mas_reciente()
+res  <- analizar_panel(cargar_base(ruta))
+dir_out <- exportar(res)   # data/processed/analysis/<year>/<round_id>/
+
+tema <- theme_minimal(base_size = 12) +
+  theme(panel.grid.minor = element_blank(),
+        plot.title.position = "plot")
+theme_set(tema)
+AZUL <- "#2c6fbb"; NARANJA <- "#e08a1e"; GRIS <- "#b9c0c8"
+
+v <- function(tabla, metrica) tabla$valor[grepl(metrica, tabla$metrica, fixed = TRUE)][1]
+rc <- res$resumen_casos; rp <- res$resumen_personas
+
+# flags para el eval condicional de los chunks (YAML no acepta "!expr !is.null(...)")
+HAY_FECHA    <- is.data.frame(res$por_fecha)    && nrow(res$por_fecha) > 0
+HAY_ETIQUETA <- is.data.frame(res$por_etiqueta) && nrow(res$por_etiqueta) > 0
+HAY_TEST     <- nrow(res$casos_test) > 0
+```
+
+**Base:** `r basename(ruta)` · **Preguntas activas:** `r res$n_preguntas`
+(`r paste(res$cols_activas, collapse = ", ")`)
+
+```{r}
+#| output: asis
+if (length(res$preguntas_vacias))
+  cat("::: {.callout-note}\n## Preguntas sin datos\n",
+      paste(res$preguntas_vacias, collapse = ", "),
+      " no tiene ninguna respuesta en toda la base: queda fuera del denominador de completitud.\n:::\n")
+if (nrow(res$casos_test))
+  cat("::: {.callout-warning}\n## Casos de prueba excluidos\n",
+      nrow(res$casos_test), " caso(s) con respuestas tipo placeholder (\"Q1\", \"Q2\", \"TEXT\") ",
+      "fueron excluidos del analisis. Ver tabla al final.\n:::\n")
+```
+
+## Titulares
+
+::: {.grid}
+::: {.g-col-4}
+**`r v(rc, "Respuestas totales")`** respuestas recibidas
+sobre `r v(rc, "Celdas posibles")` posibles
+(**`r v(rc, "Tasa de llenado")`%** de llenado)
+:::
+::: {.g-col-4}
+**`r v(rp, "Tasa de respuesta")`%** de las personas contactadas
+respondio al menos una pregunta
+:::
+::: {.g-col-4}
+**`r v(rp, "Tasa de completitud")`%** completo el cuestionario entero
+:::
+:::
+
+## 1. Envios (nivel caso)
+
+Cada fila del export es un caso/envio. Una misma persona puede tener varios.
+
+```{r}
+kable(rc, col.names = c("Metrica", "Valor"), format.args = list(big.mark = ","))
+```
+
+## 2. Personas
+
+Se identifica a la persona por `r res$id_col`. Si tiene mas de un envio, se toma
+su caso mas completo.
+
+```{r}
+kable(rp, col.names = c("Metrica", "Valor"))
+```
+
+### Cuantas preguntas contesto cada respondente
+
+```{r}
+d <- res$distribucion
+d$grupo <- ifelse(d$preguntas_respondidas == res$n_preguntas, "Completo", "Parcial")
+ggplot(d, aes(factor(preguntas_respondidas), personas, fill = grupo)) +
+  geom_col(width = .75) +
+  geom_text(aes(label = personas), vjust = -0.4, size = 3.4, colour = "grey25") +
+  scale_fill_manual(values = c(Completo = AZUL, Parcial = NARANJA), name = NULL) +
+  labs(x = "Preguntas respondidas", y = "Personas",
+       title = "Distribucion de completitud entre quienes respondieron") +
+  expand_limits(y = max(d$personas) * 1.12)
+```
+
+```{r}
+kable(res$distribucion,
+      col.names = c("Preguntas respondidas", "Personas", "% de respondentes"))
+```
+
+## 3. Modalidad: texto vs audio
+
+Se cuenta como **audio** toda respuesta cuyo valor es un link (`https://...ogg`).
+
+```{r}
+kable(res$modalidad, col.names = c("Modalidad", "Personas", "% de respondentes"))
+```
+
+```{r}
+pp <- res$por_pregunta[res$por_pregunta$activa, ]
+lg <- rbind(
+  data.frame(pregunta = pp$pregunta, tipo = "Texto", n = pp$texto),
+  data.frame(pregunta = pp$pregunta, tipo = "Audio", n = pp$audio)
+)
+lg$pregunta <- factor(lg$pregunta, levels = pp$pregunta)
+ggplot(lg, aes(pregunta, n, fill = tipo)) +
+  geom_col(width = .75) +
+  scale_fill_manual(values = c(Texto = AZUL, Audio = NARANJA), name = NULL) +
+  labs(x = NULL, y = "Respuestas", title = "Respuestas por pregunta, segun formato")
+```
+
+## 4. Embudo de abandono
+
+```{r}
+e <- res$embudo
+e$pregunta <- factor(e$pregunta, levels = e$pregunta)
+ggplot(e, aes(pregunta, respuestas, group = 1)) +
+  geom_line(colour = GRIS) +
+  geom_point(colour = AZUL, size = 3) +
+  geom_text(aes(label = respuestas), vjust = -0.9, size = 3.3, colour = "grey25") +
+  labs(x = NULL, y = "Casos que llegaron", title = "Cuantos casos alcanzan cada pregunta") +
+  expand_limits(y = max(e$respuestas) * 1.12)
+```
+
+```{r}
+kable(res$embudo, col.names = c("Pregunta", "Respuestas", "% vs primera", "Cambio vs anterior"))
+```
+
+## 5. Evolucion por fecha
+
+```{r}
+#| eval: !expr HAY_FECHA
+kable(res$por_fecha,
+      col.names = c("Fecha", "Casos", "Con respuesta", "Completos", "Respuestas", "Audios", "% respuesta"))
+```
+
+```{r}
+#| eval: !expr HAY_FECHA
+f <- res$por_fecha
+lg2 <- rbind(data.frame(fecha = f$fecha, tipo = "Casos", n = f$casos),
+             data.frame(fecha = f$fecha, tipo = "Con respuesta", n = f$con_respuesta),
+             data.frame(fecha = f$fecha, tipo = "Completos", n = f$completos))
+ggplot(lg2, aes(fecha, n, colour = tipo)) +
+  geom_line() + geom_point(size = 2) +
+  scale_colour_manual(values = c(Casos = GRIS, `Con respuesta` = AZUL, Completos = NARANJA), name = NULL) +
+  labs(x = NULL, y = NULL, title = "Casos y respuestas por dia")
+```
+
+## 6. Por etiqueta del caso
+
+```{r}
+#| eval: !expr HAY_ETIQUETA
+kable(res$por_etiqueta,
+      col.names = c("Etiqueta", "Casos", "Con respuesta", "Completos", "% respuesta"))
+```
+
+## Anexo
+
+### Casos de prueba excluidos
+
+```{r}
+#| eval: !expr HAY_TEST
+kable(res$casos_test, col.names = c("Caso", "Persona", "Fecha", "Placeholders"))
+```
+
+### Detalle por persona (primeras 30 filas)
+
+```{r}
+kable(head(res$detalle_personas, 30),
+      col.names = c("Persona", "Respuestas", "Audios", "Textos", "Envios", "Estado"))
+```
+
+El detalle completo, junto con todas las tablas de este reporte, queda como CSV en
+`r dir_out`.
