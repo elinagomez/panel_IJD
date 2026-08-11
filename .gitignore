@@ -81,3 +81,5 @@ GEMINI.md
 AGENTS.md
 CLAUDE.md
 /.quarto/
+
+**/*.quarto_ipynb

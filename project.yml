@@ -26,6 +26,7 @@ drive:
   folder_analisis_id: "15ZLihtbK7NPR-zUTow3LjBzUdgDAtMB8"  # carpeta Análisis del equipo
   folder_audio_id: "1OZ1ORV5T_q25_7z3pcVl1V65sfPAbau2"     # Análisis/A · audios .ogg a transcribir
   folder_text_id: "1UPQ0mFTCynyMJCzR18BP0hEdKG6CWYxY"      # Análisis/B · .txt que devuelve el Colab
+  folder_codificacion_id: "1cabipmHVfNShlH0r1ec3aup3TN-TZ7fz"  # Análisis/C · intercambio de la codificación
 
   # Hoja de preguntas del proyecto, editable por el equipo
   questions_sheet: "https://docs.google.com/spreadsheets/d/1bbNI7fZcPPfdTvsgZWjHOXQUysT56VonXTk68IAVuiw"
@@ -33,14 +34,17 @@ drive:
 # Defaults de codificación de preguntas abiertas con LLM (DriveFlow).
 codificacion:
   provider: "ollama"                # "ollama" (local, no sale de la máquina) u "openai"
-  model: "qwen3:8b"                 # ollama pull qwen3:8b · comparar con qwen3:14b
-  ollama_base_url: "http://localhost:11434"
+  model: "qwen3:4b"                 # ~2.5 GB · si el acuerdo del 20% no alcanza, subir a 8b
+  # 127.0.0.1 y no "localhost": en Windows localhost puede resolver primero a
+  # IPv6 (::1) mientras Ollama escucha solo en IPv4, y la conexión falla.
+  ollama_base_url: "http://127.0.0.1:11434"
   api_key_env: "OPENAI_API_KEY"     # solo se usa si provider = "openai"
 
   temperature: 0                    # determinista: la misma respuesta da el mismo código
   seed: 20260810                    # para que la ronda sea reproducible
   think: false                      # Qwen3 razona por defecto; para clasificar no aporta
-  max_active: 4                     # llamadas en paralelo (bajar si se satura la GPU)
+  max_active: 2                     # llamadas en paralelo (1 si la máquina se pone lenta)
+  max_tokens: 128                   # la salida es un JSON corto de hasta 3 etiquetas
 
   # De dónde se leen la hoja de preguntas y el codebook:
   #   "drive" -> los edita el equipo, es la fuente de verdad

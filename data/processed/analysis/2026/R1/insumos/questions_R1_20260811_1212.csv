@@ -1,0 +1,12 @@
+Fecha,Ronda_id,Pregunta_id,MuestraId,Cliente,Tema,Subtema,Pregunta,Categorias,Tipo,Dependencia
+NA,R1,Q1,M1,CISCO,NA,NA,¿Cómo ves al Uruguay de hoy? Contanos qué pensas sobre la situación del país actualmente.,NA,Abierta,NA
+NA,R1,Q2,M1,CISCO,NA,NA,"Para vos, ¿qué significa tener una buena vida? Contanos cómo sería esa vida en la práctica cotidiana.",NA,Abierta,NA
+NA,R1,Q3,M1,CISCO,NA,NA,"Cuando tenés tiempo libre, ¿qué es lo que hacés con mayor frecuencia?, y ¿qué es lo que más te gustaría hacer?",NA,Abierta,NA
+NA,R1,Q4,M1,CISCO,NA,NA,"Las personas pueden tener distintas ideas sobre qué significa que un país sea desarrollado. ¿Cuál de estas frases representa mejor lo que para vos define a un país desarrollado? Aunque las tres te puedan parecer importantes, elegí una sola opción.","1. Es un país donde la población tiene buenas condiciones de vida y existen bajos niveles de desigualdad.
+2. Es un país con una economía sólida y diversificada, capaz de crecer y generar empleo.
+3. Es un país que mejora la vida de su población priorizando el cuidado del ambiente y los recursos para el futuro.",Cerrada,Q3
+NA,R1,Q5,M1,CISCO,NA,NA,¿Por qué elegiste esa opción?,NA,Abierta,NA
+NA,R1,Q6,M1,CISCO,NA,NA,¿Para qué cosas te parece importante que exista el Estado? ¿Cuáles considerás que son sus funciones?,NA,Abierta,NA
+NA,R1,Q7,M1,CISCO,NA,NA,"Y pensando en particular en el Estado uruguayo, ¿cómo lo describirías? Contanos qué lugar ocupa actualmente en la sociedad y de qué cosas se encarga.",NA,Abierta,NA
+NA,R1,Q8,M1,CISCO,NA,NA,"Cuando escuchás la palabra desigualdad, ¿qué es lo primero en lo que pensás?",NA,Abierta,NA
+NA,R1,Q9,M1,CISCO,NA,NA,"En Uruguay, ¿qué situaciones te parecen desiguales?",NA,Abierta,NA

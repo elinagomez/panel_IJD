@@ -144,9 +144,33 @@ respuestas textuales no salen de la máquina.
 
 | | |
 |---|---|
-| **Scripts** | `DriveFlow/run.R` + `DriveFlow/qualcode.R` |
+| **Scripts** | `DriveFlow/exportar_para_colab.R` → `code/codificacion_colab.ipynb` → `DriveFlow/importar_de_colab.R` |
 | **Entrada** | la ronda transcrita, la hoja de preguntas y el libro de códigos |
 | **Salida** | `<ronda>_codificada.csv` y `QA_<ronda>_sample20.csv` en `data/processed/analysis/<año>/<ronda>/` |
+
+El modelo corre en Colab con GPU, por el mismo esquema de ida y vuelta que la
+transcripción: R deja el trabajo en una carpeta de Drive, el notebook lo procesa y
+devuelve el resultado a la misma carpeta. **Toda la lógica queda en R** — codebook,
+dependencias, prompts, validaciones — y el notebook solo ejecuta el modelo, así que no
+hay reglas duplicadas en dos lenguajes.
+
+```mermaid
+flowchart LR
+  classDef proceso fill:#ECFEFF,stroke:#06B6D4,color:#0E7490;
+  classDef externo fill:#FDF2F8,stroke:#F472B6,color:#831843;
+
+  R1["R: arma los prompts<br/>y una fila por respuesta"]:::proceso
+  D1["Drive · C/&lt;ronda&gt;<br/>tareas + prompts"]:::externo
+  CL["Colab · Qwen3 con GPU<br/>salida restringida al codebook"]:::externo
+  D2["Drive · C/&lt;ronda&gt;<br/>codigos"]:::externo
+  R2["R: pega los códigos<br/>y arma la muestra del 20%"]:::proceso
+
+  R1 --> D1 --> CL --> D2 --> R2
+```
+
+Quien prefiera correrlo en su propia máquina puede usar `DriveFlow/run.R`, que hace lo
+mismo contra un [Ollama](https://ollama.com) local. Es el mismo motor y el mismo modelo,
+así que los resultados son comparables; la única diferencia es dónde corre.
 
 Los dos insumos humanos viven en la carpeta de Drive del equipo, para que puedan
 editarlos sin pasar por GitHub:
@@ -198,10 +222,10 @@ flowchart TB
   H2 -. corrige el codebook .-> CB
 ```
 
-**El modelo no puede inventar categorías.** `type_enum()` restringe la salida a las
-etiquetas del codebook, así que en el peor caso elige mal entre las que definiste. Todo
-el trabajo conceptual está en los dos insumos humanos, y el codebook se escribe leyendo
-respuestas reales: por eso este paso va después de transcribir, nunca antes.
+**El modelo no puede inventar categorías.** La salida está restringida por un esquema a
+las etiquetas del codebook, así que en el peor caso elige mal entre las que definiste.
+Todo el trabajo conceptual está en los dos insumos humanos, y el codebook se escribe
+leyendo respuestas reales: por eso este paso va después de transcribir, nunca antes.
 
 Cómo trata cada pregunta:
 
@@ -229,9 +253,43 @@ el porcentaje de coincidencia exacta, el porcentaje con al menos un código en c
 el Jaccard promedio. Ese mismo archivo sirve para comparar tamaños de modelo con datos
 en vez de a ojo.
 
-`run.R` arranca en modo prueba: `SOLO` limita las preguntas y `N_FILAS` las filas, y
-antes de codificar hace un test de conexión con una sola respuesta e informa el tiempo
-por llamada, para estimar lo que va a tardar la ronda completa.
+### Paso a paso de una codificación
+
+**1. Exportar el trabajo a Drive**, desde R en la raíz del proyecto:
+
+```bash
+Rscript DriveFlow/exportar_para_colab.R
+```
+
+Lee la ronda transcrita, la hoja de preguntas y el libro de códigos; valida los insumos y
+corta si hay algo mal; guarda una copia congelada de ambos en `insumos/`; y sube a
+`Análisis/C/<ronda>` dos archivos: `prompts_<ronda>.csv` (un prompt por pregunta, o uno
+por opción en las preguntas con dependencia) y `tareas_<ronda>.csv` (una fila por
+respuesta a clasificar). Para probar con poco, arriba del script están `SOLO` y `N_FILAS`.
+
+**2. Correr el notebook en Colab.** Abrir `codificacion_colab.ipynb` desde la carpeta
+Análisis, poner Entorno de ejecución → GPU (T4), y ejecutar las celdas en orden. Instala
+Ollama en la máquina de Colab, descarga el modelo, encuentra la carpeta de la ronda y
+codifica, escribiendo `codigos_<ronda>.csv` cada 25 respuestas. Si se corta la sesión, se
+vuelve a correr la celda 5 y sigue con lo que falta; los `ERROR` se reintentan.
+
+**3. Importar el resultado**, de vuelta en R:
+
+```bash
+Rscript DriveFlow/importar_de_colab.R
+```
+
+Baja los códigos, los pega a la base de la ronda en columnas `codigo_<q>`, avisa si
+alguna etiqueta quedó fuera del codebook, imprime la distribución de cada pregunta y deja
+la muestra del 20% para revisar.
+
+**4. Revisar y medir.** Completar a mano la columna `codigo_<q>_rev` de la muestra y
+correr `medir_acuerdo()` sobre ese archivo.
+
+La alternativa local es `Rscript DriveFlow/run.R`, que hace los tres pasos de una contra
+Ollama en la propia máquina. Arranca en modo prueba (`SOLO`, `N_FILAS`) y antes de
+codificar corre `diagnostico_modelo()`, que chequea versiones de paquetes y que el
+servidor responda.
 
 ## Estructura
 
@@ -243,11 +301,14 @@ code/
   matching.R                    export + contactos -> base cruzada
   transcripciones.qmd           audios -> Drive -> Colab -> texto
   whisper_colab.ipynb           notebook de transcripción, se sube a Colab
+  codificacion_colab.ipynb      notebook de codificación, se sube a Colab
   analisis_panel.R              métricas de cobertura y completitud
   reporte_panel.qmd             reporte HTML de la ronda
 DriveFlow/
   qualcode.R                    funciones de codificación con LLM
-  run.R                         corrida de codificación de una ronda
+  exportar_para_colab.R         arma prompts y tareas, y los sube a Drive
+  importar_de_colab.R           baja los códigos y los pega a la ronda
+  run.R                         alternativa: codifica en la propia máquina
 data/
   raw/limesurvey/               encuesta de reclutamiento y diccionario
   raw/campaigns_wcx/            export crudo de la plataforma, por ronda
@@ -317,7 +378,8 @@ salida. Cualquier campo de `codificacion` se puede pisar acá para una ronda pun
 6. Cargar las preguntas de la ronda en la hoja de preguntas, leer una muestra de
    respuestas abiertas y escribir el codebook en una hoja nueva de `LibroCodigos`,
    nombrada igual que la ronda.
-7. Copiar `DriveFlow/_template.yml` a `DriveFlow/<ronda>.yml` y correr `DriveFlow/run.R`.
+7. Copiar `DriveFlow/_template.yml` a `DriveFlow/<ronda>.yml` y codificar:
+   `exportar_para_colab.R` → notebook en Colab → `importar_de_colab.R`.
 8. Revisar a mano la muestra del 20% y correr `medir_acuerdo()`.
 
 ## Requisitos
@@ -326,5 +388,6 @@ salida. Cualquier campo de `codificacion` se puede pisar acá para una ronda pun
   `googledrive`, `googlesheets4`, `ggplot2`, `knitr`.
 - **Quarto**, para los reportes y los notebooks `.qmd`.
 - **Cuenta de Google** autenticada con acceso a las carpetas de `project.yml`.
-- **Ollama** corriendo (`ollama serve`) con el modelo descargado (`ollama pull qwen3:8b`).
-- **Colab con GPU** para la transcripción.
+- **Colab con GPU** para la transcripción y la codificación.
+- **Ollama** solo si se codifica en la propia máquina: `ollama serve` con el modelo
+  descargado. Requiere `curl` >= 6.3.0 en R, y conviene una máquina con GPU dedicada.

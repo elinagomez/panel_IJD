@@ -54,6 +54,11 @@ for (q in names(cfg)) {
 
 # ---- 2. Verificar que el modelo responde -----------------------------------
 
+if (!isTRUE(diagnostico_modelo(CONFIG))) {
+  stop("el entorno no esta listo: ver el diagnostico de arriba. ",
+       "No tiene sentido seguir, todas las llamadas van a fallar.", call. = FALSE)
+}
+
 q_test <- names(cfg)[1]
 message("\nprueba de conexion con una sola respuesta de ", q_test, "...")
 
@@ -86,9 +91,18 @@ for (q in names(cfg)) {
   out[[col_codigo]] <- codificar_pregunta(raw = out, cfg = cfg[[q]], CONFIG = CONFIG)
   out <- dplyr::relocate(out, dplyr::all_of(col_codigo), .after = dplyr::all_of(q))
 
+  n_error <- sum(out[[col_codigo]] == "ERROR", na.rm = TRUE)
+  n_ok    <- sum(!is.na(out[[col_codigo]]) & out[[col_codigo]] != "ERROR")
+
   message("  ", round(as.numeric(difftime(Sys.time(), t0, units = "mins")), 1), " min | ",
-          sum(out[[col_codigo]] == "ERROR", na.rm = TRUE), " errores del modelo | ",
+          n_ok, " codificadas | ", n_error, " errores del modelo | ",
           sum(is.na(out[[col_codigo]])), " sin respuesta")
+
+  if (n_ok == 0) {
+    stop("ninguna respuesta de ", q, " se pudo codificar. No es un problema del codebook: ",
+         "revisar los mensajes del modelo de arriba y la salida de diagnostico_modelo().",
+         call. = FALSE)
+  }
 
   print(frecuencia_codigos(out, q))
 }

@@ -1,0 +1,11 @@
+"pregunta","audio","texto","placeholder","vacio","respuestas","pct_sobre_casos","pct_audio","activa"
+"Caso: q1",22,133,1,203,155,43.2,14.2,TRUE
+"Caso: q2",23,124,0,212,147,43.2,15.6,TRUE
+"Caso: q3",26,115,0,218,141,43.2,18.4,TRUE
+"Caso: q4",0,137,0,222,137,43.2,0,TRUE
+"Caso: q5",25,109,0,225,134,43.2,18.7,TRUE
+"Caso: q6",27,102,0,230,129,43.2,20.9,TRUE
+"Caso: q7",28,91,0,240,119,43.2,23.5,TRUE
+"Caso: q8",26,91,0,242,117,43.2,22.2,TRUE
+"Caso: q9",25,92,0,242,117,43.2,21.4,TRUE
+"Caso: q10",0,0,0,359,0,43.2,0,FALSE

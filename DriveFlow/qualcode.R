@@ -543,9 +543,12 @@ build_chat <- function(system_prompt, CONFIG) {
 
   provider <- CONFIG$provider %||% "ollama"
 
+  # max_tokens acotado: la respuesta esperada es un JSON de tres etiquetas, no
+  # hace falta reservar espacio de generacion largo.
   parametros <- ellmer::params(
     temperature = CONFIG$temperature %||% 0,
-    seed        = CONFIG$seed %||% NULL
+    seed        = CONFIG$seed %||% NULL,
+    max_tokens  = CONFIG$max_tokens %||% NULL
   )
 
   if (identical(provider, "ollama")) {
@@ -575,6 +578,83 @@ tipo_salida <- function(etiquetas) {
   ellmer::type_object(
     codigos = ellmer::type_array(ellmer::type_enum(values = etiquetas))
   )
+}
+
+#' Chequeo previo: versiones de paquetes y si el servidor del modelo responde.
+#' Conviene correrlo antes de codificar: la mayoria de los fallos masivos no son
+#' del modelo sino de la instalacion o de que el servidor no esta levantado.
+diagnostico_modelo <- function(CONFIG) {
+
+  # curl >= 6.3.0 es obligatorio: httr2 construye las URLs con
+  # curl::curl_modify_url(), que recien existe a partir de esa version.
+  minimos <- c(curl = "6.3.0", httr2 = "1.0.0", ellmer = "0.2.0", jsonlite = "1.8.0")
+
+  message("paquetes:")
+  problemas <- character(0)
+
+  for (p in names(minimos)) {
+
+    instalada <- tryCatch(as.character(utils::packageVersion(p)), error = function(e) NA_character_)
+    cargada   <- if (p %in% loadedNamespaces()) as.character(getNamespaceVersion(p)) else NA_character_
+
+    if (is.na(instalada)) {
+      message("  ", p, ": NO INSTALADO")
+      problemas <- c(problemas, glue("falta instalar {p}: install.packages('{p}')"))
+      next
+    }
+
+    detalle <- glue("  {p}: {instalada}")
+    if (!is.na(cargada) && cargada != instalada) {
+      detalle <- glue("{detalle} instalada / {cargada} CARGADA EN MEMORIA")
+      problemas <- c(problemas, glue("reiniciar R: hay una version vieja de {p} cargada en memoria"))
+    }
+
+    vieja <- utils::compareVersion(instalada, minimos[[p]]) < 0
+    if (vieja) {
+      detalle <- glue("{detalle}  <-- DESACTUALIZADO, requiere >= {minimos[[p]]}")
+      problemas <- c(problemas, glue("actualizar {p} a >= {minimos[[p]]}"))
+    }
+    message(detalle)
+  }
+
+  if (length(problemas)) {
+    message("\nhay que resolver esto antes de codificar:")
+    for (p in unique(problemas)) message("  - ", p)
+    message("  en Windows, si install.packages() no logra reemplazar el paquete, cerrar")
+    message("  todas las sesiones de R y reinstalar desde una sesion nueva y limpia")
+  }
+
+  if (!identical(CONFIG$provider %||% "ollama", "ollama")) {
+    return(invisible(length(problemas) == 0))
+  }
+
+  base <- CONFIG$ollama_base_url %||% "http://localhost:11434"
+
+  ok <- tryCatch({
+    resp <- httr2::request(paste0(base, "/api/tags")) |>
+      httr2::req_timeout(10) |>
+      httr2::req_perform()
+    modelos <- vapply(httr2::resp_body_json(resp)$models,
+                      function(m) as.character(m$name), character(1))
+    message("ollama responde en ", base)
+    message("  modelos disponibles: ", paste(modelos, collapse = ", "))
+
+    pedido <- CONFIG$model %||% "qwen3:8b"
+    if (!any(startsWith(modelos, sub(":.*$", "", pedido)))) {
+      warning("el modelo '", pedido, "' no aparece descargado: correr  ollama pull ", pedido,
+              call. = FALSE)
+    }
+    TRUE
+  }, error = function(e) {
+    message("ollama NO responde en ", base)
+    message("  ", conditionMessage(e))
+    message("  1) instalarlo desde https://ollama.com/download si no esta")
+    message("  2) dejarlo corriendo:  ollama serve   (una terminal aparte, no cerrarla)")
+    message("  3) descargar el modelo: ollama pull ", CONFIG$model %||% "qwen3:8b")
+    FALSE
+  })
+
+  invisible(isTRUE(ok) && length(problemas) == 0)
 }
 
 # ---- 8. Clasificacion -------------------------------------------------------
@@ -623,15 +703,32 @@ codificar_lote <- function(prompt_sistema, textos, etiquetas, CONFIG) {
 
   if (!is.null(paralelo)) return(paralelo)
 
-  vapply(textos, function(txt) {
+  # Camino secuencial. Los errores se registran y se reportan: si algo esta mal
+  # configurado, el mensaje del modelo importa mas que la cuenta de fallos.
+  fallos <- character(0)
+
+  salida <- vapply(textos, function(txt) {
     tryCatch({
       chat <- build_chat(prompt_sistema, CONFIG)
       r <- chat$chat_structured(txt, type = tipo)
       v <- unlist(r$codigos, use.names = FALSE)
       v <- v[!is.na(v) & nzchar(v)]
       if (!length(v)) "ERROR" else paste(unique(v), collapse = "; ")
-    }, error = function(e) "ERROR")
+    }, error = function(e) {
+      fallos <<- c(fallos, conditionMessage(e))
+      "ERROR"
+    })
   }, character(1), USE.NAMES = FALSE)
+
+  if (length(fallos)) {
+    tipos <- table(substr(fallos, 1, 160))
+    message("    ", length(fallos), " de ", n, " fallaron. Mensajes del modelo:")
+    for (i in seq_along(tipos)) {
+      message("      ", tipos[[i]], "x  ", names(tipos)[i])
+    }
+  }
+
+  salida
 }
 
 #' Codifica una pregunta abierta completa.
@@ -718,15 +815,25 @@ medir_acuerdo <- function(revisado) {
   })
 }
 
+#' Distribucion de codigos de una pregunta.
+#' Se arma a mano y no con as.data.frame(table(...)) porque cuando hay un solo
+#' codigo distinto la tabla pierde la dimension y queda de una sola columna.
 frecuencia_codigos <- function(out, q) {
-  paste0("codigo_", q) |>
-    (\(cc) out[[cc]])() |>
-    strsplit("\\s*;\\s*") |>
-    unlist() |>
-    trimws() |>
-    (\(v) v[nzchar(v)])() |>
-    table() |>
-    sort(decreasing = TRUE) |>
-    as.data.frame() |>
-    setNames(c("codigo", "n"))
+
+  cc <- paste0("codigo_", q)
+  if (!cc %in% names(out)) stop("no existe la columna ", cc)
+
+  v <- unlist(strsplit(as.character(out[[cc]]), "\\s*;\\s*"), use.names = FALSE)
+  v <- trimws(v)
+  v <- v[!is.na(v) & nzchar(v)]
+
+  if (!length(v)) return(tibble(codigo = character(0), n = integer(0), pct = numeric(0)))
+
+  tb <- table(v)
+  tibble(
+    codigo = names(tb),
+    n      = as.integer(tb),
+    pct    = round(100 * as.integer(tb) / sum(!is.na(out[[cc]])), 1)
+  ) |>
+    dplyr::arrange(dplyr::desc(n))
 }

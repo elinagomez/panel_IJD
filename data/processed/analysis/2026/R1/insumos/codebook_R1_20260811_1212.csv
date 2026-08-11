@@ -1,0 +1,86 @@
+pregunta,etiqueta,descripcion
+Q1,estancamiento,"País detenido o sin cambios significativos: los mismos problemas de siempre, falta de rumbo."
+Q1,deterioro_retroceso,Percepción de declive o empeoramiento respecto de un pasado reciente mejor.
+Q1,inseguridad,"El delito, la violencia o el narcotráfico como rasgo dominante del país actual."
+Q1,desigualdad_pobreza,"Desigualdad social, pobreza, gente en situación de calle o marginación."
+Q1,servicios_publicos_deficientes,"Deterioro de la educación, la salud u otros servicios del Estado."
+Q1,economia_costo_de_vida,"Costo de vida, salarios, empleo, impuestos o situación económica de los hogares."
+Q1,perdida_de_valores_convivencia,"Deterioro de la convivencia, pérdida de valores, desintegración o falta de solidaridad."
+Q1,estabilidad_valorada,"Reconoce estabilidad democrática, institucional o económica, en general comparando con la región."
+Q1,avances_positivos,Identifica mejoras concretas o avances en políticas públicas.
+Q1,no_clasificable,"Respuesta vacía, evasiva, tautológica o que no responde la pregunta."
+Q2,necesidades_basicas_cubiertas,"Tener cubierto lo básico: comida, higiene, servicios, lo mínimo para vivir."
+Q2,vivienda_digna,Acceso a una vivienda adecuada como condición de la buena vida.
+Q2,trabajo_e_ingreso_suficiente,Trabajo estable y un sueldo que alcance para sostenerse o sostener a la familia.
+Q2,tranquilidad_economica,"Llegar a fin de mes sin angustia, no tener que contar los pesos."
+Q2,salud,Tener salud o acceso a atención sanitaria.
+Q2,educacion,"Acceso a educación de calidad, para sí o para los hijos."
+Q2,vinculos_y_familia,"Compartir con la familia, los afectos o la comunidad."
+Q2,tiempo_libre_y_disfrute,"Poder descansar, disfrutar, tener ocio o hacer lo que le gusta."
+Q2,seguridad,"Vivir sin miedo, seguridad pública o social."
+Q2,autonomia_y_proyecto_propio,"Poder elegir, crecer, desarrollarse o cumplir metas propias."
+Q2,no_clasificable,"Respuesta vacía, evasiva, tautológica o que no responde la pregunta."
+Q3,deporte_y_ejercicio,"Practicar deporte, gimnasio o actividad física."
+Q3,pantallas_series_redes,"Ver series, televisión, YouTube o usar redes sociales."
+Q3,lectura,Leer libros u otro material.
+Q3,familia_y_vinculos,"Pasar tiempo con hijos, pareja, familia o amigos."
+Q3,descanso,"Dormir, descansar, no hacer nada."
+Q3,naturaleza_y_aire_libre,"Estar al aire libre, playa, campo, caminar."
+Q3,salir_pasear_viajar,"Salir a pasear, comer afuera, viajar o conocer lugares."
+Q3,tareas_domesticas_y_cuidados,El tiempo libre se ocupa en tareas de la casa o en cuidar a otros.
+Q3,trabajo_o_estudio,Usa el tiempo libre para trabajar o estudiar.
+Q3,barrera_economica,Menciona que no puede hacer lo que quisiera por falta de dinero.
+Q3,barrera_de_tiempo,Menciona que no puede hacer lo que quisiera por falta de tiempo.
+Q3,no_clasificable,"Respuesta vacía, evasiva, tautológica o que no responde la pregunta."
+Q5,bienestar_y_calidad_de_vida,Justifica por el bienestar de las personas o su calidad de vida.
+Q5,igualdad_y_distribucion,"Justifica por la igualdad, la justicia distributiva o que el desarrollo llegue a todos."
+Q5,economia_produccion_empleo,"Justifica por el funcionamiento económico, la producción o el empleo."
+Q5,sostenibilidad_ambiental,Justifica por el cuidado del medio ambiente o el futuro de las próximas generaciones.
+Q5,derechos_y_oportunidades,Justifica por el acceso a derechos u oportunidades.
+Q5,rol_del_estado,Justifica por lo que el Estado o el gobierno debería garantizar.
+Q5,las_tres_van_juntas,Sostiene que las tres opciones son inseparables o complementarias.
+Q5,respuesta_tautologica,"Repite la opción elegida o dice que es la que más le convence, sin dar razón."
+Q5,no_clasificable,"Respuesta vacía, evasiva o que no responde la pregunta."
+Q6,garantizar_derechos_sociales,"Asegurar salud, educación, vivienda o seguridad social."
+Q6,reducir_desigualdades,"Redistribuir, proteger a los más vulnerables, achicar brechas."
+Q6,seguridad_y_justicia,"Seguridad pública, policía, justicia, resolución de conflictos."
+Q6,control_y_cumplimiento_de_la_ley,"Hacer cumplir la ley, regular conductas, fiscalizar."
+Q6,regulacion_de_la_economia,"Regular mercados, precios, trabajo o la actividad económica."
+Q6,provision_de_servicios_y_empresas_publicas,Brindar servicios o sostener empresas públicas.
+Q6,administrar_y_organizar,"Administrar el territorio, organizar, dirigir, planificar."
+Q6,soberania_y_defensa,"Defender la soberanía, las fronteras o el territorio."
+Q6,estado_minimo,Sostiene que el Estado debería limitarse a lo básico o reducir su tamaño.
+Q6,no_clasificable,"Respuesta vacía, evasiva, tautológica o que no responde la pregunta."
+Q7,presente_y_protector,"Estado presente, benefactor, que se ocupa de la población."
+Q7,ausente_o_insuficiente,"Estado que no llega, que dejó de garantizar derechos o está omiso."
+Q7,sobredimensionado_y_burocratico,"Demasiado grande, exceso de empleados públicos, burocracia, duplicación de funciones."
+Q7,ineficiente_o_mal_gestionado,Tiene recursos pero los usa mal; mala gestión o mala administración.
+Q7,servicios_de_calidad,"Destaca la calidad de servicios públicos concretos, como salud o educación."
+Q7,tradicion_democratica,"Valora la tradición democrática, institucional o el respeto a las reglas."
+Q7,gasto_excesivo,"Señala el costo fiscal, el gasto o la presión impositiva que implica."
+Q7,no_hace_cumplir_la_ley,Señala impunidad o que el Estado no hace respetar la ley.
+Q7,valoracion_negativa_generica,Descalificación global sin especificar en qué falla.
+Q7,valoracion_ambivalente,Combina aspectos positivos y negativos sin predominio claro.
+Q7,no_clasificable,"Respuesta vacía, evasiva, tautológica o que no responde la pregunta."
+Q8,diferencias_economicas_e_ingresos,"Piensa en diferencias de ingreso, riqueza o nivel económico."
+Q8,pobreza,Piensa directamente en la pobreza o la miseria.
+Q8,oportunidades_y_acceso,"Piensa en el acceso desigual a oportunidades, bienes o servicios."
+Q8,infancia_y_adolescencia,"Piensa en niños, niñas o adolescentes en desventaja."
+Q8,injusticia,"Nombra la desigualdad como injusticia o algo indeseable, en clave valorativa."
+Q8,poder_y_clases,"Piensa en el poder, las clases dominantes o quién decide."
+Q8,educacion,Piensa en la educación como eje de la desigualdad.
+Q8,genero,Piensa en desigualdades de género.
+Q8,exclusion_y_marginacion,"Piensa en gente en la calle, barrios marginados o quedar fuera del sistema."
+Q8,cuestiona_el_concepto,"Relativiza o niega la desigualdad: depende del esfuerzo de cada uno, no hay barreras."
+Q8,no_clasificable,"Respuesta vacía, evasiva, tautológica o que no responde la pregunta."
+Q9,ingresos_salarios_jubilaciones,"Brechas de salarios, ingresos o jubilaciones entre sectores."
+Q9,acceso_a_la_educacion,Desigualdad en el acceso o la calidad educativa.
+Q9,acceso_a_la_salud,Desigualdad en el acceso a la salud.
+Q9,empleo_y_mercado_laboral,Desigualdad en el acceso al empleo o en las condiciones de trabajo.
+Q9,vivienda_y_habitat,"Desigualdad en vivienda, infraestructura o condiciones del entorno."
+Q9,territorial,"Diferencias entre barrios, entre Montevideo y el interior, o entre zonas del país."
+Q9,genero,"Desigualdad de género, incluida la carga de cuidados."
+Q9,etnico_racial,Desigualdad por ascendencia étnico-racial.
+Q9,distribucion_de_riqueza_y_poder,Concentración de riqueza o de poder político y económico.
+Q9,cuestiona_politicas_afirmativas,Señala como desigualdad a los cupos o políticas dirigidas a grupos específicos.
+Q9,no_clasificable,"Respuesta vacía, evasiva, tautológica o que no responde la pregunta."
