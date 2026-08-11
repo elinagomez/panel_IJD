@@ -1,4 +1,4 @@
-# Panel de encuestas por WhatsApp
+# Panel de encuestas por WhatsApp - CISCO/ IJD, UDELAR
 
 Este repositorio procesa las **rondas** de un panel de encuestas: un mismo grupo de
 personas al que se vuelve a consultar periódicamente para poder comparar sus respuestas
@@ -15,7 +15,7 @@ existen en una encuesta tradicional:
 El resultado de cada ronda es una base limpia, con demográficos, transcripciones y
 respuestas abiertas codificadas, comparable con las rondas anteriores.
 
-## El flujo completo
+## Flujo
 
 ```mermaid
 flowchart TB
@@ -53,7 +53,7 @@ flowchart TB
   TOUT --> ACUM
 ```
 
-## Los pasos, uno por uno
+## Pasos
 
 ### 1. Contactos y cruce
 
