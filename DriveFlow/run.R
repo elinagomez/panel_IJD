@@ -5,7 +5,7 @@
 # Antes de correr:
 #   1. ollama serve            (deja el servidor escuchando en localhost:11434)
 #   2. ollama pull qwen3:8b
-#   3. revisar data/raw/codebook/questions.xlsx y BookR1.xlsx
+#   3. revisar en Drive la hoja de preguntas y la hoja de la ronda en LibroCodigos
 #
 # Correr desde la raiz del proyecto:  Rscript DriveFlow/run.R
 # o abriendo este archivo en RStudio y ejecutando por bloques.
@@ -24,13 +24,19 @@ SOLO    <- c("q5")
 N_FILAS <- 20
 
 # ---- 1. Insumos -------------------------------------------------------------
+# Con insumos: "drive" se leen la hoja de preguntas y el codebook que edita el
+# equipo. validar_insumos() corta si hay algo mal antes de gastar tiempo de
+# modelo, y guardar_snapshot() deja una copia congelada junto a los resultados.
 
-ins       <- leer_insumos(CONFIG)
+ins <- leer_insumos(CONFIG)
+validar_insumos(ins, CONFIG)
+guardar_snapshot(ins, CONFIG)
+
 raw       <- ins$raw
 questions <- ins$questions
 codebook  <- ins$codebook
 
-cfg <- make_cfg(raw = raw, questions = questions, codebook = codebook)
+cfg <- make_cfg(raw = raw, questions = questions, codebook = codebook, CONFIG = CONFIG)
 
 if (!is.null(SOLO)) {
   faltan <- setdiff(SOLO, names(cfg))
@@ -41,7 +47,8 @@ if (!is.null(SOLO)) {
 message("\nmodelo: ", CONFIG$provider, " / ", CONFIG$model)
 message("preguntas a codificar: ", paste(names(cfg), collapse = ", "))
 for (q in names(cfg)) {
-  message("  ", q, ": ", length(cfg[[q]]$etiquetas), " etiquetas | dependencia: ",
+  message("  ", q, " (", cfg[[q]]$id_hoja, "): ", length(cfg[[q]]$etiquetas),
+          " etiquetas | dependencia: ",
           ifelse(is.na(cfg[[q]]$dependencia), "no", cfg[[q]]$dependencia))
 }
 
@@ -106,12 +113,14 @@ message("\nguardado:")
 message("  ", paste0(archivo_base, ".csv"))
 message("  ", archivo_rev, "  <- completar codigo_<q>_rev a mano")
 
-# ---- 5. Subir a Drive (opcional) -------------------------------------------
-# Requiere folder_url en DriveFlow/R1.yml y drive_auth() hecho.
+# ---- 5. Subir a Drive ------------------------------------------------------
+# Deja los resultados en la misma carpeta Análisis, para que el equipo revise
+# la muestra sin pasar por GitHub.
 
-if (isTRUE(CONFIG$subir_a_drive) && nzchar(CONFIG$folder_url %||% "")) {
-  save_drive(out,      CONFIG$folder_url, CONFIG$output_spreadsheet, CONFIG$output_sheet)
-  save_drive(revision, CONFIG$folder_url, paste0("QA_", CONFIG$round), "sample_20")
+if (isTRUE(CONFIG$subir_a_drive)) {
+  folder <- CONFIG$folder_analisis_id %||% CONFIG$drive$folder_analisis_id
+  save_drive(out,      folder, CONFIG$output_spreadsheet, CONFIG$output_sheet)
+  save_drive(revision, folder, paste0("QA_", CONFIG$round), "sample_20")
 }
 
 # ---- 6. Despues de revisar a mano ------------------------------------------

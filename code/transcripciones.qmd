@@ -17,9 +17,8 @@ Este documento ejecuta paso a paso el flujo para:
 > Ejecutar los bloques de arriba hacia abajo. Las rutas se derivan de `project.yml`,
 > así que al cambiar de ronda solo hay que editar el bloque `ronda:` de ese archivo.
 
-> **Antes de empezar:** crear en Drive las subcarpetas `A/<round_id>` y `B/<round_id>`
-> (o los nombres que figuren en `drive$folder_audio` / `drive$folder_text`), y completar
-> `drive$account_email` en `project.yml` con la cuenta que usa el Colab.
+> **Antes de empezar:** completar en `project.yml` la cuenta de Drive y los IDs de las
+> carpetas de audio y texto. Las subcarpetas de la ronda se crean solas si no existen.
 
 ## 0) Librerías y autenticación en Google Drive
 
@@ -56,8 +55,24 @@ ruta_textos   <- paste0(dir_round_raw, "/text")
 ruta_out_csv  <- paste0(dir_out, "/transcripcion_", round_id, ".csv")
 ruta_out_xlsx <- paste0(dir_out, "/transcripcion_", round_id, ".xlsx")
 
-drive_folder_audio <- project_cfg$drive$folder_audio
-drive_folder_text  <- project_cfg$drive$folder_text
+# Carpetas de Drive por ID, no por ruta de nombres: la carpeta del equipo está
+# compartida y no cuelga de "Mi unidad", así que "A/R1/" no resuelve.
+id_audio <- project_cfg$drive$folder_audio_id
+id_text  <- project_cfg$drive$folder_text_id
+stopifnot(nzchar(id_audio), nzchar(id_text))
+
+#' Encuentra o crea la subcarpeta de la ronda dentro de una carpeta de Drive
+carpeta_ronda <- function(folder_id, nombre) {
+  hijos <- drive_ls(as_id(folder_id), type = "folder")
+  hit   <- hijos[hijos$name == nombre, ]
+  if (nrow(hit) == 1) return(hit$id[[1]])
+  if (nrow(hit) > 1) stop("Hay varias carpetas '", nombre, "' en la carpeta indicada.")
+  message("creo la carpeta ", nombre, " en Drive")
+  drive_mkdir(nombre, path = as_id(folder_id))$id[[1]]
+}
+
+id_audio_ronda <- carpeta_ronda(id_audio, round_id)
+id_text_ronda  <- carpeta_ronda(id_text,  round_id)
 
 dir.create(ruta_voz,    recursive = TRUE, showWarnings = FALSE)
 dir.create(ruta_textos, recursive = TRUE, showWarnings = FALSE)
@@ -91,16 +106,17 @@ descargar_ogg <- function(link, carpeta_destino, nombre_archivo) {
   destino
 }
 
-upload_gd_ogg <- function(dir_local, round, drive_folder_root = drive_folder_audio) {
-  drive_path <- paste0(drive_folder_root, "/", round, "/")
+upload_gd_ogg <- function(dir_local, destino_id = id_audio_ronda) {
   archivos <- list.files(dir_local, full.names = TRUE, pattern = "\\.ogg$")
   if (length(archivos) == 0) {
     message("no se encontraron archivos .ogg en: ", dir_local)
     return(invisible(NULL))
   }
+  ya <- drive_ls(as_id(destino_id))$name
   for (p in archivos) {
-    drive_upload(p, path = drive_path)
-    message(sprintf("subido a drive: %s → %s", basename(p), drive_path))
+    if (basename(p) %in% ya) next          # no duplicar si se corre dos veces
+    drive_upload(p, path = as_id(destino_id))
+    message(sprintf("subido a drive: %s", basename(p)))
   }
 }
 ```
@@ -140,7 +156,7 @@ message(sprintf("audios locales: %d", length(list.files(ruta_voz, pattern = "\\.
 ## 4) Subir los .ogg a Drive para el Colab
 
 ```{r}
-upload_gd_ogg(dir_local = ruta_voz, round = round_id)
+upload_gd_ogg(dir_local = ruta_voz)
 message("archivos .ogg subidos. ejecutá el Colab de Whisper y volvé para continuar.")
 ```
 
@@ -148,9 +164,27 @@ message("archivos .ogg subidos. ejecutá el Colab de Whisper y volvé para conti
 
 ```{r}
 archivos_drive <- drive_ls(
-  path    = paste0(drive_folder_text, "/", round_id),
+  path    = as_id(id_text_ronda),
   pattern = "\\.txt$"
 )
+
+# Drive admite dos archivos con el mismo nombre en la misma carpeta, asi que si
+# el Colab reescribio alguno pueden haber quedado duplicados. Se conserva la
+# version mas reciente de cada nombre.
+if (any(duplicated(archivos_drive$name))) {
+  n_dup <- sum(duplicated(archivos_drive$name))
+  warning("hay ", n_dup, " .txt duplicados en Drive; uso el mas reciente de cada nombre")
+
+  modificado <- vapply(
+    archivos_drive$drive_resource,
+    function(x) if (is.null(x$modifiedTime)) "" else as.character(x$modifiedTime),
+    character(1)
+  )
+  orden <- order(archivos_drive$name, modificado,
+                 decreasing = c(FALSE, TRUE), method = "radix")
+  archivos_drive <- archivos_drive[orden, ]
+  archivos_drive <- archivos_drive[!duplicated(archivos_drive$name), ]
+}
 
 for (i in seq_len(nrow(archivos_drive))) {
   drive_download(as_id(archivos_drive$id[i]),
@@ -158,6 +192,9 @@ for (i in seq_len(nrow(archivos_drive))) {
                  overwrite = TRUE)
   message(sprintf("descargado txt: %s", archivos_drive$name[i]))
 }
+
+message(sprintf("%d transcripciones bajadas | %d audios esperados",
+                nrow(archivos_drive), n_audios))
 ```
 
 ## 6) Mapear cada .txt a su fila y columna original

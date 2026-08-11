@@ -145,8 +145,25 @@ respuestas textuales no salen de la máquina.
 | | |
 |---|---|
 | **Scripts** | `DriveFlow/run.R` + `DriveFlow/qualcode.R` |
-| **Entrada** | la ronda transcrita, `questions` y el codebook de la ronda |
+| **Entrada** | la ronda transcrita, la hoja de preguntas y el libro de códigos |
 | **Salida** | `<ronda>_codificada.csv` y `QA_<ronda>_sample20.csv` en `data/processed/analysis/<año>/<ronda>/` |
+
+Los dos insumos humanos viven en la carpeta de Drive del equipo, para que puedan
+editarlos sin pasar por GitHub:
+
+- **hoja de preguntas** — una fila por pregunta del proyecto: id, texto, tipo (abierta o
+  cerrada), tema, opciones de las cerradas y de qué cerrada depende cada abierta.
+- **`LibroCodigos`** — un único libro con **una hoja por ronda** (`R1`, `R2`, …). Cada
+  hoja lleva `pregunta`, `etiqueta` y `descripcion`. Para una ronda nueva se duplica la
+  hoja anterior y se la renombra: no hace falta crear archivos nuevos.
+
+Los nombres de columna se reconocen ignorando mayúsculas, guiones y tildes, y los ids de
+pregunta también (`Q1` y `q1` son lo mismo), así que el equipo puede escribirlos como le
+resulte natural.
+
+En cada corrida se guarda una **copia congelada** de los dos insumos junto a los
+resultados, en `insumos/`. Sin eso no hay forma de reconstruir con qué versión del
+codebook se codificó una ronda ya publicada.
 
 El reparto entre lo humano y lo automático:
 
@@ -235,7 +252,7 @@ data/
   raw/limesurvey/               encuesta de reclutamiento y diccionario
   raw/campaigns_wcx/            export crudo de la plataforma, por ronda
   raw/contacts/                 contactos con demográficos, por fecha de corte
-  raw/codebook/                 questions y codebook por ronda
+  raw/codebook/                 copia local de la hoja de preguntas y del libro de códigos
   raw/transcriptions/<año>/<ronda>/   voice/ (.ogg) y text/ (.txt)
   raw/acumulada/rounds/<año>/    cada ronda ya transcrita
   processed/matched/            base cruzada, lista para transcribir
@@ -263,37 +280,43 @@ ronda:
   campaign: "r<n>_<AAAAMMDD>"
 
 drive:
-  account_email: ""          # cuenta que usa el Colab
-  folder_audio: "A"          # carpeta raíz de audios; hay que crear A/<ronda>
-  folder_text: "B"           # carpeta raíz de textos; hay que crear B/<ronda>
-  questions_url: ""
+  account_email: ""              # cuenta de drive_auth() y del Colab
+  folder_analisis_id: ""         # carpeta de trabajo del equipo
+  folder_audio_id: ""            # subcarpeta de audios .ogg
+  folder_text_id: ""             # subcarpeta de .txt transcritos
+  questions_sheet: ""            # URL de la hoja de preguntas
 
 codificacion:
-  provider: "ollama"         # local; las respuestas no salen de la máquina
+  provider: "ollama"             # local; las respuestas no salen de la máquina
   model: "qwen3:8b"
-  temperature: 0             # determinista
-  seed: 1234                 # ronda reproducible
-  think: false               # Qwen3 razona por defecto; para clasificar no aporta
-  max_active: 4              # llamadas en paralelo
+  temperature: 0                 # determinista
+  seed: 1234                     # ronda reproducible
+  think: false                   # Qwen3 razona por defecto; para clasificar no aporta
+  max_active: 4                  # llamadas en paralelo
+  insumos: "drive"               # o "local" para probar sin conexión
+  codebook_name: "LibroCodigos"  # libro único; la hoja se llama igual que la ronda
 ```
 
-**`DriveFlow/<ronda>.yml`** — lo que cambia ronda a ronda: el id, el año, la carpeta de
-Drive de esa ronda y los nombres de salida. Cualquier campo de `codificacion` se puede
-pisar acá para una ronda puntual. Usar `_template.yml` como base.
+Las carpetas de Drive se identifican por **ID** y no por ruta de nombres: si la carpeta
+del equipo es compartida y no cuelga de "Mi unidad", las rutas por nombre no resuelven.
+El ID es lo que aparece en la URL de la carpeta, después de `/folders/`. Las subcarpetas
+de cada ronda se crean solas.
 
-Mientras `folder_url` esté vacío, la codificación lee los insumos de los archivos
-locales declarados en `project.yml`, así se puede probar todo sin depender de Drive.
+**`DriveFlow/<ronda>.yml`** — lo que cambia ronda a ronda: el id, el año y los nombres de
+salida. Cualquier campo de `codificacion` se puede pisar acá para una ronda puntual. Usar
+`_template.yml` como base.
 
 ## Ronda nueva: checklist
 
 1. Guardar el export en `data/raw/campaigns_wcx/r<n>_<AAAAMMDD>_casos.csv`.
 2. Actualizar el bloque `ronda:` de `project.yml`.
 3. `Rscript code/matching.R`.
-4. Crear `A/<ronda>` y `B/<ronda>` en Drive y correr `code/transcripciones.qmd` por
-   bloques, con el Colab en el medio. Validar primero con `PRUEBA <- TRUE`.
+4. Correr `code/transcripciones.qmd` por bloques, con el Colab en el medio. Validar
+   primero con `PRUEBA <- TRUE`.
 5. `quarto render code/reporte_panel.qmd` para ver la cobertura.
-6. Leer una muestra de respuestas abiertas y escribir el codebook de la ronda en
-   `data/raw/codebook/`.
+6. Cargar las preguntas de la ronda en la hoja de preguntas, leer una muestra de
+   respuestas abiertas y escribir el codebook en una hoja nueva de `LibroCodigos`,
+   nombrada igual que la ronda.
 7. Copiar `DriveFlow/_template.yml` a `DriveFlow/<ronda>.yml` y correr `DriveFlow/run.R`.
 8. Revisar a mano la muestra del 20% y correr `medir_acuerdo()`.
 

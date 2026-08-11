@@ -1,12 +1,11 @@
 round: "R1"
 year: "2026"
 
-# TODO: carpeta en Drive con transcripcion_R1 y BookR1.
-# Mientras esté vacía, el flujo lee los insumos de los archivos locales
-# declarados en project.yml (codificacion$raw_file / questions_file / codebook_file).
-folder_url: ""
+# Los insumos (hoja de preguntas y LibroCodigos) se leen de la carpeta Análisis
+# definida en project.yml -> drive$folder_analisis_id. El codebook de esta ronda
+# es la hoja llamada igual que `round` dentro de LibroCodigos.
 
-# Todo lo demás (provider, model, temperature, seed, think, max_active)
+# Todo lo demás (provider, model, temperature, seed, think, max_active, insumos)
 # se hereda de project.yml -> codificacion.
 # Descomentar acá solo para pisar un default en esta ronda puntual:
 # model: "qwen3:14b"

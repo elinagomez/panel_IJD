@@ -3,15 +3,9 @@
 # Codificacion de preguntas abiertas contra un codebook, con LLM local
 # (Ollama + Qwen3) o con un proveedor por API.
 #
-# Adaptado del qualcode.R del panel de FOCUS. Cambios principales:
-#   1. provider "ollama" con temperatura y seed fijas y "thinking" apagado
-#   2. clasificacion en paralelo (parallel_chat_structured) con fallback
-#      secuencial, en vez de una llamada por fila reconstruyendo el prompt
-#   3. los insumos se pueden leer de archivos locales o de Drive
-#   4. los errores del modelo se marcan "ERROR" y no se confunden con NA
-#      (que significa "la persona no respondio")
-#   5. la muestra de revision viene con columna vacia para codificar a mano,
-#      y medir_acuerdo() compara esa columna contra el modelo
+# Los insumos editables por el equipo (la hoja de preguntas y el codebook de la
+# ronda) viven en Drive. En cada corrida se guarda una copia congelada junto a
+# los resultados, para poder reconstruir con que version se codifico.
 #
 # No se ejecuta solo: se usa desde DriveFlow/run.R
 # =============================================================================
@@ -39,166 +33,430 @@ load_config <- function(round_file, project_file = "project.yml") {
 
   base_cfg <- c(
     project_cfg$codificacion %||% list(),
-    list(questions_url = project_cfg$drive$questions_url %||% "")
+    list(drive = project_cfg$drive %||% list())
   )
   modifyList(base_cfg, round_cfg)
 }
 
-# ---- 2. Lectura de insumos (local o Drive) ----------------------------------
+# ---- 2. Normalizacion de nombres -------------------------------------------
 
-local_disponible <- function(x) !is.null(x) && nzchar(x) && file.exists(x)
+#' Compara nombres de columna ignorando mayusculas, espacios, guiones y tildes.
+#' Sirve para que el equipo pueda escribir "RondaID", "Ronda_id" o "ronda id".
+clave_columna <- function(x) {
+  x |>
+    as.character() |>
+    iconv(to = "ASCII//TRANSLIT") |>
+    tolower() |>
+    str_replace_all("[^a-z0-9]", "")
+}
 
-#' Lee un spreadsheet de una carpeta de Drive (camino original del flujo)
-read_spreadsheet <- function(folder_url, file_name, sheet = NULL) {
-  stopifnot(requireNamespace("googledrive", quietly = TRUE),
-            requireNamespace("googlesheets4", quietly = TRUE))
+#' Renombra las columnas de df a los nombres canonicos que usa el flujo.
+#' @param esperados lista canonico = vector de alias aceptados
+renombrar_columnas <- function(df, esperados) {
+  claves <- clave_columna(names(df))
+  for (canonico in names(esperados)) {
+    alias <- clave_columna(esperados[[canonico]])
+    i <- which(claves %in% alias)
+    if (length(i) >= 1) names(df)[i[1]] <- canonico
+  }
+  df
+}
 
-  ss <- googledrive::drive_ls(path = googledrive::as_id(folder_url)) |>
-    dplyr::filter(name == file_name)
+COLUMNAS_QUESTIONS <- list(
+  Ronda_id    = c("Ronda_id", "RondaID", "Ronda"),
+  Pregunta_id = c("Pregunta_id", "PreguntaId", "Pregunta_ID"),
+  Pregunta    = c("Pregunta", "Texto"),
+  Tipo        = c("Tipo"),
+  Tema        = c("Tema", "TEMA"),
+  Subtema     = c("Subtema", "SubTema"),
+  Dependencia = c("Dependencia", "Depende_de"),
+  Categorias  = c("Categorias", "CategoriasCerrada", "Categorias_cerrada")
+)
 
-  if (nrow(ss) == 0) stop(glue("No se encontro '{file_name}' en Drive."))
-  if (nrow(ss) > 1)  stop(glue("Hay varios archivos llamados '{file_name}'."))
+COLUMNAS_CODEBOOK <- list(
+  pregunta    = c("pregunta", "Pregunta_id", "PreguntaId"),
+  etiqueta    = c("etiqueta", "codigo", "Etiqueta"),
+  descripcion = c("descripcion", "definicion", "Descripcion")
+)
 
-  id <- googledrive::as_id(ss$id[[1]])
-  if (is.null(sheet)) googlesheets4::read_sheet(id) else googlesheets4::read_sheet(id, sheet = sheet)
+#' Id de pregunta normalizado, para que "Q1" y "q1" sean lo mismo
+normalizar_id <- function(x) tolower(str_squish(as.character(x)))
+
+# ---- 3. Lectura de insumos (Drive o local) ----------------------------------
+
+#' Lee un spreadsheet identificado por url o id.
+#' Si se pide una hoja que no existe: usa la unica que haya (caso tipico de un
+#' archivo recien importado), o corta listando las hojas disponibles. No cae en
+#' silencio a la primera hoja, porque en un libro con una hoja por ronda eso
+#' significaria leer la ronda equivocada.
+leer_sheet <- function(x, sheet = NULL) {
+  stopifnot(requireNamespace("googlesheets4", quietly = TRUE))
+  id    <- googlesheets4::as_sheets_id(x)
+  hojas <- googlesheets4::sheet_names(id)
+
+  hoja <- if (is.null(sheet) || !nzchar(sheet)) {
+    hojas[1]
+  } else if (sheet %in% hojas) {
+    sheet
+  } else if (length(hojas) == 1) {
+    warning(glue("No hay una hoja '{sheet}'; uso la unica que existe ('{hojas[1]}'). ",
+                 "Conviene renombrarla a '{sheet}'."), call. = FALSE)
+    hojas[1]
+  } else {
+    stop(glue("No existe la hoja '{sheet}'. Hojas disponibles: {paste(hojas, collapse = ', ')}"),
+         call. = FALSE)
+  }
+
+  googlesheets4::read_sheet(id, sheet = hoja, col_types = "c")
+}
+
+#' Busca un spreadsheet por nombre dentro de una carpeta de Drive
+buscar_en_carpeta <- function(folder_id, nombre) {
+  stopifnot(requireNamespace("googledrive", quietly = TRUE))
+  ss <- googledrive::drive_ls(googledrive::as_id(folder_id)) |>
+    dplyr::filter(name == nombre)
+
+  if (nrow(ss) == 0) stop(glue("No encontre '{nombre}' en la carpeta de Drive."))
+  if (nrow(ss) > 1)  stop(glue("Hay {nrow(ss)} archivos llamados '{nombre}' en la carpeta."))
+  ss$id[[1]]
+}
+
+#' Encuentra o crea una subcarpeta dentro de una carpeta de Drive
+carpeta_ronda <- function(folder_id, nombre, crear = FALSE) {
+  stopifnot(requireNamespace("googledrive", quietly = TRUE))
+  hijos <- googledrive::drive_ls(googledrive::as_id(folder_id), type = "folder")
+  hit <- hijos |> dplyr::filter(name == nombre)
+
+  if (nrow(hit) == 1) return(hit$id[[1]])
+  if (nrow(hit) > 1)  stop(glue("Hay varias carpetas '{nombre}' dentro de la carpeta indicada."))
+  if (!crear) stop(glue("No existe la carpeta '{nombre}'. Crearla en Drive o usar crear = TRUE."))
+
+  nueva <- googledrive::drive_mkdir(nombre, path = googledrive::as_id(folder_id))
+  nueva$id[[1]]
 }
 
 #' Guarda una tabla en un spreadsheet de Drive, sobreescribiendo la hoja
-save_drive <- function(out, folder_url, spreadsheet, sheetname) {
+save_drive <- function(out, folder_id, spreadsheet, sheetname) {
   stopifnot(requireNamespace("googledrive", quietly = TRUE),
             requireNamespace("googlesheets4", quietly = TRUE))
 
-  ss <- googledrive::drive_ls(path = googledrive::as_id(folder_url)) |>
+  ss <- googledrive::drive_ls(googledrive::as_id(folder_id)) |>
     dplyr::filter(name == spreadsheet)
 
   if (nrow(ss) > 1) stop(glue("Hay varios archivos llamados '{spreadsheet}'."))
 
   if (nrow(ss) == 1) {
-    id <- googledrive::as_id(ss$id[[1]])
+    id <- googlesheets4::as_sheets_id(ss$id[[1]])
     if (sheetname %in% googlesheets4::sheet_names(id)) {
       googlesheets4::sheet_delete(id, sheet = sheetname)
-      warning(glue("La hoja '{sheetname}' ya existia, se sobreescribio."))
     }
     googlesheets4::sheet_add(id, sheet = sheetname)
   } else {
     nuevo <- googlesheets4::gs4_create(spreadsheet)
-    googledrive::drive_mv(nuevo, path = googledrive::as_id(folder_url))
-    id <- googledrive::as_id(nuevo)
+    googledrive::drive_mv(nuevo, path = googledrive::as_id(folder_id))
+    id <- googlesheets4::as_sheets_id(nuevo)
     googlesheets4::sheet_rename(id, sheet = 1, new_name = sheetname)
   }
 
   googlesheets4::write_sheet(data = out, ss = id, sheet = sheetname)
-  message(glue("Guardado '{sheetname}' en '{spreadsheet}'."))
+  message(glue("Drive: guardado '{sheetname}' en '{spreadsheet}'."))
   invisible(out)
 }
 
-#' Devuelve raw, questions y codebook, priorizando los archivos locales
+#' Autenticacion de Drive y Sheets con la misma cuenta.
+#' googlesheets4 necesita su propio auth: con drive_auth() solo no alcanza.
+autenticar <- function(CONFIG) {
+  email <- CONFIG$drive$account_email %||% ""
+  if (!nzchar(email)) stop("Falta drive$account_email en project.yml")
+  googledrive::drive_auth(email = email)
+  googlesheets4::gs4_auth(token = googledrive::drive_token())
+  invisible(email)
+}
+
+#' Devuelve raw, questions y codebook, ya con columnas canonicas.
+#' CONFIG$insumos decide de donde se leen: "drive" o "local".
 leer_insumos <- function(CONFIG) {
 
-  raw <- if (local_disponible(CONFIG$raw_file)) {
-    message("raw: ", CONFIG$raw_file)
-    readr::read_csv(CONFIG$raw_file, col_types = readr::cols(.default = "c"))
+  origen <- CONFIG$insumos %||% "drive"
+  ronda  <- CONFIG$round
+
+  # la base transcrita siempre es local: es el output del paso anterior
+  if (!file.exists(CONFIG$raw_file)) stop("No existe la base transcrita: ", CONFIG$raw_file)
+  raw <- readr::read_csv(CONFIG$raw_file, col_types = readr::cols(.default = "c"))
+  message("raw:       ", CONFIG$raw_file, " (", nrow(raw), " filas)")
+
+  # el libro de codigos es uno solo para todo el proyecto, con una hoja por ronda
+  nombre_book <- CONFIG$codebook_name %||% "LibroCodigos"
+  if (!nzchar(nombre_book)) nombre_book <- "LibroCodigos"
+  hoja_book <- CONFIG$codebook_tab %||% ""
+  if (!nzchar(hoja_book)) hoja_book <- ronda
+
+  if (identical(origen, "drive")) {
+
+    autenticar(CONFIG)
+
+    questions <- leer_sheet(CONFIG$drive$questions_sheet, CONFIG$questions_sheet_tab %||% "")
+    message("questions: Drive · hoja de preguntas del proyecto")
+
+    id_book  <- buscar_en_carpeta(CONFIG$drive$folder_analisis_id, nombre_book)
+    codebook <- leer_sheet(id_book, hoja_book)
+    message("codebook:  Drive · ", nombre_book, " / hoja ", hoja_book)
+
   } else {
-    read_spreadsheet(CONFIG$folder_url, paste0("transcripcion_", CONFIG$round))
+
+    questions <- readxl::read_excel(CONFIG$questions_file, col_types = "text")
+
+    hojas <- readxl::excel_sheets(CONFIG$codebook_file)
+    if (!hoja_book %in% hojas) {
+      if (length(hojas) == 1) {
+        warning(glue("El libro local no tiene hoja '{hoja_book}'; uso '{hojas[1]}'."), call. = FALSE)
+        hoja_book <- hojas[1]
+      } else {
+        stop(glue("El libro local no tiene hoja '{hoja_book}'. Hojas: {paste(hojas, collapse = ', ')}"),
+             call. = FALSE)
+      }
+    }
+    codebook <- readxl::read_excel(CONFIG$codebook_file, sheet = hoja_book, col_types = "text")
+    message("questions: ", CONFIG$questions_file, "\ncodebook:  ", CONFIG$codebook_file, " / hoja ", hoja_book)
   }
 
-  questions <- if (local_disponible(CONFIG$questions_file)) {
-    message("questions: ", CONFIG$questions_file)
-    readxl::read_excel(CONFIG$questions_file, col_types = "text")
-  } else {
-    read_spreadsheet(CONFIG$questions_url, "questions")
+  questions <- renombrar_columnas(questions, COLUMNAS_QUESTIONS)
+  codebook  <- renombrar_columnas(codebook,  COLUMNAS_CODEBOOK)
+
+  faltan_q <- setdiff(c("Ronda_id", "Pregunta_id", "Pregunta", "Tipo"), names(questions))
+  faltan_c <- setdiff(c("pregunta", "etiqueta", "descripcion"), names(codebook))
+  if (length(faltan_q)) stop("A la hoja de preguntas le faltan columnas: ", paste(faltan_q, collapse = ", "))
+  if (length(faltan_c)) stop("Al codebook le faltan columnas: ", paste(faltan_c, collapse = ", "))
+
+  for (col in c("Tema", "Subtema", "Dependencia", "Categorias")) {
+    if (!col %in% names(questions)) questions[[col]] <- NA_character_
   }
 
-  codebook <- if (local_disponible(CONFIG$codebook_file)) {
-    message("codebook: ", CONFIG$codebook_file, " (hoja ", CONFIG$round, ")")
-    readxl::read_excel(CONFIG$codebook_file, sheet = CONFIG$round, col_types = "text")
-  } else {
-    read_spreadsheet(CONFIG$folder_url, paste0("Book", CONFIG$round), sheet = CONFIG$round)
+  # filtrar la ronda; si el codebook trae columna de ronda, tambien
+  questions <- questions |> dplyr::filter(normalizar_id(Ronda_id) == normalizar_id(ronda))
+  if (nrow(questions) == 0) stop("La hoja de preguntas no tiene filas para la ronda ", ronda)
+
+  if ("ronda" %in% clave_columna(names(codebook))) {
+    col_ronda <- names(codebook)[clave_columna(names(codebook)) == "ronda"][1]
+    codebook <- codebook |> dplyr::filter(normalizar_id(.data[[col_ronda]]) == normalizar_id(ronda))
   }
 
-  questions <- questions |> dplyr::filter(as.character(Ronda_id) == CONFIG$round)
-  if (nrow(questions) == 0) stop("No hay preguntas para la ronda ", CONFIG$round, " en questions")
+  codebook <- codebook |>
+    dplyr::filter(!is.na(pregunta), !is.na(etiqueta), str_squish(etiqueta) != "")
 
   list(raw = raw, questions = questions, codebook = codebook)
 }
 
-# ---- 3. Armado de la configuracion por pregunta -----------------------------
+#' Copia congelada de los insumos, al lado de los resultados.
+#' Sin esto no se puede reconstruir con que codebook se codifico una ronda.
+guardar_snapshot <- function(ins, CONFIG) {
+  dir_snap <- file.path(CONFIG$out_dir, "insumos")
+  dir.create(dir_snap, recursive = TRUE, showWarnings = FALSE)
+  sello <- format(Sys.time(), "%Y%m%d_%H%M")
 
-#' Codebook a lista nombrada por pregunta
-make_codebook <- function(codebook, columna = pregunta) {
+  readr::write_csv(ins$questions, file.path(dir_snap, glue("questions_{CONFIG$round}_{sello}.csv")))
+  readr::write_csv(ins$codebook,  file.path(dir_snap, glue("codebook_{CONFIG$round}_{sello}.csv")))
+  message("snapshot de insumos en ", dir_snap)
+  invisible(dir_snap)
+}
+
+# ---- 4. Validacion de los insumos ------------------------------------------
+
+#' Revisa la hoja de preguntas y el codebook antes de gastar tiempo de modelo.
+#' Devuelve invisible(TRUE) si esta todo bien; corta con error en lo grave y
+#' avisa con warning en lo sospechoso.
+validar_insumos <- function(ins, CONFIG) {
+
+  questions <- ins$questions
+  codebook  <- ins$codebook
+  raw       <- ins$raw
+
+  problemas <- character(0)
+  avisos    <- character(0)
+
+  ids_q <- normalizar_id(questions$Pregunta_id)
+  if (any(duplicated(ids_q))) {
+    problemas <- c(problemas, paste0("ids de pregunta duplicados en la hoja: ",
+                                     paste(unique(ids_q[duplicated(ids_q)]), collapse = ", ")))
+  }
+
+  cols_raw  <- normalizar_id(names(raw))
+  abiertas  <- ids_q[questions$Tipo == "Abierta"]
+  cerradas  <- ids_q[questions$Tipo == "Cerrada"]
+  ids_book  <- unique(normalizar_id(codebook$pregunta))
+
+  sin_datos <- setdiff(abiertas, cols_raw)
+  if (length(sin_datos)) {
+    avisos <- c(avisos, paste0("abiertas declaradas que no estan en la base: ", paste(sin_datos, collapse = ", ")))
+  }
+
+  sin_codebook <- setdiff(intersect(abiertas, cols_raw), ids_book)
+  if (length(sin_codebook)) {
+    avisos <- c(avisos, paste0("abiertas sin codebook, no se van a codificar: ", paste(sin_codebook, collapse = ", ")))
+  }
+
+  huerfanas <- setdiff(ids_book, ids_q)
+  if (length(huerfanas)) {
+    avisos <- c(avisos, paste0("preguntas del codebook que no existen en la hoja: ", paste(huerfanas, collapse = ", ")))
+  }
+
+  # etiquetas duplicadas dentro de una misma pregunta
+  dup <- codebook |>
+    dplyr::mutate(.p = normalizar_id(pregunta), .e = clave_columna(etiqueta)) |>
+    dplyr::count(.p, .e) |>
+    dplyr::filter(n > 1)
+  if (nrow(dup)) {
+    problemas <- c(problemas, paste0("etiquetas duplicadas: ",
+                                     paste(unique(dup$.p), collapse = ", ")))
+  }
+
+  # cada pregunta necesita una categoria de no clasificable
+  patron_nc <- CONFIG$patron_no_clasificable %||% "no_clasific|no_aplica|no_respuesta|ns_nc"
+  faltan_nc <- codebook |>
+    dplyr::mutate(.p = normalizar_id(pregunta)) |>
+    dplyr::group_by(.p) |>
+    dplyr::summarise(tiene = any(str_detect(etiqueta, patron_nc)), .groups = "drop") |>
+    dplyr::filter(!tiene) |>
+    dplyr::pull(.p)
+  if (length(faltan_nc)) {
+    avisos <- c(avisos, paste0("sin categoria de no clasificable: ", paste(faltan_nc, collapse = ", "),
+                               " (el modelo va a forzar una categoria sustantiva)"))
+  }
+
+  # dependencias
+  dep_norm <- normalizar_id(questions$Dependencia)
+  con_dep  <- !is.na(questions$Dependencia) & str_squish(questions$Dependencia) != ""
+
+  rotas <- setdiff(dep_norm[con_dep], ids_q)
+  if (length(rotas)) {
+    problemas <- c(problemas, paste0("dependencias que apuntan a preguntas inexistentes: ",
+                                     paste(rotas, collapse = ", ")))
+  }
+
+  # una cerrada con dependencia casi siempre es la fila equivocada
+  cerrada_con_dep <- ids_q[con_dep & questions$Tipo == "Cerrada"]
+  if (length(cerrada_con_dep)) {
+    avisos <- c(avisos, paste0("preguntas CERRADAS con dependencia: ", paste(cerrada_con_dep, collapse = ", "),
+                               ". La dependencia deberia estar en la abierta que se apoya en ellas."))
+  }
+
+  # abiertas que por su texto parecen depender de una cerrada y no la declaran
+  pistas <- "esa opcion|esa opción|por que elegiste|por qué elegiste|la opcion elegida"
+  sospechosas <- ids_q[!con_dep & questions$Tipo == "Abierta" &
+                         str_detect(clave_columna(questions$Pregunta), clave_columna(pistas))]
+  if (length(sospechosas)) {
+    avisos <- c(avisos, paste0("abiertas que parecen depender de una cerrada y no lo declaran: ",
+                               paste(sospechosas, collapse = ", ")))
+  }
+
+  # si una abierta depende de una cerrada, esa cerrada necesita categorias
+  for (i in which(con_dep & questions$Tipo == "Abierta")) {
+    d <- dep_norm[i]
+    j <- which(ids_q == d)
+    if (length(j) == 1) {
+      cats <- parse_categorias(questions$Categorias[[j]])
+      if (!length(cats)) {
+        avisos <- c(avisos, paste0(ids_q[i], " depende de ", d,
+                                   ", pero ", d, " no tiene categorias cargadas"))
+      }
+    }
+  }
+
+  # temas vacios: el prompt dice "encuesta sobre NA"
+  if (all(is.na(questions$Tema)) && all(is.na(questions$Subtema))) {
+    avisos <- c(avisos, "las columnas TEMA y SubTema estan vacias: se usa tema_default de project.yml")
+  }
+
+  for (a in avisos) warning(a, call. = FALSE)
+
+  if (length(problemas)) {
+    stop("Los insumos tienen problemas que hay que arreglar:\n- ",
+         paste(problemas, collapse = "\n- "), call. = FALSE)
+  }
+
+  message("validacion de insumos: ", length(avisos), " avisos, 0 errores")
+  invisible(TRUE)
+}
+
+# ---- 5. Armado de la configuracion por pregunta -----------------------------
+
+make_codebook <- function(codebook) {
   codebook |>
     dplyr::mutate(
+      .p       = normalizar_id(pregunta),
       etiqueta = str_replace_all(etiqueta, '"', ""),
       etiqueta = str_replace_all(etiqueta, "[\\n\\r]", " "),
-      etiqueta = str_squish(etiqueta)
+      etiqueta = str_squish(etiqueta),
+      descripcion = str_squish(ifelse(is.na(descripcion), "", descripcion))
     ) |>
-    dplyr::group_by({{ columna }}) |>
+    dplyr::select(.p, etiqueta, descripcion) |>
+    dplyr::group_by(.p) |>
     tidyr::nest() |>
     tibble::deframe()
 }
 
-#' Preguntas abiertas que estan a la vez en la base y en el codebook
-detect_open <- function(raw, questions, codebook,
-                        col_id = Pregunta_id, col_tipo = Tipo,
-                        col_codebook = pregunta, value = "Abierta") {
-
-  preguntas_codebook <- codebook |> dplyr::pull({{ col_codebook }}) |> as.character() |> unique()
-
-  declaradas <- questions |>
-    dplyr::filter({{ col_tipo }} == value) |>
-    dplyr::pull({{ col_id }}) |> as.character()
-
-  sin_datos   <- setdiff(declaradas, names(raw))
-  sin_codigos <- setdiff(intersect(declaradas, names(raw)), preguntas_codebook)
-
-  if (length(sin_datos))   warning("abiertas declaradas que no estan en la base: ", paste(sin_datos, collapse = ", "))
-  if (length(sin_codigos)) warning("abiertas sin codebook (se saltean): ", paste(sin_codigos, collapse = ", "))
-
-  declaradas |> intersect(names(raw)) |> intersect(preguntas_codebook)
-}
-
-#' Parsea las opciones de una pregunta cerrada ("1: texto" -> "texto")
+#' Parsea las opciones de una cerrada. Tolera saltos de linea o numeracion
+#' corrida en una sola celda: "1. uno 2. dos 3. tres".
 parse_categorias <- function(x) {
-  if (is.null(x) || is.na(x) || str_squish(x) == "") return(character(0))
-  str_split(x, "\n")[[1]] |>
+  if (is.null(x) || length(x) == 0 || is.na(x) || str_squish(x) == "") return(character(0))
+
+  txt   <- str_squish(as.character(x))
+  partes <- str_split(txt, "\n")[[1]]
+
+  if (length(partes) < 2) {
+    partes <- str_split(txt, "(?=(?:^|\\s)[0-9]+\\s*[.):-])")[[1]]
+  }
+
+  partes |>
     str_squish() |>
-    str_replace("^[A-Za-z0-9]+[:.=]\\s*(.*)$", "\\1") |>
+    str_replace("^[A-Za-z0-9]+\\s*[.):=-]\\s*", "") |>
     (\(v) v[nzchar(v)])()
 }
 
-#' Una config por pregunta abierta: texto, dependencia, diccionario, etiquetas
-make_cfg <- function(raw, questions, codebook) {
+#' Una config por pregunta abierta. Las claves son los nombres reales de las
+#' columnas de la base (q1, q2...), aunque la hoja los escriba en mayuscula.
+make_cfg <- function(raw, questions, codebook, CONFIG = list()) {
 
-  dic    <- make_codebook(codebook = codebook)
-  open_q <- detect_open(raw = raw, questions = questions, codebook = codebook)
+  dic <- make_codebook(codebook)
 
-  if (!length(open_q)) stop("No quedo ninguna pregunta abierta para codificar")
+  mapa_raw <- setNames(names(raw), normalizar_id(names(raw)))
 
-  config_q <- function(q) {
-    meta <- questions |> dplyr::filter(Pregunta_id == q)
-    if (nrow(meta) != 1) stop(glue("La pregunta {q} tiene {nrow(meta)} filas en questions"))
+  ids_q    <- normalizar_id(questions$Pregunta_id)
+  abiertas <- ids_q[questions$Tipo == "Abierta"]
 
-    dict <- dic[[q]]
-    if (is.null(dict)) stop(glue("La pregunta {q} no tiene diccionario en el codebook"))
+  usables <- abiertas |> intersect(names(mapa_raw)) |> intersect(names(dic))
+  if (!length(usables)) stop("No quedo ninguna pregunta abierta con datos y codebook")
 
-    dep <- meta$Dependencia[[1]]
+  config_q <- function(id_norm) {
 
-    if (!is.na(dep) && nzchar(str_squish(dep))) {
-      meta_dep <- questions |> dplyr::filter(Pregunta_id == dep)
-      if (nrow(meta_dep) != 1) stop(glue("La dependencia {dep} de {q} tiene {nrow(meta_dep)} filas"))
-      texto_dep <- meta_dep$Pregunta[[1]]
-      cats_dep  <- parse_categorias(meta_dep$Categorias[[1]])
+    i    <- which(ids_q == id_norm)
+    meta <- questions[i, ]
+    dict <- dic[[id_norm]]
+
+    dep_valor <- meta$Dependencia[[1]]
+    tiene_dep <- !is.na(dep_valor) && str_squish(dep_valor) != ""
+
+    if (tiene_dep) {
+      dep_norm <- normalizar_id(dep_valor)
+      j <- which(ids_q == dep_norm)
+      dep_col   <- mapa_raw[[dep_norm]] %||% NA_character_
+      texto_dep <- if (length(j) == 1) questions$Pregunta[[j]] else NA_character_
+      cats_dep  <- if (length(j) == 1) parse_categorias(questions$Categorias[[j]]) else character(0)
     } else {
-      dep       <- NA_character_
+      dep_col   <- NA_character_
       texto_dep <- NA_character_
       cats_dep  <- character(0)
     }
 
+    tema <- c(meta$Tema[[1]], meta$Subtema[[1]], CONFIG$tema_default %||% "la encuesta")
+    tema <- tema[!is.na(tema) & str_squish(tema) != ""][1]
+
     list(
-      pregunta            = q,
-      tema                = meta$Subtema[[1]],
+      pregunta            = mapa_raw[[id_norm]],
+      id_hoja             = meta$Pregunta_id[[1]],
+      tema                = tema,
       texto               = meta$Pregunta[[1]],
-      dependencia         = dep,
+      dependencia         = dep_col,
       pregunta_cerrada    = texto_dep,
       categorias_cerradas = cats_dep,
       diccionario         = dict,
@@ -206,12 +464,12 @@ make_cfg <- function(raw, questions, codebook) {
     )
   }
 
-  open_q |> purrr::set_names() |> purrr::map(config_q)
+  cfgs <- purrr::map(usables, config_q)
+  purrr::set_names(cfgs, purrr::map_chr(cfgs, "pregunta"))
 }
 
-# ---- 4. Prompt --------------------------------------------------------------
+# ---- 6. Prompt --------------------------------------------------------------
 
-#' Texto legible de la opcion cerrada elegida ("2" -> "2 - El desarrollo...")
 etiqueta_cerrada <- function(cfg, valor) {
   cats <- cfg$categorias_cerradas
   if (!length(cats) || is.na(valor)) return(valor)
@@ -226,14 +484,11 @@ make_prompt <- function(cfg, categoria_cerrada = NULL) {
     dplyr::pull(linea) |>
     paste(collapse = "\n")
 
-  tiene_dep <- !is.null(cfg$dependencia) && !is.na(cfg$dependencia) &&
-    str_squish(cfg$dependencia) != ""
+  tiene_dep <- !is.null(cfg$dependencia) && !is.na(cfg$dependencia)
 
   categorias_txt <- if (length(cfg$categorias_cerradas)) {
     paste(cfg$categorias_cerradas, collapse = "; ")
-  } else {
-    "No especificadas"
-  }
+  } else "No especificadas"
 
   instrucciones <- c(
     "Lee la respuesta completa antes de clasificar.",
@@ -257,7 +512,7 @@ make_prompt <- function(cfg, categoria_cerrada = NULL) {
     } else ""
     glue("
 Pregunta cerrada previa:
-{cfg$dependencia} - {cfg$pregunta_cerrada}
+{cfg$pregunta_cerrada}
 
 Opciones de la pregunta cerrada:
 {categorias_txt}
@@ -268,7 +523,7 @@ Opciones de la pregunta cerrada:
 Eres un clasificador de respuestas abiertas de una encuesta sobre {cfg$tema}.
 
 Pregunta abierta:
-{cfg$pregunta} - {cfg$texto}
+{cfg$texto}
 {contexto_cerrada}
 Analiza la respuesta y asignale todos los codigos pertinentes, usando solo estos codigos:
 
@@ -282,7 +537,7 @@ Responde unicamente con un objeto JSON con este formato:
 ")
 }
 
-# ---- 5. Conexion al modelo --------------------------------------------------
+# ---- 7. Conexion al modelo --------------------------------------------------
 
 build_chat <- function(system_prompt, CONFIG) {
 
@@ -300,8 +555,6 @@ build_chat <- function(system_prompt, CONFIG) {
       system_prompt = system_prompt,
       params        = parametros
     )
-    # Qwen3 razona por defecto: para clasificar contra una lista cerrada
-    # es tiempo perdido y ademas ensucia la salida estructurada.
     if (isFALSE(CONFIG$think %||% FALSE)) args$api_args <- list(think = FALSE)
     return(do.call(ellmer::chat_ollama, args))
   }
@@ -318,17 +571,14 @@ build_chat <- function(system_prompt, CONFIG) {
   stop(glue("provider '{provider}' no soportado. Usa 'ollama' u 'openai'."))
 }
 
-#' Esquema de salida: un array de etiquetas, restringido al codebook
 tipo_salida <- function(etiquetas) {
   ellmer::type_object(
     codigos = ellmer::type_array(ellmer::type_enum(values = etiquetas))
   )
 }
 
-# ---- 6. Clasificacion -------------------------------------------------------
+# ---- 8. Clasificacion -------------------------------------------------------
 
-#' Pasa la salida estructurada a un vector "codigo_1; codigo_2"
-#' Devuelve "ERROR" en las posiciones donde el modelo fallo.
 normalizar_codigos <- function(res, n) {
 
   extraer <- function(x) {
@@ -350,8 +600,8 @@ normalizar_codigos <- function(res, n) {
   vapply(vals, extraer, character(1), USE.NAMES = FALSE)
 }
 
-#' Clasifica un lote de textos que comparten el mismo prompt de sistema.
-#' Intenta en paralelo; si el proveedor no lo soporta, va secuencial.
+#' Clasifica un lote que comparte prompt de sistema.
+#' Intenta en paralelo; si no se puede, va secuencial.
 codificar_lote <- function(prompt_sistema, textos, etiquetas, CONFIG) {
 
   tipo <- tipo_salida(etiquetas)
@@ -361,9 +611,7 @@ codificar_lote <- function(prompt_sistema, textos, etiquetas, CONFIG) {
   paralelo <- tryCatch({
     chat <- build_chat(prompt_sistema, CONFIG)
     res <- ellmer::parallel_chat_structured(
-      chat,
-      as.list(textos),
-      tipo,
+      chat, as.list(textos), tipo,
       max_active = CONFIG$max_active %||% 4L,
       on_error   = "continue"
     )
@@ -387,8 +635,7 @@ codificar_lote <- function(prompt_sistema, textos, etiquetas, CONFIG) {
 }
 
 #' Codifica una pregunta abierta completa.
-#' Si tiene dependencia, agrupa por la respuesta cerrada y arma un prompt por
-#' grupo (asi el contexto entra una vez por grupo y no una vez por fila).
+#' Con dependencia: agrupa por la respuesta cerrada, un prompt por grupo.
 codificar_pregunta <- function(raw, cfg, CONFIG) {
 
   n      <- nrow(raw)
@@ -402,25 +649,19 @@ codificar_pregunta <- function(raw, cfg, CONFIG) {
   grupo[is.na(grupo)] <- "__sin_dato__"
 
   for (g in unique(grupo[!vacio])) {
-
     idx <- which(!vacio & grupo == g)
-
     categoria <- if (con_dep && g != "__sin_dato__") etiqueta_cerrada(cfg, g) else NULL
     prompt    <- make_prompt(cfg, categoria_cerrada = categoria)
-
     if (con_dep) message("    grupo ", g, ": ", length(idx), " respuestas")
-
     salida[idx] <- codificar_lote(prompt, texto[idx], cfg$etiquetas, CONFIG)
   }
 
   salida
 }
 
-# ---- 7. Control de calidad --------------------------------------------------
+# ---- 9. Control de calidad --------------------------------------------------
 
-#' Muestra aleatoria para revisar a mano.
-#' Agrega una columna vacia codigo_<q>_rev para escribir la codificacion humana.
-muestra_revision <- function(out, cfg, prop = 0.20, seed = 20260810) {
+muestra_revision <- function(out, cfg, prop = 0.20, seed = 1234) {
 
   set.seed(seed)
   qs   <- names(cfg)
@@ -440,8 +681,6 @@ muestra_revision <- function(out, cfg, prop = 0.20, seed = 20260810) {
   m
 }
 
-#' Acuerdo entre el modelo y la revision humana, por pregunta.
-#' Se corre despues de completar a mano las columnas codigo_<q>_rev.
 medir_acuerdo <- function(revisado) {
 
   cols <- grep("^codigo_.*_rev$", names(revisado), value = TRUE)
@@ -467,27 +706,21 @@ medir_acuerdo <- function(revisado) {
     sa <- lapply(a[ok], limpiar)
     sb <- lapply(b[ok], limpiar)
 
-    exacto  <- mean(mapply(setequal, sa, sb))
-    alguno  <- mean(mapply(function(x, y) length(intersect(x, y)) > 0, sa, sb))
-    jaccard <- mean(mapply(function(x, y) {
-      u <- length(union(x, y))
-      if (u == 0) 1 else length(intersect(x, y)) / u
-    }, sa, sb))
-
     tibble(
       pregunta     = sub("^codigo_", "", cm),
       n            = sum(ok),
-      exacto       = round(100 * exacto, 1),
-      algun_codigo = round(100 * alguno, 1),
-      jaccard      = round(jaccard, 2)
+      exacto       = round(100 * mean(mapply(setequal, sa, sb)), 1),
+      algun_codigo = round(100 * mean(mapply(function(x, y) length(intersect(x, y)) > 0, sa, sb)), 1),
+      jaccard      = round(mean(mapply(function(x, y) {
+        u <- length(union(x, y)); if (u == 0) 1 else length(intersect(x, y)) / u
+      }, sa, sb)), 2)
     )
   })
 }
 
-#' Distribucion de codigos de una pregunta (para mirar si el codebook sirve)
 frecuencia_codigos <- function(out, q) {
-  cc <- paste0("codigo_", q)
-  out[[cc]] |>
+  paste0("codigo_", q) |>
+    (\(cc) out[[cc]])() |>
     strsplit("\\s*;\\s*") |>
     unlist() |>
     trimws() |>
