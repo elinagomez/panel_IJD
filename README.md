@@ -291,12 +291,69 @@ Ollama en la propia máquina. Arranca en modo prueba (`SOLO`, `N_FILAS`) y antes
 codificar corre `diagnostico_modelo()`, que chequea versiones de paquetes y que el
 servidor responda.
 
+### 5. Presentación de resultados
+
+La presentación de la ronda se genera entera desde la base codificada: misma
+estructura para todas las olas, con los datos de la ronda vigente.
+
+| | |
+|---|---|
+| **Scripts** | `code/presentacion/armar_presentacion.R` + `presentacion.R` |
+| **Entrada** | la base codificada y la copia congelada de los insumos de esa ronda |
+| **Salida** | `presentaciones/<ronda>_resultados.pptx` |
+
+```bash
+Rscript code/presentacion/armar_presentacion.R
+```
+
+El archivo sale en **10 × 5,625 pulgadas**, el tamaño nativo de Google Slides: se sube a
+la carpeta `Presentaciones` de Drive y se abre con Slides sin que se reescale nada.
+
+Estructura del deck:
+
+1. **Carátula** con los logos institucionales, título, ronda y mes.
+2. **Participantes**: composición por sexo, edad, región, autoubicación ideológica, nivel
+   educativo y voto. Las variables se recodifican desde la encuesta de reclutamiento
+   (los `-1` de no respuesta pasan a dato faltante) y cada gráfico informa cuántas
+   personas no tienen ese dato.
+3. **Indicadores de la ronda**: contactadas, tasa de respuesta, completitud, reparto
+   entre texto y audio. Se toman del reporte de cobertura.
+4. **Un módulo por pregunta**, con el enunciado textual, la distribución de códigos, dos
+   cortes, un análisis de correspondencias y citas textuales.
+5. **Nota metodológica**.
+
+Decisiones que conviene conocer, porque determinan qué entra:
+
+- **Los gráficos muestran N, no porcentajes.** Con respuestas de opción múltiple el total
+  de menciones supera al de personas, y los porcentajes sobre bases distintas confunden.
+- **Los cortes se eligen solos.** En vez de repetir las seis variables en cada pregunta,
+  se calcula la V de Cramér entre códigos y cada corte y se muestran los dos que más
+  diferencian. Con todos los cortes la presentación pasaba las 150 diapositivas.
+- **El análisis de correspondencias** se hace sobre el corte de mayor asociación que sea
+  viable: se piden al menos 4 códigos, 3 categorías y 60 menciones. Una variable
+  dicotómica no da un plano informativo, así que se pasa a la siguiente. Se calcula con
+  SVD en R base, sin `FactoMineR` ni `factoextra`: esas dependencias arrastran media
+  docena de paquetes y exigen versiones recientes de `dplyr`, lo que rompe la instalación
+  en versiones viejas de R.
+- **Las citas se reproducen sin editar.** Se eligen entre las respuestas donde el código
+  es el primero asignado, con un largo que entre en la diapositiva, y se diversifica por
+  sexo y región antes de completar. Cada cita se identifica con sexo, edad y región.
+- Solo los códigos principales llevan citas: la idea es ilustrar las posiciones
+  dominantes, no documentar cada categoría del codebook.
+
+El detalle se ajusta en `project.yml`, bloque `presentacion:` (`n_cortes`, `n_citas`,
+`n_codigos_citas`). Si el equipo agrega al libro de códigos una columna `etiqueta_corta`,
+se usa esa como rótulo de los gráficos en lugar del nombre técnico del código.
+
 ## Estructura
 
 ```
 project.yml                     configuración del proyecto y de la ronda vigente
 DriveFlow/<ronda>.yml           configuración de codificación de esa ronda
+assets/                         logos institucionales y plantilla 16:9 del deck
+presentaciones/                 presentaciones generadas, una por ronda
 code/
+  presentacion/                 funciones y armado de la presentación
   contacts_lime.R               encuesta de reclutamiento -> base de contactos
   matching.R                    export + contactos -> base cruzada
   transcripciones.qmd           audios -> Drive -> Colab -> texto
@@ -381,11 +438,14 @@ salida. Cualquier campo de `codificacion` se puede pisar acá para una ronda pun
 7. Copiar `DriveFlow/_template.yml` a `DriveFlow/<ronda>.yml` y codificar:
    `exportar_para_colab.R` → notebook en Colab → `importar_de_colab.R`.
 8. Revisar a mano la muestra del 20% y correr `medir_acuerdo()`.
+9. `Rscript code/presentacion/armar_presentacion.R` y subir el resultado a la carpeta
+   `Presentaciones` de Drive.
 
 ## Requisitos
 
 - **R** con `tidyverse`, `readr`, `readxl`, `writexl`, `yaml`, `glue`, `ellmer`,
-  `googledrive`, `googlesheets4`, `ggplot2`, `knitr`.
+  `googledrive`, `googlesheets4`, `ggplot2`, `knitr`, y `officer` para la presentación
+  (`ggrepel` es opcional: mejora las etiquetas del análisis de correspondencias).
 - **Quarto**, para los reportes y los notebooks `.qmd`.
 - **Cuenta de Google** autenticada con acceso a las carpetas de `project.yml`.
 - **Colab con GPU** para la transcripción y la codificación.

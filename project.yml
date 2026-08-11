@@ -27,6 +27,7 @@ drive:
   folder_audio_id: "1OZ1ORV5T_q25_7z3pcVl1V65sfPAbau2"     # Análisis/A · audios .ogg a transcribir
   folder_text_id: "1UPQ0mFTCynyMJCzR18BP0hEdKG6CWYxY"      # Análisis/B · .txt que devuelve el Colab
   folder_codificacion_id: "1cabipmHVfNShlH0r1ec3aup3TN-TZ7fz"  # Análisis/C · intercambio de la codificación
+  folder_presentaciones_id: "1QMugz4QmwNyp0POh1SskHzKJaXCGVnD7"  # Análisis/Presentaciones
 
   # Hoja de preguntas del proyecto, editable por el equipo
   questions_sheet: "https://docs.google.com/spreadsheets/d/1bbNI7fZcPPfdTvsgZWjHOXQUysT56VonXTk68IAVuiw"
@@ -61,6 +62,13 @@ codificacion:
   codebook_file: "data/raw/codebook/LibroCodigos.xlsx"
   out_dir: "data/processed/analysis/2026/R1"
   subir_a_drive: true               # sube los resultados a la carpeta Análisis
+
+# Presentación de resultados de la ronda (code/presentacion/).
+presentacion:
+  n_cortes: 2                       # variables de corte por pregunta: las de mayor asociación
+  n_citas: 2                        # citas textuales por código
+  n_codigos_citas: 5                # cuántos códigos principales llevan citas
+  subir_a_drive: true               # sube el pptx a Análisis/Presentaciones
 
 # Reglas de lectura del export de la plataforma (usadas por code/analisis_panel.R
 # y code/prep_campaign.R). Ver README para el detalle.
