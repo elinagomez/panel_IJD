@@ -1,0 +1,1027 @@
+fila,pregunta,codigos
+1,q1,no_clasificable
+2,q1,desigualdad_pobreza; estabilidad_valorada
+3,q1,no_clasificable
+4,q1,desigualdad_pobreza; servicios_publicos_deficientes; estabilidad_valorada
+5,q1,inseguridad; servicios_publicos_deficientes; economia_costo_de_vida
+6,q1,deterioro_retroceso; inseguridad; desigualdad_pobreza
+7,q1,deterioro_retroceso; perdida_de_valores_convivencia
+8,q1,desigualdad_pobreza; perdida_de_valores_convivencia; estabilidad_valorada
+9,q1,avances_positivos; estabilidad_valorada
+10,q1,no_clasificable
+11,q1,inseguridad
+12,q1,perdida_de_valores_convivencia; estancamiento
+13,q1,estancamiento; inseguridad; perdida_de_valores_convivencia
+14,q1,economia_costo_de_vida; desigualdad_pobreza
+15,q1,perdida_de_valores_convivencia; economia_costo_de_vida; desigualdad_pobreza
+16,q1,perdida_de_valores_convivencia; estancamiento
+17,q1,no_clasificable
+18,q1,economia_costo_de_vida; servicios_publicos_deficientes; perdida_de_valores_convivencia
+19,q1,deterioro_retroceso; servicios_publicos_deficientes; economia_costo_de_vida
+20,q1,estancamiento; deterioro_retroceso
+21,q1,economia_costo_de_vida; desigualdad_pobreza
+22,q1,inseguridad; economia_costo_de_vida; deterioro_retroceso
+23,q1,desigualdad_pobreza; economia_costo_de_vida; estancamiento
+24,q1,desigualdad_pobreza; estancamiento
+25,q1,economia_costo_de_vida; inseguridad; desigualdad_pobreza
+26,q1,inseguridad; economia_costo_de_vida
+27,q1,inseguridad; economia_costo_de_vida; perdida_de_valores_convivencia
+28,q1,economia_costo_de_vida; estancamiento
+29,q1,desigualdad_pobreza; inseguridad; economia_costo_de_vida
+30,q1,no_clasificable
+31,q1,inseguridad; deterioro_retroceso; perdida_de_valores_convivencia
+32,q1,no_clasificable
+33,q1,inseguridad; economia_costo_de_vida; desigualdad_pobreza
+34,q1,inseguridad; desigualdad_pobreza; economia_costo_de_vida
+35,q1,estabilidad_valorada; inseguridad
+36,q1,inseguridad; desigualdad_pobreza; economia_costo_de_vida
+37,q1,perdida_de_valores_convivencia; inseguridad
+38,q1,economia_costo_de_vida; servicios_publicos_deficientes; deterioro_retroceso
+39,q1,inseguridad
+40,q1,desigualdad_pobreza; economia_costo_de_vida
+41,q1,no_clasificable
+42,q1,inseguridad; economia_costo_de_vida; desigualdad_pobreza
+43,q1,economia_costo_de_vida; desigualdad_pobreza; inseguridad
+44,q1,inseguridad; economia_costo_de_vida; servicios_publicos_deficientes
+45,q1,desigualdad_pobreza; inseguridad; perdida_de_valores_convivencia
+46,q1,economia_costo_de_vida; inseguridad; avances_positivos
+47,q1,inseguridad; desigualdad_pobreza; deterioro_retroceso
+48,q1,inseguridad; economia_costo_de_vida; desigualdad_pobreza
+49,q1,estancamiento; economia_costo_de_vida
+50,q1,deterioro_retroceso; inseguridad; desigualdad_pobreza
+51,q1,deterioro_retroceso; desigualdad_pobreza
+52,q1,perdida_de_valores_convivencia; desigualdad_pobreza; deterioro_retroceso
+53,q1,inseguridad; economia_costo_de_vida; desigualdad_pobreza
+54,q1,deterioro_retroceso; inseguridad; economia_costo_de_vida
+55,q1,deterioro_retroceso; estancamiento
+56,q1,estancamiento; inseguridad
+57,q1,inseguridad; estancamiento
+58,q1,economia_costo_de_vida; desigualdad_pobreza
+59,q1,no_clasificable
+60,q1,desigualdad_pobreza; servicios_publicos_deficientes; inseguridad
+61,q1,estancamiento; perdida_de_valores_convivencia
+62,q1,desigualdad_pobreza; economia_costo_de_vida; servicios_publicos_deficientes
+63,q1,estancamiento; economia_costo_de_vida
+64,q1,deterioro_retroceso; inseguridad; desigualdad_pobreza
+65,q1,no_clasificable
+66,q1,estancamiento; economia_costo_de_vida
+67,q1,inseguridad; desigualdad_pobreza; economia_costo_de_vida
+68,q1,inseguridad; deterioro_retroceso
+69,q1,inseguridad; economia_costo_de_vida
+70,q1,estancamiento; deterioro_retroceso
+71,q1,economia_costo_de_vida; desigualdad_pobreza
+72,q1,inseguridad; economia_costo_de_vida
+73,q1,desigualdad_pobreza; inseguridad
+74,q1,inseguridad; servicios_publicos_deficientes
+75,q1,estancamiento; economia_costo_de_vida; servicios_publicos_deficientes
+76,q1,perdida_de_valores_convivencia; estancamiento
+77,q1,estancamiento; inseguridad; desigualdad_pobreza
+78,q1,deterioro_retroceso; inseguridad
+79,q1,estancamiento; economia_costo_de_vida; inseguridad
+80,q1,deterioro_retroceso; inseguridad; desigualdad_pobreza
+81,q1,inseguridad; economia_costo_de_vida
+82,q1,estancamiento; economia_costo_de_vida
+83,q1,estabilidad_valorada
+84,q1,no_clasificable; estancamiento
+85,q1,inseguridad; economia_costo_de_vida
+86,q1,inseguridad; deterioro_retroceso
+87,q1,inseguridad; desigualdad_pobreza; economia_costo_de_vida
+88,q1,no_clasificable
+89,q1,inseguridad; desigualdad_pobreza; deterioro_retroceso
+90,q1,estabilidad_valorada; estancamiento
+91,q1,avances_positivos
+92,q1,desigualdad_pobreza; servicios_publicos_deficientes; economia_costo_de_vida
+93,q1,economia_costo_de_vida; inseguridad; servicios_publicos_deficientes
+94,q1,estancamiento; perdida_de_valores_convivencia
+95,q1,deterioro_retroceso; inseguridad; desigualdad_pobreza
+96,q1,inseguridad; desigualdad_pobreza; economia_costo_de_vida
+97,q1,desigualdad_pobreza; inseguridad; economia_costo_de_vida
+98,q1,desigualdad_pobreza; economia_costo_de_vida; inseguridad
+99,q1,deterioro_retroceso; inseguridad; desigualdad_pobreza
+100,q1,economia_costo_de_vida; servicios_publicos_deficientes; desigualdad_pobreza
+101,q1,desigualdad_pobreza; economia_costo_de_vida; perdida_de_valores_convivencia
+102,q1,economia_costo_de_vida; desigualdad_pobreza
+103,q1,no_clasificable
+104,q1,inseguridad; economia_costo_de_vida
+105,q1,estancamiento; economia_costo_de_vida; avances_positivos
+106,q1,desigualdad_pobreza; economia_costo_de_vida; avances_positivos
+107,q1,avances_positivos; desigualdad_pobreza
+108,q1,deterioro_retroceso; inseguridad
+109,q1,inseguridad; desigualdad_pobreza
+110,q1,inseguridad; estancamiento
+111,q1,deterioro_retroceso; inseguridad; economia_costo_de_vida
+112,q1,estabilidad_valorada; avances_positivos
+113,q1,desigualdad_pobreza; inseguridad; economia_costo_de_vida
+114,q1,economia_costo_de_vida; desigualdad_pobreza
+115,q1,desigualdad_pobreza; estancamiento; economia_costo_de_vida
+116,q1,no_clasificable
+117,q1,inseguridad; economia_costo_de_vida; desigualdad_pobreza
+118,q1,deterioro_retroceso; inseguridad
+119,q1,economia_costo_de_vida; desigualdad_pobreza
+120,q1,estancamiento; economia_costo_de_vida
+121,q1,no_clasificable
+122,q1,inseguridad; estancamiento; perdida_de_valores_convivencia
+123,q1,desigualdad_pobreza; estancamiento; perdida_de_valores_convivencia
+124,q1,deterioro_retroceso; inseguridad; economia_costo_de_vida
+125,q1,desigualdad_pobreza; economia_costo_de_vida
+126,q1,deterioro_retroceso; inseguridad; perdida_de_valores_convivencia
+127,q1,deterioro_retroceso; economia_costo_de_vida; inseguridad
+128,q1,deterioro_retroceso; inseguridad; desigualdad_pobreza
+129,q1,estabilidad_valorada
+130,q1,perdida_de_valores_convivencia; servicios_publicos_deficientes
+131,q1,deterioro_retroceso; inseguridad; desigualdad_pobreza
+132,q1,avances_positivos; desigualdad_pobreza; inseguridad
+133,q1,perdida_de_valores_convivencia; estancamiento
+134,q1,estancamiento; perdida_de_valores_convivencia
+135,q1,no_clasificable
+136,q1,no_clasificable; estancamiento
+137,q1,inseguridad; economia_costo_de_vida; avances_positivos
+138,q1,inseguridad; economia_costo_de_vida; desigualdad_pobreza
+139,q1,perdida_de_valores_convivencia; estancamiento
+140,q1,inseguridad; economia_costo_de_vida; servicios_publicos_deficientes
+141,q1,inseguridad; perdida_de_valores_convivencia; estancamiento
+142,q1,estabilidad_valorada; inseguridad
+143,q1,estabilidad_valorada; avances_positivos; economia_costo_de_vida
+144,q1,inseguridad; estancamiento
+145,q1,economia_costo_de_vida; desigualdad_pobreza
+146,q1,inseguridad; economia_costo_de_vida
+147,q1,perdida_de_valores_convivencia; inseguridad; desigualdad_pobreza
+148,q1,desigualdad_pobreza; economia_costo_de_vida
+149,q1,estabilidad_valorada; economia_costo_de_vida; inseguridad
+150,q1,deterioro_retroceso; estancamiento
+1,q2,tranquilidad_economica; trabajo_e_ingreso_suficiente
+2,q2,necesidades_basicas_cubiertas; vivienda_digna; trabajo_e_ingreso_suficiente
+3,q2,tranquilidad_economica; vivienda_digna
+4,q2,autonomia_y_proyecto_propio; trabajo_e_ingreso_suficiente; educacion
+6,q2,autonomia_y_proyecto_propio; necesidades_basicas_cubiertas
+7,q2,autonomia_y_proyecto_propio; vivienda_digna; seguridad
+8,q2,vinculos_y_familia; necesidades_basicas_cubiertas; trabajo_e_ingreso_suficiente
+9,q2,necesidades_basicas_cubiertas; tranquilidad_economica
+10,q2,trabajo_e_ingreso_suficiente; necesidades_basicas_cubiertas; vivienda_digna
+11,q2,trabajo_e_ingreso_suficiente; salud
+12,q2,trabajo_e_ingreso_suficiente; tiempo_libre_y_disfrute; seguridad
+13,q2,vivienda_digna; necesidades_basicas_cubiertas; vinculos_y_familia
+14,q2,tranquilidad_economica; trabajo_e_ingreso_suficiente; necesidades_basicas_cubiertas
+15,q2,vivienda_digna; educacion; trabajo_e_ingreso_suficiente
+16,q2,autonomia_y_proyecto_propio; salud; educacion
+17,q2,trabajo_e_ingreso_suficiente; vivienda_digna; educacion
+19,q2,trabajo_e_ingreso_suficiente; vivienda_digna; salud
+20,q2,salud; necesidades_basicas_cubiertas; tiempo_libre_y_disfrute
+21,q2,necesidades_basicas_cubiertas; educacion; salud
+22,q2,trabajo_e_ingreso_suficiente; necesidades_basicas_cubiertas
+23,q2,autonomia_y_proyecto_propio; salud; educacion
+24,q2,trabajo_e_ingreso_suficiente; tiempo_libre_y_disfrute; vinculos_y_familia
+25,q2,trabajo_e_ingreso_suficiente; tranquilidad_economica; vivienda_digna
+26,q2,tranquilidad_economica; trabajo_e_ingreso_suficiente; no_clasificable
+27,q2,seguridad; trabajo_e_ingreso_suficiente; educacion
+28,q2,tranquilidad_economica; vivienda_digna; vinculos_y_familia
+29,q2,tranquilidad_economica; necesidades_basicas_cubiertas; trabajo_e_ingreso_suficiente
+30,q2,trabajo_e_ingreso_suficiente; necesidades_basicas_cubiertas
+31,q2,trabajo_e_ingreso_suficiente; salud; vinculos_y_familia
+32,q2,salud; vivienda_digna; trabajo_e_ingreso_suficiente
+33,q2,tranquilidad_economica; seguridad; no_clasificable
+34,q2,salud; necesidades_basicas_cubiertas
+35,q2,trabajo_e_ingreso_suficiente; vivienda_digna; tiempo_libre_y_disfrute
+36,q2,seguridad; trabajo_e_ingreso_suficiente; salud
+37,q2,tiempo_libre_y_disfrute; seguridad; salud
+38,q2,trabajo_e_ingreso_suficiente; necesidades_basicas_cubiertas; educacion
+39,q2,trabajo_e_ingreso_suficiente; vivienda_digna; necesidades_basicas_cubiertas
+40,q2,vivienda_digna; tranquilidad_economica; trabajo_e_ingreso_suficiente
+41,q2,necesidades_basicas_cubiertas
+42,q2,trabajo_e_ingreso_suficiente; necesidades_basicas_cubiertas; tiempo_libre_y_disfrute
+43,q2,trabajo_e_ingreso_suficiente; autonomia_y_proyecto_propio
+44,q2,necesidades_basicas_cubiertas; vivienda_digna
+45,q2,vinculos_y_familia; autonomia_y_proyecto_propio; no_clasificable
+46,q2,tranquilidad_economica; vivienda_digna; vinculos_y_familia
+47,q2,vivienda_digna; seguridad; necesidades_basicas_cubiertas
+48,q2,trabajo_e_ingreso_suficiente; tiempo_libre_y_disfrute; necesidades_basicas_cubiertas
+49,q2,trabajo_e_ingreso_suficiente; tranquilidad_economica; salud
+50,q2,trabajo_e_ingreso_suficiente; salud
+51,q2,trabajo_e_ingreso_suficiente; educacion; seguridad
+52,q2,autonomia_y_proyecto_propio; seguridad; vinculos_y_familia
+53,q2,vinculos_y_familia; seguridad; no_clasificable
+54,q2,seguridad; trabajo_e_ingreso_suficiente; no_clasificable
+55,q2,tranquilidad_economica; tiempo_libre_y_disfrute; vivienda_digna
+56,q2,trabajo_e_ingreso_suficiente; vivienda_digna; salud
+57,q2,tranquilidad_economica; seguridad; trabajo_e_ingreso_suficiente
+58,q2,salud; no_clasificable
+59,q2,no_clasificable
+60,q2,autonomia_y_proyecto_propio; trabajo_e_ingreso_suficiente; vivienda_digna
+61,q2,vinculos_y_familia; tiempo_libre_y_disfrute; tranquilidad_economica
+62,q2,tranquilidad_economica; salud; vinculos_y_familia
+64,q2,trabajo_e_ingreso_suficiente; vivienda_digna
+65,q2,tranquilidad_economica; tiempo_libre_y_disfrute; autonomia_y_proyecto_propio
+66,q2,trabajo_e_ingreso_suficiente; vinculos_y_familia; necesidades_basicas_cubiertas
+67,q2,tranquilidad_economica; salud; no_clasificable
+68,q2,trabajo_e_ingreso_suficiente; seguridad; vivienda_digna
+69,q2,trabajo_e_ingreso_suficiente; salud; tranquilidad_economica
+71,q2,trabajo_e_ingreso_suficiente; tranquilidad_economica; tiempo_libre_y_disfrute
+72,q2,trabajo_e_ingreso_suficiente; tranquilidad_economica
+73,q2,tranquilidad_economica; trabajo_e_ingreso_suficiente
+74,q2,vinculos_y_familia; necesidades_basicas_cubiertas
+75,q2,trabajo_e_ingreso_suficiente; tranquilidad_economica
+76,q2,trabajo_e_ingreso_suficiente; tranquilidad_economica; no_clasificable
+77,q2,tranquilidad_economica; salud; tiempo_libre_y_disfrute
+78,q2,salud; seguridad; tranquilidad_economica
+79,q2,trabajo_e_ingreso_suficiente; autonomia_y_proyecto_propio; necesidades_basicas_cubiertas
+80,q2,tranquilidad_economica; trabajo_e_ingreso_suficiente
+81,q2,vinculos_y_familia; tranquilidad_economica; salud
+82,q2,trabajo_e_ingreso_suficiente; tranquilidad_economica
+83,q2,seguridad; trabajo_e_ingreso_suficiente; necesidades_basicas_cubiertas
+84,q2,trabajo_e_ingreso_suficiente; vivienda_digna; seguridad
+85,q2,trabajo_e_ingreso_suficiente; seguridad; salud
+86,q2,vinculos_y_familia; salud
+87,q2,autonomia_y_proyecto_propio; salud; vinculos_y_familia
+88,q2,trabajo_e_ingreso_suficiente; salud; vinculos_y_familia
+89,q2,trabajo_e_ingreso_suficiente; vivienda_digna; tiempo_libre_y_disfrute
+90,q2,necesidades_basicas_cubiertas; tiempo_libre_y_disfrute
+91,q2,trabajo_e_ingreso_suficiente; educacion; tiempo_libre_y_disfrute
+92,q2,necesidades_basicas_cubiertas; tiempo_libre_y_disfrute
+93,q2,trabajo_e_ingreso_suficiente; necesidades_basicas_cubiertas; vinculos_y_familia
+94,q2,trabajo_e_ingreso_suficiente; seguridad; tranquilidad_economica
+96,q2,trabajo_e_ingreso_suficiente; necesidades_basicas_cubiertas; autonomia_y_proyecto_propio
+97,q2,necesidades_basicas_cubiertas; trabajo_e_ingreso_suficiente
+99,q2,autonomia_y_proyecto_propio; tranquilidad_economica; vinculos_y_familia
+100,q2,autonomia_y_proyecto_propio; trabajo_e_ingreso_suficiente; tiempo_libre_y_disfrute
+101,q2,autonomia_y_proyecto_propio; vivienda_digna; educacion
+102,q2,trabajo_e_ingreso_suficiente; necesidades_basicas_cubiertas; salud
+103,q2,trabajo_e_ingreso_suficiente; educacion; salud
+104,q2,trabajo_e_ingreso_suficiente; salud; tranquilidad_economica
+105,q2,vivienda_digna; trabajo_e_ingreso_suficiente; vinculos_y_familia
+106,q2,autonomia_y_proyecto_propio; vinculos_y_familia; tranquilidad_economica
+107,q2,salud; trabajo_e_ingreso_suficiente
+108,q2,seguridad; tranquilidad_economica; necesidades_basicas_cubiertas
+109,q2,autonomia_y_proyecto_propio; trabajo_e_ingreso_suficiente; necesidades_basicas_cubiertas
+110,q2,necesidades_basicas_cubiertas; trabajo_e_ingreso_suficiente
+111,q2,autonomia_y_proyecto_propio; seguridad; trabajo_e_ingreso_suficiente
+112,q2,autonomia_y_proyecto_propio; vinculos_y_familia; seguridad
+113,q2,educacion; trabajo_e_ingreso_suficiente; salud
+114,q2,vinculos_y_familia; trabajo_e_ingreso_suficiente; salud
+116,q2,vivienda_digna; trabajo_e_ingreso_suficiente
+117,q2,tiempo_libre_y_disfrute; trabajo_e_ingreso_suficiente; vivienda_digna
+118,q2,tranquilidad_economica; necesidades_basicas_cubiertas
+119,q2,tranquilidad_economica; salud; vinculos_y_familia
+120,q2,tranquilidad_economica; seguridad
+121,q2,trabajo_e_ingreso_suficiente; vivienda_digna; salud
+122,q2,tranquilidad_economica; salud
+123,q2,tranquilidad_economica; vinculos_y_familia; autonomia_y_proyecto_propio
+124,q2,trabajo_e_ingreso_suficiente; tranquilidad_economica; no_clasificable
+125,q2,trabajo_e_ingreso_suficiente; necesidades_basicas_cubiertas; salud
+126,q2,trabajo_e_ingreso_suficiente; educacion; seguridad
+127,q2,trabajo_e_ingreso_suficiente; seguridad
+128,q2,trabajo_e_ingreso_suficiente; salud
+129,q2,tranquilidad_economica; salud
+130,q2,tranquilidad_economica; vinculos_y_familia
+131,q2,trabajo_e_ingreso_suficiente; tiempo_libre_y_disfrute; necesidades_basicas_cubiertas
+132,q2,trabajo_e_ingreso_suficiente; seguridad; no_clasificable
+133,q2,trabajo_e_ingreso_suficiente; tiempo_libre_y_disfrute; vivienda_digna
+135,q2,no_clasificable
+136,q2,necesidades_basicas_cubiertas; vivienda_digna; salud
+137,q2,trabajo_e_ingreso_suficiente; vivienda_digna; educacion
+138,q2,tranquilidad_economica; trabajo_e_ingreso_suficiente; seguridad
+139,q2,tiempo_libre_y_disfrute; salud
+140,q2,trabajo_e_ingreso_suficiente; educacion; vinculos_y_familia
+141,q2,trabajo_e_ingreso_suficiente; necesidades_basicas_cubiertas; autonomia_y_proyecto_propio
+142,q2,trabajo_e_ingreso_suficiente; seguridad; no_clasificable
+143,q2,trabajo_e_ingreso_suficiente; vivienda_digna; necesidades_basicas_cubiertas
+144,q2,tranquilidad_economica; necesidades_basicas_cubiertas; seguridad
+145,q2,tiempo_libre_y_disfrute; salud; vinculos_y_familia
+146,q2,seguridad; tiempo_libre_y_disfrute; trabajo_e_ingreso_suficiente
+147,q2,autonomia_y_proyecto_propio; seguridad; no_clasificable
+148,q2,seguridad; necesidades_basicas_cubiertas
+149,q2,educacion; trabajo_e_ingreso_suficiente; vivienda_digna
+150,q2,tranquilidad_economica; seguridad
+1,q3,deporte_y_ejercicio; familia_y_vinculos
+2,q3,salir_pasear_viajar; barrera_economica
+3,q3,trabajo_o_estudio
+4,q3,lectura; familia_y_vinculos; salir_pasear_viajar
+6,q3,descanso; naturaleza_y_aire_libre; lectura
+7,q3,pantallas_series_redes; no_clasificable
+8,q3,pantallas_series_redes; deporte_y_ejercicio; salir_pasear_viajar
+9,q3,no_clasificable
+10,q3,tareas_domesticas_y_cuidados; familia_y_vinculos; salir_pasear_viajar
+11,q3,deporte_y_ejercicio; trabajo_o_estudio
+12,q3,pantallas_series_redes; deporte_y_ejercicio
+13,q3,pantallas_series_redes; deporte_y_ejercicio
+14,q3,familia_y_vinculos; tareas_domesticas_y_cuidados; salir_pasear_viajar
+15,q3,familia_y_vinculos; barrera_de_tiempo
+16,q3,naturaleza_y_aire_libre; lectura; familia_y_vinculos
+17,q3,descanso; barrera_economica
+19,q3,naturaleza_y_aire_libre; lectura; tareas_domesticas_y_cuidados
+20,q3,naturaleza_y_aire_libre; deporte_y_ejercicio
+21,q3,pantallas_series_redes; deporte_y_ejercicio
+22,q3,naturaleza_y_aire_libre; salir_pasear_viajar
+23,q3,trabajo_o_estudio; lectura; tareas_domesticas_y_cuidados
+24,q3,salir_pasear_viajar; naturaleza_y_aire_libre
+26,q3,tareas_domesticas_y_cuidados; salir_pasear_viajar; barrera_de_tiempo
+27,q3,trabajo_o_estudio; barrera_economica; barrera_de_tiempo
+28,q3,barrera_de_tiempo; trabajo_o_estudio
+29,q3,barrera_de_tiempo; barrera_economica; salir_pasear_viajar
+30,q3,familia_y_vinculos; descanso
+31,q3,deporte_y_ejercicio; pantallas_series_redes; familia_y_vinculos
+32,q3,salir_pasear_viajar; naturaleza_y_aire_libre
+33,q3,descanso; barrera_economica
+34,q3,trabajo_o_estudio; descanso; no_clasificable
+35,q3,familia_y_vinculos; salir_pasear_viajar
+36,q3,naturaleza_y_aire_libre; familia_y_vinculos
+37,q3,trabajo_o_estudio; naturaleza_y_aire_libre; tareas_domesticas_y_cuidados
+38,q3,descanso; lectura; familia_y_vinculos
+39,q3,familia_y_vinculos; salir_pasear_viajar
+40,q3,familia_y_vinculos; salir_pasear_viajar
+41,q3,salir_pasear_viajar; barrera_economica
+42,q3,familia_y_vinculos; tareas_domesticas_y_cuidados
+43,q3,trabajo_o_estudio
+44,q3,deporte_y_ejercicio; pantallas_series_redes
+45,q3,familia_y_vinculos; deporte_y_ejercicio; barrera_de_tiempo
+46,q3,familia_y_vinculos; descanso
+47,q3,pantallas_series_redes; tareas_domesticas_y_cuidados
+48,q3,salir_pasear_viajar; deporte_y_ejercicio
+49,q3,naturaleza_y_aire_libre; deporte_y_ejercicio
+50,q3,familia_y_vinculos; descanso
+51,q3,trabajo_o_estudio; salir_pasear_viajar
+52,q3,naturaleza_y_aire_libre; lectura; familia_y_vinculos
+53,q3,familia_y_vinculos; deporte_y_ejercicio; salir_pasear_viajar
+54,q3,familia_y_vinculos; barrera_economica
+55,q3,deporte_y_ejercicio; trabajo_o_estudio; barrera_economica
+56,q3,lectura; familia_y_vinculos
+57,q3,tareas_domesticas_y_cuidados; descanso
+58,q3,trabajo_o_estudio
+59,q3,pantallas_series_redes; naturaleza_y_aire_libre
+60,q3,salir_pasear_viajar; naturaleza_y_aire_libre; familia_y_vinculos
+61,q3,lectura; deporte_y_ejercicio
+62,q3,salir_pasear_viajar; tareas_domesticas_y_cuidados; deporte_y_ejercicio
+64,q3,trabajo_o_estudio; barrera_economica
+65,q3,tareas_domesticas_y_cuidados; salir_pasear_viajar; descanso
+67,q3,salir_pasear_viajar; barrera_economica
+68,q3,barrera_de_tiempo; familia_y_vinculos
+69,q3,familia_y_vinculos; salir_pasear_viajar
+71,q3,salir_pasear_viajar; familia_y_vinculos
+72,q3,pantallas_series_redes; descanso
+73,q3,barrera_economica; naturaleza_y_aire_libre
+76,q3,trabajo_o_estudio; salir_pasear_viajar; barrera_economica
+77,q3,trabajo_o_estudio; no_clasificable
+78,q3,trabajo_o_estudio; no_clasificable
+79,q3,deporte_y_ejercicio; lectura
+80,q3,naturaleza_y_aire_libre; deporte_y_ejercicio
+81,q3,salir_pasear_viajar; naturaleza_y_aire_libre
+82,q3,naturaleza_y_aire_libre; familia_y_vinculos
+83,q3,descanso
+84,q3,familia_y_vinculos; salir_pasear_viajar
+85,q3,familia_y_vinculos; descanso
+86,q3,pantallas_series_redes
+87,q3,naturaleza_y_aire_libre; lectura; pantallas_series_redes
+88,q3,deporte_y_ejercicio; salir_pasear_viajar
+89,q3,salir_pasear_viajar; familia_y_vinculos; naturaleza_y_aire_libre
+91,q3,salir_pasear_viajar; naturaleza_y_aire_libre
+92,q3,deporte_y_ejercicio; descanso
+93,q3,lectura; salir_pasear_viajar; no_clasificable
+94,q3,salir_pasear_viajar; lectura; naturaleza_y_aire_libre
+96,q3,familia_y_vinculos; lectura; salir_pasear_viajar
+97,q3,naturaleza_y_aire_libre; salir_pasear_viajar
+99,q3,pantallas_series_redes; salir_pasear_viajar
+100,q3,tareas_domesticas_y_cuidados; descanso; pantallas_series_redes
+101,q3,descanso; deporte_y_ejercicio; salir_pasear_viajar
+102,q3,salir_pasear_viajar; pantallas_series_redes
+103,q3,familia_y_vinculos; lectura; tareas_domesticas_y_cuidados
+104,q3,lectura; salir_pasear_viajar
+105,q3,naturaleza_y_aire_libre; lectura; barrera_de_tiempo
+106,q3,familia_y_vinculos; pantallas_series_redes; salir_pasear_viajar
+107,q3,salir_pasear_viajar; trabajo_o_estudio
+108,q3,familia_y_vinculos; descanso; no_clasificable
+109,q3,trabajo_o_estudio; familia_y_vinculos
+110,q3,trabajo_o_estudio; no_clasificable
+111,q3,familia_y_vinculos; lectura; salir_pasear_viajar
+112,q3,deporte_y_ejercicio; pantallas_series_redes; barrera_economica
+113,q3,pantallas_series_redes; salir_pasear_viajar
+114,q3,tareas_domesticas_y_cuidados; pantallas_series_redes
+116,q3,no_clasificable
+117,q3,deporte_y_ejercicio; lectura; naturaleza_y_aire_libre
+118,q3,salir_pasear_viajar; barrera_economica
+120,q3,familia_y_vinculos; pantallas_series_redes
+121,q3,familia_y_vinculos; salir_pasear_viajar
+122,q3,familia_y_vinculos; salir_pasear_viajar
+123,q3,naturaleza_y_aire_libre; lectura; pantallas_series_redes
+124,q3,barrera_economica; deporte_y_ejercicio; salir_pasear_viajar
+125,q3,barrera_economica; naturaleza_y_aire_libre
+126,q3,familia_y_vinculos; descanso
+127,q3,salir_pasear_viajar; no_clasificable
+128,q3,tareas_domesticas_y_cuidados; salir_pasear_viajar
+129,q3,salir_pasear_viajar; lectura; naturaleza_y_aire_libre
+130,q3,pantallas_series_redes; deporte_y_ejercicio
+131,q3,deporte_y_ejercicio; salir_pasear_viajar; barrera_de_tiempo
+132,q3,trabajo_o_estudio; descanso; barrera_de_tiempo
+133,q3,descanso; tareas_domesticas_y_cuidados; salir_pasear_viajar
+135,q3,no_clasificable
+136,q3,salir_pasear_viajar; deporte_y_ejercicio; familia_y_vinculos
+137,q3,familia_y_vinculos; salir_pasear_viajar; naturaleza_y_aire_libre
+138,q3,trabajo_o_estudio; barrera_de_tiempo
+139,q3,deporte_y_ejercicio; familia_y_vinculos
+140,q3,salir_pasear_viajar; trabajo_o_estudio
+141,q3,salir_pasear_viajar; naturaleza_y_aire_libre; deporte_y_ejercicio
+142,q3,familia_y_vinculos; salir_pasear_viajar
+143,q3,deporte_y_ejercicio; salir_pasear_viajar; lectura
+144,q3,familia_y_vinculos; trabajo_o_estudio; no_clasificable
+145,q3,familia_y_vinculos; deporte_y_ejercicio; salir_pasear_viajar
+146,q3,naturaleza_y_aire_libre; salir_pasear_viajar
+147,q3,deporte_y_ejercicio; tareas_domesticas_y_cuidados; barrera_de_tiempo
+148,q3,salir_pasear_viajar; naturaleza_y_aire_libre
+149,q3,naturaleza_y_aire_libre; salir_pasear_viajar; trabajo_o_estudio
+150,q3,naturaleza_y_aire_libre; pantallas_series_redes
+1,q5,no_clasificable
+2,q5,sostenibilidad_ambiental; igualdad_y_distribucion
+3,q5,respuesta_tautologica
+4,q5,igualdad_y_distribucion; bienestar_y_calidad_de_vida
+6,q5,bienestar_y_calidad_de_vida; igualdad_y_distribucion
+7,q5,derechos_y_oportunidades; sostenibilidad_ambiental
+8,q5,igualdad_y_distribucion; bienestar_y_calidad_de_vida
+9,q5,economia_produccion_empleo; igualdad_y_distribucion
+10,q5,bienestar_y_calidad_de_vida; igualdad_y_distribucion
+11,q5,respuesta_tautologica
+12,q5,economia_produccion_empleo; no_clasificable
+13,q5,economia_produccion_empleo; bienestar_y_calidad_de_vida; igualdad_y_distribucion
+15,q5,igualdad_y_distribucion; bienestar_y_calidad_de_vida; derechos_y_oportunidades
+16,q5,las_tres_van_juntas; igualdad_y_distribucion; bienestar_y_calidad_de_vida
+17,q5,sostenibilidad_ambiental; derechos_y_oportunidades
+19,q5,economia_produccion_empleo; bienestar_y_calidad_de_vida
+20,q5,sostenibilidad_ambiental; igualdad_y_distribucion; derechos_y_oportunidades
+21,q5,sostenibilidad_ambiental; igualdad_y_distribucion
+22,q5,igualdad_y_distribucion; bienestar_y_calidad_de_vida; economia_produccion_empleo
+23,q5,igualdad_y_distribucion; bienestar_y_calidad_de_vida
+24,q5,respuesta_tautologica
+26,q5,no_clasificable
+27,q5,sostenibilidad_ambiental; bienestar_y_calidad_de_vida
+28,q5,respuesta_tautologica
+29,q5,economia_produccion_empleo; igualdad_y_distribucion; rol_del_estado
+30,q5,no_clasificable
+31,q5,igualdad_y_distribucion; bienestar_y_calidad_de_vida
+32,q5,igualdad_y_distribucion; economia_produccion_empleo; bienestar_y_calidad_de_vida
+33,q5,respuesta_tautologica; igualdad_y_distribucion
+34,q5,no_clasificable
+35,q5,igualdad_y_distribucion; economia_produccion_empleo
+36,q5,economia_produccion_empleo; bienestar_y_calidad_de_vida
+37,q5,igualdad_y_distribucion; derechos_y_oportunidades; sostenibilidad_ambiental
+38,q5,igualdad_y_distribucion; economia_produccion_empleo
+39,q5,economia_produccion_empleo; igualdad_y_distribucion
+40,q5,bienestar_y_calidad_de_vida; igualdad_y_distribucion
+41,q5,no_clasificable
+42,q5,economia_produccion_empleo; bienestar_y_calidad_de_vida
+43,q5,sostenibilidad_ambiental; igualdad_y_distribucion
+44,q5,respuesta_tautologica
+45,q5,sostenibilidad_ambiental; igualdad_y_distribucion
+46,q5,bienestar_y_calidad_de_vida; igualdad_y_distribucion
+47,q5,sostenibilidad_ambiental; igualdad_y_distribucion
+48,q5,igualdad_y_distribucion; derechos_y_oportunidades
+49,q5,economia_produccion_empleo; igualdad_y_distribucion
+50,q5,economia_produccion_empleo; bienestar_y_calidad_de_vida
+51,q5,sostenibilidad_ambiental; igualdad_y_distribucion
+52,q5,no_clasificable
+53,q5,no_clasificable
+54,q5,no_clasificable
+55,q5,respuesta_tautologica; igualdad_y_distribucion
+56,q5,economia_produccion_empleo; igualdad_y_distribucion
+57,q5,economia_produccion_empleo; derechos_y_oportunidades
+58,q5,sostenibilidad_ambiental; bienestar_y_calidad_de_vida
+59,q5,no_clasificable
+60,q5,economia_produccion_empleo; bienestar_y_calidad_de_vida
+61,q5,las_tres_van_juntas; igualdad_y_distribucion
+62,q5,las_tres_van_juntas; igualdad_y_distribucion
+64,q5,no_clasificable
+65,q5,no_clasificable
+67,q5,igualdad_y_distribucion; derechos_y_oportunidades; economia_produccion_empleo
+68,q5,no_clasificable
+69,q5,derechos_y_oportunidades; igualdad_y_distribucion
+71,q5,no_clasificable
+72,q5,respuesta_tautologica
+73,q5,economia_produccion_empleo; igualdad_y_distribucion
+76,q5,bienestar_y_calidad_de_vida; igualdad_y_distribucion
+77,q5,igualdad_y_distribucion; bienestar_y_calidad_de_vida
+78,q5,economia_produccion_empleo; igualdad_y_distribucion
+79,q5,igualdad_y_distribucion; sostenibilidad_ambiental
+80,q5,no_clasificable
+81,q5,economia_produccion_empleo; sostenibilidad_ambiental; igualdad_y_distribucion
+82,q5,no_clasificable
+83,q5,sostenibilidad_ambiental; igualdad_y_distribucion
+84,q5,bienestar_y_calidad_de_vida; igualdad_y_distribucion
+86,q5,igualdad_y_distribucion; bienestar_y_calidad_de_vida
+87,q5,igualdad_y_distribucion; economia_produccion_empleo; bienestar_y_calidad_de_vida
+88,q5,economia_produccion_empleo; igualdad_y_distribucion
+92,q5,las_tres_van_juntas; igualdad_y_distribucion; bienestar_y_calidad_de_vida
+93,q5,igualdad_y_distribucion; sostenibilidad_ambiental
+94,q5,economia_produccion_empleo; igualdad_y_distribucion
+96,q5,sostenibilidad_ambiental; igualdad_y_distribucion
+97,q5,las_tres_van_juntas; sostenibilidad_ambiental
+99,q5,bienestar_y_calidad_de_vida; igualdad_y_distribucion
+100,q5,igualdad_y_distribucion; economia_produccion_empleo
+101,q5,las_tres_van_juntas; bienestar_y_calidad_de_vida
+102,q5,igualdad_y_distribucion; sostenibilidad_ambiental
+103,q5,sostenibilidad_ambiental; igualdad_y_distribucion
+105,q5,igualdad_y_distribucion; bienestar_y_calidad_de_vida
+106,q5,igualdad_y_distribucion; bienestar_y_calidad_de_vida; economia_produccion_empleo
+107,q5,no_clasificable
+108,q5,derechos_y_oportunidades; igualdad_y_distribucion
+109,q5,sostenibilidad_ambiental; igualdad_y_distribucion
+110,q5,igualdad_y_distribucion; bienestar_y_calidad_de_vida
+111,q5,economia_produccion_empleo; sostenibilidad_ambiental; derechos_y_oportunidades
+112,q5,economia_produccion_empleo; igualdad_y_distribucion
+113,q5,bienestar_y_calidad_de_vida; igualdad_y_distribucion
+114,q5,economia_produccion_empleo; no_clasificable
+116,q5,respuesta_tautologica; no_clasificable
+117,q5,igualdad_y_distribucion; bienestar_y_calidad_de_vida
+118,q5,igualdad_y_distribucion; bienestar_y_calidad_de_vida
+120,q5,economia_produccion_empleo; igualdad_y_distribucion
+121,q5,igualdad_y_distribucion; economia_produccion_empleo
+122,q5,economia_produccion_empleo; igualdad_y_distribucion
+123,q5,respuesta_tautologica
+124,q5,las_tres_van_juntas; igualdad_y_distribucion
+125,q5,economia_produccion_empleo; bienestar_y_calidad_de_vida
+126,q5,economia_produccion_empleo; igualdad_y_distribucion
+127,q5,derechos_y_oportunidades; bienestar_y_calidad_de_vida
+128,q5,bienestar_y_calidad_de_vida; derechos_y_oportunidades
+129,q5,sostenibilidad_ambiental
+131,q5,igualdad_y_distribucion; bienestar_y_calidad_de_vida
+132,q5,respuesta_tautologica
+133,q5,igualdad_y_distribucion; bienestar_y_calidad_de_vida
+135,q5,no_clasificable
+136,q5,bienestar_y_calidad_de_vida; sostenibilidad_ambiental; las_tres_van_juntas
+137,q5,no_clasificable
+138,q5,no_clasificable
+139,q5,igualdad_y_distribucion; bienestar_y_calidad_de_vida
+140,q5,igualdad_y_distribucion; economia_produccion_empleo
+141,q5,bienestar_y_calidad_de_vida; economia_produccion_empleo; igualdad_y_distribucion
+142,q5,respuesta_tautologica; bienestar_y_calidad_de_vida
+143,q5,igualdad_y_distribucion; bienestar_y_calidad_de_vida
+144,q5,igualdad_y_distribucion
+145,q5,igualdad_y_distribucion; bienestar_y_calidad_de_vida
+147,q5,sostenibilidad_ambiental; economia_produccion_empleo; igualdad_y_distribucion
+148,q5,sostenibilidad_ambiental; igualdad_y_distribucion
+149,q5,igualdad_y_distribucion; sostenibilidad_ambiental; economia_produccion_empleo
+150,q5,igualdad_y_distribucion; bienestar_y_calidad_de_vida
+1,q6,control_y_cumplimiento_de_la_ley
+2,q6,administrar_y_organizar
+3,q6,garantizar_derechos_sociales; reducir_desigualdades
+4,q6,reducir_desigualdades; seguridad_y_justicia; garantizar_derechos_sociales
+6,q6,seguridad_y_justicia; soberania_y_defensa; estado_minimo
+7,q6,provision_de_servicios_y_empresas_publicas; garantizar_derechos_sociales
+8,q6,control_y_cumplimiento_de_la_ley; garantizar_derechos_sociales; seguridad_y_justicia
+9,q6,seguridad_y_justicia; control_y_cumplimiento_de_la_ley
+10,q6,reducir_desigualdades; garantizar_derechos_sociales
+12,q6,control_y_cumplimiento_de_la_ley; seguridad_y_justicia; soberania_y_defensa
+13,q6,seguridad_y_justicia; garantizar_derechos_sociales; administrar_y_organizar
+15,q6,garantizar_derechos_sociales; soberania_y_defensa; regulacion_de_la_economia
+16,q6,seguridad_y_justicia; garantizar_derechos_sociales; administrar_y_organizar
+17,q6,reducir_desigualdades; garantizar_derechos_sociales; regulacion_de_la_economia
+19,q6,garantizar_derechos_sociales; seguridad_y_justicia; regulacion_de_la_economia
+20,q6,no_clasificable; administrar_y_organizar
+22,q6,garantizar_derechos_sociales; reducir_desigualdades; no_clasificable
+23,q6,reducir_desigualdades; regulacion_de_la_economia
+24,q6,garantizar_derechos_sociales; administrar_y_organizar
+26,q6,reducir_desigualdades; seguridad_y_justicia; garantizar_derechos_sociales
+27,q6,reducir_desigualdades; seguridad_y_justicia; regulacion_de_la_economia
+28,q6,reducir_desigualdades; garantizar_derechos_sociales
+29,q6,estado_minimo; no_clasificable
+30,q6,reducir_desigualdades; regulacion_de_la_economia
+32,q6,administrar_y_organizar; estado_minimo
+33,q6,reducir_desigualdades; garantizar_derechos_sociales
+34,q6,seguridad_y_justicia; control_y_cumplimiento_de_la_ley; provision_de_servicios_y_empresas_publicas
+35,q6,seguridad_y_justicia; control_y_cumplimiento_de_la_ley
+36,q6,no_clasificable
+37,q6,garantizar_derechos_sociales; seguridad_y_justicia; administrar_y_organizar
+38,q6,reducir_desigualdades; garantizar_derechos_sociales; seguridad_y_justicia
+39,q6,garantizar_derechos_sociales; seguridad_y_justicia; control_y_cumplimiento_de_la_ley
+40,q6,no_clasificable
+41,q6,reducir_desigualdades; garantizar_derechos_sociales
+42,q6,seguridad_y_justicia; regulacion_de_la_economia
+43,q6,administrar_y_organizar; soberania_y_defensa
+44,q6,control_y_cumplimiento_de_la_ley; garantizar_derechos_sociales
+45,q6,garantizar_derechos_sociales; seguridad_y_justicia; administrar_y_organizar
+46,q6,garantizar_derechos_sociales; seguridad_y_justicia; control_y_cumplimiento_de_la_ley
+47,q6,estado_minimo
+48,q6,no_clasificable
+49,q6,garantizar_derechos_sociales; seguridad_y_justicia
+50,q6,garantizar_derechos_sociales; reducir_desigualdades
+51,q6,seguridad_y_justicia; garantizar_derechos_sociales
+52,q6,garantizar_derechos_sociales; seguridad_y_justicia
+53,q6,no_clasificable
+54,q6,reducir_desigualdades; seguridad_y_justicia; control_y_cumplimiento_de_la_ley
+55,q6,no_clasificable
+56,q6,garantizar_derechos_sociales; reducir_desigualdades; regulacion_de_la_economia
+57,q6,estado_minimo; no_clasificable
+58,q6,reducir_desigualdades; garantizar_derechos_sociales
+59,q6,no_clasificable
+60,q6,garantizar_derechos_sociales; reducir_desigualdades; seguridad_y_justicia
+61,q6,garantizar_derechos_sociales; regulacion_de_la_economia
+62,q6,seguridad_y_justicia; garantizar_derechos_sociales
+64,q6,no_clasificable
+65,q6,seguridad_y_justicia; garantizar_derechos_sociales
+67,q6,no_clasificable; estado_minimo
+68,q6,reducir_desigualdades; regulacion_de_la_economia
+69,q6,garantizar_derechos_sociales; seguridad_y_justicia
+71,q6,seguridad_y_justicia; garantizar_derechos_sociales
+72,q6,administrar_y_organizar
+73,q6,control_y_cumplimiento_de_la_ley; seguridad_y_justicia
+76,q6,seguridad_y_justicia; administrar_y_organizar; no_clasificable
+77,q6,seguridad_y_justicia; garantizar_derechos_sociales; soberania_y_defensa
+78,q6,provision_de_servicios_y_empresas_publicas; garantizar_derechos_sociales
+79,q6,administrar_y_organizar; control_y_cumplimiento_de_la_ley
+80,q6,seguridad_y_justicia; garantizar_derechos_sociales; reducir_desigualdades
+81,q6,reducir_desigualdades; estado_minimo; garantizar_derechos_sociales
+82,q6,administrar_y_organizar; garantizar_derechos_sociales
+83,q6,garantizar_derechos_sociales; provision_de_servicios_y_empresas_publicas
+84,q6,reducir_desigualdades; garantizar_derechos_sociales; control_y_cumplimiento_de_la_ley
+86,q6,administrar_y_organizar; soberania_y_defensa
+87,q6,seguridad_y_justicia; garantizar_derechos_sociales; reducir_desigualdades
+88,q6,reducir_desigualdades
+92,q6,no_clasificable
+93,q6,garantizar_derechos_sociales; provision_de_servicios_y_empresas_publicas
+94,q6,reducir_desigualdades; seguridad_y_justicia; control_y_cumplimiento_de_la_ley
+97,q6,reducir_desigualdades; seguridad_y_justicia; garantizar_derechos_sociales
+99,q6,administrar_y_organizar; garantizar_derechos_sociales
+100,q6,control_y_cumplimiento_de_la_ley; regulacion_de_la_economia; soberania_y_defensa
+101,q6,estado_minimo; seguridad_y_justicia; administrar_y_organizar
+102,q6,garantizar_derechos_sociales; reducir_desigualdades; seguridad_y_justicia
+103,q6,reducir_desigualdades; seguridad_y_justicia
+105,q6,reducir_desigualdades; garantizar_derechos_sociales; regulacion_de_la_economia
+106,q6,reducir_desigualdades; garantizar_derechos_sociales; seguridad_y_justicia
+107,q6,seguridad_y_justicia; control_y_cumplimiento_de_la_ley; administrar_y_organizar
+108,q6,administrar_y_organizar; seguridad_y_justicia
+109,q6,seguridad_y_justicia; reducir_desigualdades
+110,q6,administrar_y_organizar; regulacion_de_la_economia
+111,q6,seguridad_y_justicia; garantizar_derechos_sociales; reducir_desigualdades
+112,q6,garantizar_derechos_sociales; seguridad_y_justicia; regulacion_de_la_economia
+113,q6,control_y_cumplimiento_de_la_ley; seguridad_y_justicia; reducir_desigualdades
+114,q6,reducir_desigualdades; seguridad_y_justicia; regulacion_de_la_economia
+116,q6,reducir_desigualdades; seguridad_y_justicia; garantizar_derechos_sociales
+117,q6,garantizar_derechos_sociales; reducir_desigualdades
+118,q6,garantizar_derechos_sociales; provision_de_servicios_y_empresas_publicas
+120,q6,administrar_y_organizar; garantizar_derechos_sociales
+121,q6,reducir_desigualdades; garantizar_derechos_sociales
+122,q6,seguridad_y_justicia; control_y_cumplimiento_de_la_ley; reducir_desigualdades
+123,q6,reducir_desigualdades; seguridad_y_justicia; garantizar_derechos_sociales
+124,q6,administrar_y_organizar; regulacion_de_la_economia; no_clasificable
+125,q6,reducir_desigualdades; garantizar_derechos_sociales
+126,q6,control_y_cumplimiento_de_la_ley; seguridad_y_justicia; garantizar_derechos_sociales
+127,q6,no_clasificable
+128,q6,seguridad_y_justicia; garantizar_derechos_sociales
+129,q6,garantizar_derechos_sociales; estado_minimo
+131,q6,reducir_desigualdades; garantizar_derechos_sociales
+133,q6,reducir_desigualdades; garantizar_derechos_sociales; seguridad_y_justicia
+135,q6,no_clasificable
+136,q6,seguridad_y_justicia; garantizar_derechos_sociales; provision_de_servicios_y_empresas_publicas
+137,q6,no_clasificable
+138,q6,garantizar_derechos_sociales; seguridad_y_justicia; administrar_y_organizar
+139,q6,reducir_desigualdades; garantizar_derechos_sociales; regulacion_de_la_economia
+140,q6,seguridad_y_justicia; control_y_cumplimiento_de_la_ley; administrar_y_organizar
+141,q6,administrar_y_organizar; seguridad_y_justicia; garantizar_derechos_sociales
+142,q6,seguridad_y_justicia; garantizar_derechos_sociales; provision_de_servicios_y_empresas_publicas
+143,q6,garantizar_derechos_sociales; seguridad_y_justicia; provision_de_servicios_y_empresas_publicas
+144,q6,seguridad_y_justicia; reducir_desigualdades
+145,q6,reducir_desigualdades; garantizar_derechos_sociales; regulacion_de_la_economia
+147,q6,reducir_desigualdades; garantizar_derechos_sociales
+148,q6,seguridad_y_justicia; garantizar_derechos_sociales
+149,q6,garantizar_derechos_sociales; seguridad_y_justicia; provision_de_servicios_y_empresas_publicas
+150,q6,seguridad_y_justicia; garantizar_derechos_sociales
+1,q7,ausente_o_insuficiente; no_clasificable
+2,q7,presente_y_protector; no_clasificable
+3,q7,no_clasificable
+4,q7,presente_y_protector; ineficiente_o_mal_gestionado
+6,q7,valoracion_ambivalente; ineficiente_o_mal_gestionado
+7,q7,presente_y_protector; sobredimensionado_y_burocratico
+8,q7,presente_y_protector; ausente_o_insuficiente; no_hace_cumplir_la_ley
+10,q7,servicios_de_calidad; presente_y_protector; tradicion_democratica
+12,q7,sobredimensionado_y_burocratico; no_hace_cumplir_la_ley; ineficiente_o_mal_gestionado
+13,q7,ineficiente_o_mal_gestionado; presente_y_protector
+15,q7,presente_y_protector; tradicion_democratica; valoracion_ambivalente
+16,q7,ausente_o_insuficiente; valoracion_negativa_generica
+17,q7,no_clasificable; tradicion_democratica
+19,q7,ausente_o_insuficiente; ineficiente_o_mal_gestionado
+20,q7,no_clasificable
+22,q7,valoracion_negativa_generica
+23,q7,presente_y_protector; valoracion_ambivalente
+24,q7,presente_y_protector; tradicion_democratica
+26,q7,valoracion_negativa_generica; ausente_o_insuficiente; no_clasificable
+27,q7,ausente_o_insuficiente; no_clasificable
+28,q7,ausente_o_insuficiente; no_clasificable
+29,q7,ausente_o_insuficiente; no_clasificable
+30,q7,presente_y_protector; tradicion_democratica
+32,q7,no_clasificable
+33,q7,no_clasificable
+34,q7,presente_y_protector; no_clasificable
+36,q7,ausente_o_insuficiente; valoracion_negativa_generica
+37,q7,presente_y_protector; servicios_de_calidad; valoracion_ambivalente
+38,q7,gasto_excesivo; ineficiente_o_mal_gestionado
+39,q7,ausente_o_insuficiente; no_hace_cumplir_la_ley
+41,q7,presente_y_protector; ausente_o_insuficiente
+42,q7,ausente_o_insuficiente; no_clasificable
+43,q7,sobredimensionado_y_burocratico; gasto_excesivo; no_clasificable
+44,q7,ausente_o_insuficiente; valoracion_negativa_generica
+46,q7,presente_y_protector; valoracion_ambivalente
+47,q7,valoracion_negativa_generica
+48,q7,no_clasificable
+49,q7,ineficiente_o_mal_gestionado; sobredimensionado_y_burocratico; valoracion_negativa_generica
+50,q7,ausente_o_insuficiente; valoracion_negativa_generica
+51,q7,valoracion_negativa_generica
+52,q7,tradicion_democratica; presente_y_protector
+53,q7,tradicion_democratica; no_clasificable
+54,q7,ausente_o_insuficiente; valoracion_negativa_generica
+55,q7,ausente_o_insuficiente; no_clasificable
+56,q7,sobredimensionado_y_burocratico; no_hace_cumplir_la_ley; valoracion_negativa_generica
+57,q7,presente_y_protector; no_clasificable
+58,q7,no_clasificable
+60,q7,valoracion_negativa_generica; ausente_o_insuficiente; no_clasificable
+61,q7,no_clasificable
+62,q7,tradicion_democratica; presente_y_protector
+64,q7,valoracion_negativa_generica; no_hace_cumplir_la_ley; ausente_o_insuficiente
+65,q7,no_clasificable
+67,q7,no_clasificable; valoracion_ambivalente
+68,q7,presente_y_protector; tradicion_democratica
+69,q7,presente_y_protector; sobredimensionado_y_burocratico; ineficiente_o_mal_gestionado
+71,q7,ausente_o_insuficiente; no_clasificable
+72,q7,no_clasificable
+73,q7,ausente_o_insuficiente; no_clasificable
+76,q7,valoracion_negativa_generica; no_clasificable
+77,q7,sobredimensionado_y_burocratico; ineficiente_o_mal_gestionado
+78,q7,valoracion_negativa_generica; no_hace_cumplir_la_ley
+79,q7,no_clasificable
+80,q7,ausente_o_insuficiente; no_clasificable
+81,q7,sobredimensionado_y_burocratico; gasto_excesivo; no_clasificable
+83,q7,presente_y_protector
+84,q7,presente_y_protector; no_clasificable
+86,q7,no_clasificable
+87,q7,ineficiente_o_mal_gestionado; ausente_o_insuficiente
+88,q7,tradicion_democratica; presente_y_protector
+92,q7,ausente_o_insuficiente; presente_y_protector
+93,q7,presente_y_protector; servicios_de_calidad; valoracion_ambivalente
+94,q7,presente_y_protector; no_clasificable
+97,q7,presente_y_protector; tradicion_democratica; servicios_de_calidad
+99,q7,ineficiente_o_mal_gestionado; no_clasificable
+100,q7,presente_y_protector; valoracion_ambivalente
+101,q7,sobredimensionado_y_burocratico; gasto_excesivo; no_hace_cumplir_la_ley
+102,q7,presente_y_protector; tradicion_democratica
+103,q7,ausente_o_insuficiente; no_clasificable
+105,q7,presente_y_protector; tradicion_democratica; no_clasificable
+106,q7,presente_y_protector; ineficiente_o_mal_gestionado; no_clasificable
+107,q7,presente_y_protector; tradicion_democratica
+108,q7,valoracion_negativa_generica; no_clasificable
+109,q7,ineficiente_o_mal_gestionado; sobredimensionado_y_burocratico
+110,q7,presente_y_protector; servicios_de_calidad
+111,q7,presente_y_protector; valoracion_ambivalente
+112,q7,tradicion_democratica; presente_y_protector; servicios_de_calidad
+113,q7,sobredimensionado_y_burocratico; no_clasificable
+114,q7,no_clasificable
+116,q7,presente_y_protector; servicios_de_calidad
+117,q7,presente_y_protector; ausente_o_insuficiente
+118,q7,valoracion_negativa_generica; ausente_o_insuficiente
+120,q7,ineficiente_o_mal_gestionado; presente_y_protector
+121,q7,valoracion_negativa_generica
+122,q7,tradicion_democratica; presente_y_protector
+123,q7,presente_y_protector; tradicion_democratica
+124,q7,ausente_o_insuficiente; no_clasificable
+125,q7,presente_y_protector; tradicion_democratica
+127,q7,no_clasificable
+128,q7,ausente_o_insuficiente; sobredimensionado_y_burocratico
+129,q7,presente_y_protector; tradicion_democratica
+131,q7,no_clasificable; presente_y_protector
+133,q7,sobredimensionado_y_burocratico; ineficiente_o_mal_gestionado; presente_y_protector
+135,q7,no_clasificable
+136,q7,presente_y_protector; servicios_de_calidad
+138,q7,presente_y_protector; ineficiente_o_mal_gestionado; sobredimensionado_y_burocratico
+139,q7,presente_y_protector; no_clasificable
+140,q7,ausente_o_insuficiente; no_clasificable
+141,q7,presente_y_protector; tradicion_democratica
+142,q7,presente_y_protector; no_clasificable
+143,q7,presente_y_protector; tradicion_democratica
+144,q7,ausente_o_insuficiente; no_clasificable
+145,q7,presente_y_protector; ineficiente_o_mal_gestionado; sobredimensionado_y_burocratico
+147,q7,ineficiente_o_mal_gestionado; no_hace_cumplir_la_ley
+148,q7,sobredimensionado_y_burocratico; no_clasificable
+149,q7,presente_y_protector; servicios_de_calidad; valoracion_ambivalente
+150,q7,ineficiente_o_mal_gestionado; sobredimensionado_y_burocratico; presente_y_protector
+1,q8,diferencias_economicas_e_ingresos; pobreza
+2,q8,oportunidades_y_acceso; no_clasificable
+3,q8,poder_y_clases; injusticia
+4,q8,injusticia; no_clasificable
+6,q8,diferencias_economicas_e_ingresos; pobreza
+7,q8,oportunidades_y_acceso; diferencias_economicas_e_ingresos
+8,q8,oportunidades_y_acceso; diferencias_economicas_e_ingresos
+10,q8,injusticia
+12,q8,cuestiona_el_concepto; no_clasificable
+13,q8,pobreza
+15,q8,infancia_y_adolescencia; exclusion_y_marginacion; poder_y_clases
+16,q8,diferencias_economicas_e_ingresos; poder_y_clases; genero
+17,q8,infancia_y_adolescencia; oportunidades_y_acceso
+19,q8,exclusion_y_marginacion; diferencias_economicas_e_ingresos
+20,q8,poder_y_clases; injusticia; exclusion_y_marginacion
+22,q8,poder_y_clases
+23,q8,pobreza; diferencias_economicas_e_ingresos
+24,q8,diferencias_economicas_e_ingresos
+26,q8,injusticia; poder_y_clases; no_clasificable
+27,q8,poder_y_clases; exclusion_y_marginacion; injusticia
+28,q8,diferencias_economicas_e_ingresos; pobreza
+29,q8,diferencias_economicas_e_ingresos; injusticia; exclusion_y_marginacion
+30,q8,injusticia; diferencias_economicas_e_ingresos
+32,q8,injusticia; exclusion_y_marginacion; diferencias_economicas_e_ingresos
+33,q8,diferencias_economicas_e_ingresos; pobreza
+36,q8,cuestiona_el_concepto; diferencias_economicas_e_ingresos
+37,q8,exclusion_y_marginacion; pobreza
+38,q8,cuestiona_el_concepto; oportunidades_y_acceso
+39,q8,pobreza
+41,q8,educacion; diferencias_economicas_e_ingresos; poder_y_clases
+42,q8,diferencias_economicas_e_ingresos; poder_y_clases
+43,q8,exclusion_y_marginacion; infancia_y_adolescencia
+44,q8,diferencias_economicas_e_ingresos; educacion
+46,q8,oportunidades_y_acceso; educacion; diferencias_economicas_e_ingresos
+47,q8,diferencias_economicas_e_ingresos; poder_y_clases
+48,q8,injusticia; diferencias_economicas_e_ingresos
+49,q8,diferencias_economicas_e_ingresos; injusticia
+50,q8,exclusion_y_marginacion; diferencias_economicas_e_ingresos
+51,q8,diferencias_economicas_e_ingresos; pobreza
+52,q8,diferencias_economicas_e_ingresos; exclusion_y_marginacion
+53,q8,infancia_y_adolescencia; no_clasificable
+54,q8,exclusion_y_marginacion; injusticia; poder_y_clases
+55,q8,genero; injusticia; no_clasificable
+56,q8,oportunidades_y_acceso; diferencias_economicas_e_ingresos
+57,q8,injusticia; cuestiona_el_concepto
+58,q8,no_clasificable
+59,q8,no_clasificable
+60,q8,infancia_y_adolescencia; genero; exclusion_y_marginacion
+61,q8,injusticia; poder_y_clases
+62,q8,infancia_y_adolescencia; diferencias_economicas_e_ingresos; oportunidades_y_acceso
+64,q8,poder_y_clases; injusticia
+65,q8,pobreza; infancia_y_adolescencia
+67,q8,injusticia; genero; exclusion_y_marginacion
+68,q8,no_clasificable
+69,q8,infancia_y_adolescencia; exclusion_y_marginacion; diferencias_economicas_e_ingresos
+71,q8,educacion; poder_y_clases; diferencias_economicas_e_ingresos
+72,q8,diferencias_economicas_e_ingresos; exclusion_y_marginacion
+73,q8,poder_y_clases; diferencias_economicas_e_ingresos
+76,q8,educacion; diferencias_economicas_e_ingresos; poder_y_clases
+77,q8,cuestiona_el_concepto; diferencias_economicas_e_ingresos
+78,q8,diferencias_economicas_e_ingresos; injusticia; poder_y_clases
+79,q8,exclusion_y_marginacion
+80,q8,injusticia; diferencias_economicas_e_ingresos
+81,q8,injusticia; oportunidades_y_acceso; diferencias_economicas_e_ingresos
+83,q8,pobreza; exclusion_y_marginacion
+84,q8,oportunidades_y_acceso; injusticia
+86,q8,exclusion_y_marginacion; diferencias_economicas_e_ingresos
+87,q8,injusticia; poder_y_clases; no_clasificable
+88,q8,no_clasificable
+92,q8,oportunidades_y_acceso; diferencias_economicas_e_ingresos
+93,q8,diferencias_economicas_e_ingresos; educacion; poder_y_clases
+94,q8,diferencias_economicas_e_ingresos; no_clasificable
+97,q8,injusticia; diferencias_economicas_e_ingresos
+99,q8,no_clasificable
+100,q8,cuestiona_el_concepto; no_clasificable
+101,q8,no_clasificable
+102,q8,diferencias_economicas_e_ingresos; injusticia; exclusion_y_marginacion
+103,q8,infancia_y_adolescencia; diferencias_economicas_e_ingresos
+105,q8,diferencias_economicas_e_ingresos; exclusion_y_marginacion
+106,q8,oportunidades_y_acceso; poder_y_clases; educacion
+107,q8,oportunidades_y_acceso; injusticia
+108,q8,no_clasificable
+109,q8,oportunidades_y_acceso; exclusion_y_marginacion; injusticia
+110,q8,injusticia; diferencias_economicas_e_ingresos
+111,q8,oportunidades_y_acceso; diferencias_economicas_e_ingresos
+112,q8,oportunidades_y_acceso; diferencias_economicas_e_ingresos
+113,q8,oportunidades_y_acceso
+114,q8,oportunidades_y_acceso; diferencias_economicas_e_ingresos
+116,q8,exclusion_y_marginacion; pobreza
+117,q8,diferencias_economicas_e_ingresos; genero; injusticia
+118,q8,diferencias_economicas_e_ingresos; exclusion_y_marginacion
+120,q8,diferencias_economicas_e_ingresos; pobreza
+121,q8,oportunidades_y_acceso; injusticia
+122,q8,diferencias_economicas_e_ingresos; poder_y_clases
+123,q8,educacion; diferencias_economicas_e_ingresos; infancia_y_adolescencia
+124,q8,exclusion_y_marginacion; diferencias_economicas_e_ingresos; injusticia
+127,q8,genero; injusticia
+128,q8,poder_y_clases; injusticia
+129,q8,diferencias_economicas_e_ingresos; injusticia
+131,q8,injusticia; pobreza
+133,q8,exclusion_y_marginacion; diferencias_economicas_e_ingresos; injusticia
+135,q8,no_clasificable
+136,q8,pobreza; diferencias_economicas_e_ingresos; injusticia
+138,q8,injusticia; exclusion_y_marginacion
+139,q8,pobreza; diferencias_economicas_e_ingresos
+140,q8,injusticia; poder_y_clases
+141,q8,diferencias_economicas_e_ingresos; pobreza; exclusion_y_marginacion
+142,q8,pobreza
+143,q8,pobreza; exclusion_y_marginacion
+144,q8,diferencias_economicas_e_ingresos; exclusion_y_marginacion; injusticia
+145,q8,oportunidades_y_acceso; pobreza
+147,q8,injusticia
+148,q8,educacion; no_clasificable
+149,q8,diferencias_economicas_e_ingresos; injusticia; poder_y_clases
+150,q8,educacion; diferencias_economicas_e_ingresos; injusticia
+1,q9,no_clasificable
+2,q9,acceso_a_la_educacion
+3,q9,distribucion_de_riqueza_y_poder
+4,q9,territorial; ingresos_salarios_jubilaciones
+6,q9,ingresos_salarios_jubilaciones; vivienda_y_habitat; distribucion_de_riqueza_y_poder
+7,q9,vivienda_y_habitat; territorial
+8,q9,acceso_a_la_educacion; acceso_a_la_salud; empleo_y_mercado_laboral
+10,q9,ingresos_salarios_jubilaciones; genero
+12,q9,cuestiona_politicas_afirmativas; genero; etnico_racial
+13,q9,acceso_a_la_educacion; empleo_y_mercado_laboral
+15,q9,territorial; vivienda_y_habitat
+16,q9,distribucion_de_riqueza_y_poder; genero; territorial
+17,q9,distribucion_de_riqueza_y_poder; ingresos_salarios_jubilaciones
+19,q9,ingresos_salarios_jubilaciones; distribucion_de_riqueza_y_poder
+20,q9,distribucion_de_riqueza_y_poder; ingresos_salarios_jubilaciones
+22,q9,empleo_y_mercado_laboral
+23,q9,ingresos_salarios_jubilaciones; genero
+24,q9,empleo_y_mercado_laboral; ingresos_salarios_jubilaciones
+26,q9,no_clasificable
+27,q9,no_clasificable; genero; etnico_racial
+28,q9,distribucion_de_riqueza_y_poder; empleo_y_mercado_laboral
+29,q9,ingresos_salarios_jubilaciones; genero; etnico_racial
+30,q9,distribucion_de_riqueza_y_poder; ingresos_salarios_jubilaciones
+32,q9,distribucion_de_riqueza_y_poder; ingresos_salarios_jubilaciones; no_clasificable
+33,q9,ingresos_salarios_jubilaciones; distribucion_de_riqueza_y_poder
+36,q9,genero; distribucion_de_riqueza_y_poder
+37,q9,genero; ingresos_salarios_jubilaciones; acceso_a_la_salud
+38,q9,distribucion_de_riqueza_y_poder; ingresos_salarios_jubilaciones
+39,q9,distribucion_de_riqueza_y_poder; ingresos_salarios_jubilaciones
+41,q9,vivienda_y_habitat
+42,q9,no_clasificable
+43,q9,ingresos_salarios_jubilaciones; vivienda_y_habitat
+44,q9,distribucion_de_riqueza_y_poder; empleo_y_mercado_laboral
+46,q9,territorial; ingresos_salarios_jubilaciones; acceso_a_la_educacion
+47,q9,distribucion_de_riqueza_y_poder; ingresos_salarios_jubilaciones
+48,q9,ingresos_salarios_jubilaciones; territorial
+49,q9,distribucion_de_riqueza_y_poder; ingresos_salarios_jubilaciones
+50,q9,no_clasificable
+51,q9,distribucion_de_riqueza_y_poder; ingresos_salarios_jubilaciones; no_clasificable
+52,q9,empleo_y_mercado_laboral; acceso_a_la_educacion
+53,q9,genero; territorial; ingresos_salarios_jubilaciones
+54,q9,empleo_y_mercado_laboral; ingresos_salarios_jubilaciones
+55,q9,distribucion_de_riqueza_y_poder; ingresos_salarios_jubilaciones; genero
+56,q9,empleo_y_mercado_laboral; ingresos_salarios_jubilaciones; territorial
+57,q9,acceso_a_la_educacion
+58,q9,no_clasificable
+60,q9,genero; ingresos_salarios_jubilaciones; acceso_a_la_educacion
+61,q9,acceso_a_la_educacion; acceso_a_la_salud; vivienda_y_habitat
+62,q9,ingresos_salarios_jubilaciones; acceso_a_la_educacion
+64,q9,ingresos_salarios_jubilaciones; acceso_a_la_salud
+65,q9,ingresos_salarios_jubilaciones; territorial
+67,q9,empleo_y_mercado_laboral
+68,q9,distribucion_de_riqueza_y_poder; empleo_y_mercado_laboral
+69,q9,acceso_a_la_educacion; empleo_y_mercado_laboral; distribucion_de_riqueza_y_poder
+71,q9,empleo_y_mercado_laboral; territorial; acceso_a_la_salud
+72,q9,empleo_y_mercado_laboral; ingresos_salarios_jubilaciones
+73,q9,vivienda_y_habitat; distribucion_de_riqueza_y_poder
+76,q9,empleo_y_mercado_laboral; ingresos_salarios_jubilaciones
+77,q9,vivienda_y_habitat; territorial
+78,q9,distribucion_de_riqueza_y_poder; ingresos_salarios_jubilaciones
+79,q9,acceso_a_la_educacion; territorial
+80,q9,ingresos_salarios_jubilaciones; genero
+81,q9,etnico_racial; genero; territorial
+83,q9,acceso_a_la_educacion; etnico_racial
+84,q9,cuestiona_politicas_afirmativas; etnico_racial; genero
+86,q9,no_clasificable
+87,q9,acceso_a_la_educacion; territorial
+88,q9,distribucion_de_riqueza_y_poder; ingresos_salarios_jubilaciones
+92,q9,empleo_y_mercado_laboral; acceso_a_la_educacion; acceso_a_la_salud
+93,q9,vivienda_y_habitat; ingresos_salarios_jubilaciones
+94,q9,territorial; acceso_a_la_educacion
+97,q9,ingresos_salarios_jubilaciones; genero; territorial
+99,q9,distribucion_de_riqueza_y_poder; ingresos_salarios_jubilaciones
+100,q9,ingresos_salarios_jubilaciones; vivienda_y_habitat
+101,q9,distribucion_de_riqueza_y_poder; etnico_racial
+102,q9,vivienda_y_habitat; acceso_a_la_educacion; empleo_y_mercado_laboral
+103,q9,no_clasificable
+105,q9,distribucion_de_riqueza_y_poder; vivienda_y_habitat; genero
+106,q9,territorial; ingresos_salarios_jubilaciones; genero
+107,q9,genero; distribucion_de_riqueza_y_poder
+108,q9,acceso_a_la_salud; vivienda_y_habitat; acceso_a_la_educacion
+109,q9,acceso_a_la_educacion; ingresos_salarios_jubilaciones
+110,q9,genero; distribucion_de_riqueza_y_poder
+111,q9,territorial; empleo_y_mercado_laboral; acceso_a_la_educacion
+112,q9,genero; territorial; ingresos_salarios_jubilaciones
+113,q9,acceso_a_la_educacion; acceso_a_la_salud
+114,q9,distribucion_de_riqueza_y_poder; no_clasificable
+116,q9,genero; ingresos_salarios_jubilaciones
+117,q9,ingresos_salarios_jubilaciones; vivienda_y_habitat; acceso_a_la_educacion
+118,q9,acceso_a_la_educacion; acceso_a_la_salud; empleo_y_mercado_laboral
+120,q9,genero; distribucion_de_riqueza_y_poder
+121,q9,acceso_a_la_educacion; acceso_a_la_salud
+122,q9,territorial; acceso_a_la_educacion; acceso_a_la_salud
+123,q9,acceso_a_la_educacion; ingresos_salarios_jubilaciones
+124,q9,ingresos_salarios_jubilaciones; acceso_a_la_educacion; vivienda_y_habitat
+127,q9,genero; empleo_y_mercado_laboral
+128,q9,distribucion_de_riqueza_y_poder; ingresos_salarios_jubilaciones
+129,q9,ingresos_salarios_jubilaciones; territorial
+131,q9,empleo_y_mercado_laboral; vivienda_y_habitat; acceso_a_la_educacion
+133,q9,acceso_a_la_educacion; ingresos_salarios_jubilaciones; empleo_y_mercado_laboral
+135,q9,no_clasificable
+136,q9,ingresos_salarios_jubilaciones; distribucion_de_riqueza_y_poder
+138,q9,ingresos_salarios_jubilaciones; vivienda_y_habitat; acceso_a_la_educacion
+139,q9,ingresos_salarios_jubilaciones; empleo_y_mercado_laboral; vivienda_y_habitat
+140,q9,empleo_y_mercado_laboral; ingresos_salarios_jubilaciones; territorial
+141,q9,genero; etnico_racial; acceso_a_la_educacion
+142,q9,acceso_a_la_educacion; acceso_a_la_salud
+143,q9,ingresos_salarios_jubilaciones; acceso_a_la_educacion; vivienda_y_habitat
+144,q9,distribucion_de_riqueza_y_poder; ingresos_salarios_jubilaciones
+145,q9,territorial; ingresos_salarios_jubilaciones; acceso_a_la_educacion
+147,q9,distribucion_de_riqueza_y_poder; ingresos_salarios_jubilaciones; territorial
+148,q9,genero; territorial
+149,q9,ingresos_salarios_jubilaciones; empleo_y_mercado_laboral
+150,q9,vivienda_y_habitat; territorial
