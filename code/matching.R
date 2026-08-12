@@ -29,7 +29,7 @@ cfg         <- yaml::read_yaml("project.yml")
 campaign    <- cfg$ronda$campaign      # "r1_20260807"
 fecha_corte <- "20260807"              # archivo de contactos a usar
 
-survey   <- read_csv(paste0("data/raw/campaigns_wcx/", campaign, "_casos.csv"),
+survey   <- read_csv(paste0("data/raw/campaigns_wcx/", campaign, ".csv"),
                      col_types = cols(.default = "c"))
 contacts <- read_csv(paste0("data/raw/contacts/", fecha_corte, ".csv"),
                      col_types = cols(.default = "c"))
@@ -66,7 +66,7 @@ m <- s |>
   left_join(contacts, by = "key") |>
   mutate(
     numero       = coalesce(numero, paste0("598", key)),
-    caso_id      = .data[["Caso: ID #"]],
+    caso_id      = .data[["Caso: #"]],   # este reporte de analytics no trae "Caso: ID #"
     fecha_caso   = Creadas,
     etiqueta_wcx = .data[["Caso: Etiquetas"]],
     completa     = as.integer(n_resp == length(activas)),
