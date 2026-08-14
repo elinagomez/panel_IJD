@@ -1,5 +1,5 @@
 # ==============================================================================
-# api_download.R  —  Export de la plataforma (previo al paso 1)
+# api_download.R  —  Export de la plataforma 
 #
 # Descarga el reporte de analytics (tipo lista) de WCX para la ronda vigente:
 # autentica contra la API, inicia la exportación, espera a que termine y baja
@@ -32,21 +32,23 @@ if (!nzchar(api_key) || !nzchar(user)) {
   )
 }
 
+# PARAMS 
+
 cfg      <- yaml::read_yaml("project.yml")
 campaign <- cfg$ronda$campaign   # base del nombre de archivo, ej. "r1_20260807"
-outfile  <- paste0("data/raw/campaigns_wcx/", campaign, ".csv")
+outfile  <- paste0("data/raw/campaigns_wcx/", campaign, "_casos.csv")
+
+# rango de fechas para filtrar casos (
+start_date <- cfg$ronda$start_date
+end_date   <- cfg$ronda$end_date
 
 # tiempo de espera y reintentos (para evitar 504)
 http_timeout   <- 60   # segundos totales por solicitud
 http_max_tries <- 5    # número máximo de reintentos para 408/429/5xx
 
-# rango de fechas para filtrar casos (ajustable)
-
-start_date <- "2026-08-07 00:00:00"
-end_date   <- "2026-08-12 23:59:59"
 
 # reporte de analytics (tipo lista) a exportar y forma de descarga
-report_id       <- "238012" # Se debe cambiar manual desde analytics 
+report_id       <-  cfg$ronda$nitro_campaign_id # Se obtiene manual desde analytics 
 export_columns  <- "all"   # "all" | "only_visible" | NULL (usa lo configurado en el reporte)
 export_group_by <- NULL    # "d" | "h" | "m" | NULL (usa lo configurado en el reporte)
 poll_interval   <- 5       # segundos entre consultas de estado
@@ -65,7 +67,7 @@ wcx_req_raw <- function(path) {
       "x-api-key" = api_key,
       Accept      = "application/json"
     ) |>
-    req_user_agent("focus-r-client/0.6") |>
+    req_user_agent("udelar-r-client/0.6") |>
     req_timeout(http_timeout) |>
     req_retry(max_tries = http_max_tries) |>
     req_error(

@@ -15,6 +15,9 @@ ronda:
   year: 2026
   campaign: "r1_20260807"           # base del nombre de archivo en data/raw/campaigns_wcx/
   n_preguntas: 9                    # preguntas efectivas de la ronda (q10 vino vacía)
+  start_date: "2026-08-07 00:00:00"
+  end_date:   "2026-08-14 23:59:59"
+  nitro_campaign_id: "238012"
 
 drive:
   account_email: "elina.gomez@cienciassociales.edu.uy"   # cuenta de drive_auth() y del Colab
